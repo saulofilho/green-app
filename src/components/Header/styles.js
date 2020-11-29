@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background: #fff;
+  background: green;
   padding: 0 30px;
 `;
 
@@ -39,7 +39,6 @@ export const Profile = styled.div`
   display: flex;
   margin-left: 20px;
   padding-left: 20px;
-  border-left: 1px solid #eee;
 
   div {
     text-align: right;
