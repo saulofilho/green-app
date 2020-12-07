@@ -93,6 +93,8 @@ export default function Dashboard() {
           <p>project user name: {item.user.name}</p>
           <p>project user email: {item.user.email}</p>
           <p>project user id: {item.user_id}</p>
+          <br />
+          <br />
         </div>
       ))}
       <br />
