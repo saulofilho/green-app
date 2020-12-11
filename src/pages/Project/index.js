@@ -4,7 +4,7 @@ import DataService from '../../services/crudApi';
 
 import { Container, Content, Form } from './styles';
 
-export default function Projects() {
+export default function Project(props) {
   const [projectData, setProjectData] = useState([]);
 
   const initialFormState = {
@@ -16,18 +16,18 @@ export default function Projects() {
 
   const [currentData, setCurrentData] = useState(initialFormState);
 
-  // get
   useEffect(() => {
-    async function loadItens() {
-      const response = await DataService.getProjects();
+    const loadItens = async id => {
+      await DataService.getProject(id).then(response => {
+        const { data } = response;
+        setProjectData([data]);
+      });
+    };
 
-      const { data } = response;
+    loadItens(props.match.params.id);
+  }, [props]);
 
-      setProjectData([...data]);
-    }
-
-    loadItens();
-  }, []);
+  console.log('propssssssssss', props.match.params.id);
 
   const [btnDisable, setBtnDisable] = useState('');
 
@@ -46,6 +46,8 @@ export default function Projects() {
       setCurrentData(response.data);
     });
   };
+
+  console.log('projectDataprojectDataprojectDataprojectData', projectData);
 
   // const updateItem = async (id, updatedContact) => {
   //   await DataService.updateProducts(currentData.id, currentData).then(
@@ -93,9 +95,6 @@ export default function Projects() {
             <p>project name: {item.name}</p>
             <p>project infos: {item.infos}</p>
             <p>project tools: {item.tools}</p>
-            <br />
-            <br />
-            <br />
           </div>
         ))}
         <Form>

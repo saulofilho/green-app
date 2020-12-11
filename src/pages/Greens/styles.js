@@ -2,35 +2,42 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  max-width: 600px;
   margin: 0px auto;
+  padding: 0 30px;
+`;
 
+export const Content = styled.div`
+  max-width: 900px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
+`;
 
-  header {
-    display: flex;
-    align-self: center;
-    align-items: center;
+export const WrapperContent = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 20px 0;
+`;
 
-    button {
-      border: 0;
-      background: none;
-    }
+export const WrapperData = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  display: ${props => (props.hide ? 'block' : 'none')};
+`;
 
-    strong {
-      color: #fff;
-      font-size: 24px;
-      margin: 0 15px;
-    }
-  }
-
-  ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px;
-    margin-top: 30px;
-  }
+export const Dia = styled.button`
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  background: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
 `;
 
 export const Form = styled.form`

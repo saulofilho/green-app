@@ -1,26 +1,45 @@
 import React, { useState, useEffect } from 'react';
-
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Wizard, Steps, Step } from 'react-albus';
+import { Line } from 'rc-progress';
+import {
+  LineChart,
+  Line as LineRecharts,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import DataService from '../../services/crudApi';
 
-import { Container } from './styles';
+import { Container, Content, Graphs, Row, WrapperWizard } from './styles';
 
 export default function Dashboard() {
-  const [greenData, setGreenData] = useState([]);
+  const profile = useSelector(state => state.user.profile);
+  const [wizardOn, setWizardOn] = useState(false);
+  const dataChart = [
+    { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
+    { name: 'Page B', uv: 5400, pv: 300, amt: 2100 },
+    { name: 'Page C', uv: 5400, pv: 300, amt: 2100 },
+    { name: 'Page D', uv: 400, pv: 30, amt: 210 },
+    { name: 'Page E', uv: 540, pv: 300, amt: 200 },
+  ];
+
   const [projectData, setProjectData] = useState([]);
 
   // const initialFormState = {
   //   id: '',
   //   name: '',
   //   infos: '',
-  //   user_id: '',
-  //   user: '',
+  //   tools: '',
   // };
 
   // const [currentData, setCurrentData] = useState(initialFormState);
 
+  // get
   useEffect(() => {
     async function loadItens() {
-      const response = await DataService.getProject();
+      const response = await DataService.getProjects();
 
       const { data } = response;
 
@@ -30,94 +49,121 @@ export default function Dashboard() {
     loadItens();
   }, []);
 
-  useEffect(() => {
-    async function loadItens() {
-      const response = await DataService.getGreen();
-
-      const { data } = response;
-
-      setGreenData([...data]);
-    }
-
-    loadItens();
-  }, []);
-
   // const [btnDisable, setBtnDisable] = useState('');
 
+  // save
   // const handleInputChange = e => {
   //   const { name, value } = e.target;
   //   setBtnDisable(e.target.value);
-  //   setCurrentItem(prevState => ({
+  //   setCurrentData(prevState => ({
   //     ...prevState,
   //     [name]: value,
   //   }));
   // };
 
   // const saveItem = async () => {
-  //   await DataService.createProducts(currentItem).then(response => {
-  //     setCurrentItem(response.data);
-  //   });
-  // };
-
-  // const updateItem = async (id, updatedContact) => {
-  //   await DataService.updateProducts(currentItem.id, currentItem).then(
-  //     response => {
-  //       setItens(itens.map(item => (item.id === id ? updatedContact : item)));
-  //     }
-  //   );
-  //   window.location.reload();
-  // };
-
-  // const editRow = item => {
-  //   toggleSecondModal();
-  //   setCurrentItem(item);
-  // };
-
-  // const deleteItem = async id => {
-  //   await DataService.removeProducts(id).then(response => {
-  //     setItens(itens.filter(item => item.id !== itens.id));
+  //   await DataService.createProjects(currentData).then(response => {
+  //     setCurrentData(response.data);
   //   });
   // };
 
   return (
     <Container>
-      <h1>dash</h1>
-      <br />
-      <br />
-      <h2>project data</h2>
-      {projectData.map(item => (
-        <div className="" key={item.id + item.name}>
-          <p>project id: {item.id}</p>
-          <p>project infos: {item.infos}</p>
-          <p>project name: {item.name}</p>
-          <p>project user name: {item.user.name}</p>
-          <p>project user email: {item.user.email}</p>
-          <p>project user id: {item.user_id}</p>
-          <br />
-          <br />
-        </div>
-      ))}
-      <br />
-      <br />
-      <h2>green data</h2>
-      {greenData.map(item => (
-        <div className="" key={item.id + item.name}>
-          <p>green id: {item.id}</p>
-          <p>green ec: {item.ec}</p>
-          <p>green infos: {item.infos}</p>
-          <p>green moisture: {item.moisture}</p>
-          <p>green ph: {item.ph}</p>
-          <p>green phases: {item.phases}</p>
-          <img src={item.img || 'img null'} alt={item.name} />
-          <p>green project id: {item.project.id}</p>
-          <p>green project infos: {item.project.infos}</p>
-          <p>green project name: {item.project.name}</p>
-          <br />
-          <br />
-        </div>
-      ))}
-      <br />
-      <br />
+      <Content>
+        <h2>
+          bem-vindo, <strong>{profile.name}</strong>
+        </h2>
+        <br />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <br />
+        <Graphs />
+        <br />
+        <Row>
+          <Graphs />
+          <Graphs />
+        </Row>
+        <LineChart width={600} height={300} data={dataChart}>
+          <LineRecharts type="monotone" dataKey="uv" stroke="#8884d8" />
+          <LineRecharts type="monotone" dataKey="pv" stroke="#4484d8" />
+          <LineRecharts type="monotone" dataKey="amt" stroke="#1133d8" />
+          <CartesianGrid stroke="#ccc" />
+          <XAxis dataKey="name" />
+          <YAxis />
+        </LineChart>
+        <br />
+        <h2>Harvest</h2>
+        {projectData.map(item => (
+          <ul key={item.id}>
+            <li>
+              <Link to={`/project/${item.id}`}>{item.name}</Link>
+            </li>
+          </ul>
+        ))}
+        <br />
+        <h2>Create harvest</h2>
+        <button type="button" onClick={() => setWizardOn(!wizardOn)}>
+          new
+        </button>
+        <WrapperWizard hide={wizardOn}>
+          <Wizard
+            render={({ next, previous, step, steps }) => (
+              <>
+                <Line
+                  percent={((steps.indexOf(step) + 1) / steps.length) * 100}
+                  className="pad-b"
+                />
+                <Steps key={step.id} step={step}>
+                  <Step id="merlin">
+                    <div>
+                      <h1>Merlin</h1>
+                    </div>
+                  </Step>
+                  <Step id="x">
+                    <div>
+                      <h1>x</h1>
+                    </div>
+                  </Step>
+                  <Step id="xx">
+                    <div>
+                      <h1>xx</h1>
+                    </div>
+                  </Step>
+                </Steps>
+                <div className="example-buttons">
+                  {steps.indexOf(step) < steps.length - 1 && (
+                    <button
+                      type="button"
+                      className="btn-fluid margin-1-b"
+                      onClick={next}
+                    >
+                      Next
+                    </button>
+                  )}
+
+                  {steps.indexOf(step) > 0 && (
+                    <button
+                      type="button"
+                      className="btn-fluid btn-secondary"
+                      onClick={previous}
+                    >
+                      Back
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
+          />
+        </WrapperWizard>
+        <br />
+      </Content>
     </Container>
   );
 }

@@ -1,5 +1,8 @@
 import api from './api';
 
+const getProject = id => {
+  return api.get(`/project/${id}`);
+};
 const getProjects = () => {
   return api.get('/projects');
 };
@@ -24,6 +27,7 @@ const upImg = data => {
 // };
 
 export default {
+  getProject,
   getProjects,
   createProjects,
   getGreens,
