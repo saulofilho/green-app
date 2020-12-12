@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 import DataService from '../../services/crudApi';
 
-import { Container, Content, Graphs, Row, WrapperWizard } from './styles';
+import { Container, Content, Graphs, Row, WrapperWizard, Form } from './styles';
 
 export default function Dashboard() {
   const profile = useSelector(state => state.user.profile);
@@ -27,14 +27,14 @@ export default function Dashboard() {
 
   const [projectData, setProjectData] = useState([]);
 
-  // const initialFormState = {
-  //   id: '',
-  //   name: '',
-  //   infos: '',
-  //   tools: '',
-  // };
+  const initialFormState = {
+    id: '',
+    name: '',
+    infos: '',
+    tools: '',
+  };
 
-  // const [currentData, setCurrentData] = useState(initialFormState);
+  const [currentData, setCurrentData] = useState(initialFormState);
 
   // get
   useEffect(() => {
@@ -49,23 +49,23 @@ export default function Dashboard() {
     loadItens();
   }, []);
 
-  // const [btnDisable, setBtnDisable] = useState('');
+  const [btnDisable, setBtnDisable] = useState('');
 
   // save
-  // const handleInputChange = e => {
-  //   const { name, value } = e.target;
-  //   setBtnDisable(e.target.value);
-  //   setCurrentData(prevState => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setBtnDisable(e.target.value);
+    setCurrentData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-  // const saveItem = async () => {
-  //   await DataService.createProjects(currentData).then(response => {
-  //     setCurrentData(response.data);
-  //   });
-  // };
+  const saveItem = async () => {
+    await DataService.createProjects(currentData).then(response => {
+      setCurrentData(response.data);
+    });
+  };
 
   return (
     <Container>
@@ -100,13 +100,15 @@ export default function Dashboard() {
         </LineChart>
         <br />
         <h2>Harvest</h2>
-        {projectData.map(item => (
-          <ul key={item.id}>
-            <li>
-              <Link to={`/project/${item.id}`}>{item.name}</Link>
-            </li>
-          </ul>
-        ))}
+        {projectData
+          .sort((a, b) => a.id - b.id)
+          .map(item => (
+            <ul key={item.id}>
+              <li>
+                <Link to={`/project/${item.id}`}>{item.name}</Link>
+              </li>
+            </ul>
+          ))}
         <br />
         <h2>Create harvest</h2>
         <button type="button" onClick={() => setWizardOn(!wizardOn)}>
@@ -124,6 +126,58 @@ export default function Dashboard() {
                   <Step id="merlin">
                     <div>
                       <h1>Merlin</h1>
+                      <Form>
+                        <label htmlFor="name">
+                          Project Name
+                          <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Bola"
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                        <label htmlFor="info">
+                          Infos
+                          <textarea
+                            name="infos"
+                            id="infos"
+                            placeholder="Infos..."
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                        <label htmlFor="tools">
+                          Tools
+                          <input
+                            type="text"
+                            name="tools"
+                            id="tools"
+                            placeholder="One, two, three..."
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                        <div className="buttons">
+                          <button
+                            disabled={!btnDisable}
+                            className="salvar"
+                            type="button"
+                            onClick={e => {
+                              e.preventDefault();
+                              if (
+                                !currentData.name ||
+                                !currentData.infos ||
+                                !currentData.tools
+                              )
+                                return;
+
+                              saveItem(currentData);
+                              window.location.reload();
+                            }}
+                          >
+                            Salvar
+                          </button>
+                        </div>
+                      </Form>
                     </div>
                   </Step>
                   <Step id="x">

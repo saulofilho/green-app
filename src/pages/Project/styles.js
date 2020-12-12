@@ -15,6 +15,38 @@ export const Content = styled.div`
   flex-flow: column;
 `;
 
+export const WrapperContent = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 20px 0;
+`;
+
+export const WrapperData = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  display: ${props => (props.hide ? 'block' : 'none')};
+`;
+
+export const WrapperDataAdd = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  display: ${props => (props.hideAdd ? 'block' : 'none')};
+`;
+
+export const Dia = styled.button`
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  background: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
+`;
+
 export const Form = styled.form`
   display: flex;
   justify-content: center;
