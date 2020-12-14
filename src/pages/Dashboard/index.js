@@ -29,9 +29,15 @@ export default function Dashboard() {
 
   const initialFormState = {
     id: '',
-    name: '',
+    harvest_name: '',
+    strain_name: '',
+    breeder: '',
     infos: '',
     tools: '',
+    nutrients: '',
+    soil: '',
+    pot_size: '',
+    light_schedule: '',
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
@@ -69,10 +75,127 @@ export default function Dashboard() {
 
   return (
     <Container>
+      <Form>
+        <label htmlFor="harvest_name">
+          harvest_name
+          <input
+            type="text"
+            name="harvest_name"
+            id="harvest_name"
+            placeholder="harvest_name"
+            onChange={handleInputChange}
+          />
+        </label>
+        <label htmlFor="strain_name">
+          strain_name
+          <input
+            type="text"
+            name="strain_name"
+            id="strain_name"
+            placeholder="harvest_name"
+            onChange={handleInputChange}
+          />
+        </label>
+        <label htmlFor="breeder">
+          breeder
+          <input
+            type="text"
+            name="breeder"
+            id="breeder"
+            placeholder="harvest_name"
+            onChange={handleInputChange}
+          />
+        </label>
+        <label htmlFor="infos">
+          Infos
+          <textarea
+            name="infos"
+            id="infos"
+            placeholder="Infos..."
+            onChange={handleInputChange}
+          />
+        </label>
+        <label htmlFor="tools">
+          Tools
+          <input
+            type="text"
+            name="tools"
+            id="tools"
+            placeholder="tools"
+            onChange={handleInputChange}
+          />
+        </label>
+        <label htmlFor="nutrients">
+          nutrients
+          <input
+            type="text"
+            name="nutrients"
+            id="nutrients"
+            placeholder="nutrients"
+            onChange={handleInputChange}
+          />
+        </label>
+        <label htmlFor="soil">
+          soil
+          <input
+            type="text"
+            name="soil"
+            id="soil"
+            placeholder="soil"
+            onChange={handleInputChange}
+          />
+        </label>
+        <label htmlFor="pot_size">
+          pot_size
+          <input
+            type="text"
+            name="pot_size"
+            id="pot_size"
+            placeholder="pot_size"
+            onChange={handleInputChange}
+          />
+        </label>
+        <label htmlFor="light_schedule">
+          light_schedule
+          <input
+            type="text"
+            name="light_schedule"
+            id="light_schedule"
+            placeholder="light_schedule"
+            onChange={handleInputChange}
+          />
+        </label>
+        <div className="buttons">
+          <button
+            disabled={!btnDisable}
+            className="salvar"
+            type="button"
+            onClick={e => {
+              e.preventDefault();
+              if (
+                !currentData.harvest_name ||
+                !currentData.strain_name ||
+                !currentData.infos ||
+                !currentData.tools ||
+                !currentData.nutrients ||
+                !currentData.soil ||
+                !currentData.pot_size ||
+                !currentData.light_schedule
+              )
+                return;
+
+              saveItem(currentData);
+              // window.location.reload();
+            }}
+          >
+            Salvar
+          </button>
+        </div>
+      </Form>
       <Content>
-        <h2>
+        <h1>
           bem-vindo, <strong>{profile.name}</strong>
-        </h2>
+        </h1>
         <br />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -83,6 +206,8 @@ export default function Dashboard() {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
+        <br />
+        <h2>Graphs about data</h2>
         <br />
         <Graphs />
         <br />
@@ -99,13 +224,23 @@ export default function Dashboard() {
           <YAxis />
         </LineChart>
         <br />
-        <h2>Harvest</h2>
+        <h2>Harvests</h2>
+        {projectData.length ? (
+          <div>
+            <p>
+              Total de tarefas cadastradas:{' '}
+              <strong>{projectData.length}</strong>
+            </p>
+          </div>
+        ) : (
+          <p>Carregando...</p>
+        )}
         {projectData
           .sort((a, b) => a.id - b.id)
           .map(item => (
             <ul key={item.id}>
               <li>
-                <Link to={`/project/${item.id}`}>{item.name}</Link>
+                <Link to={`/project/${item.id}`}>{item.harvest_name}</Link>
               </li>
             </ul>
           ))}

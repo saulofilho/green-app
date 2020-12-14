@@ -38,6 +38,7 @@ export default function Project(props) {
 
   // GREEN DATA
   const initialFormState = {
+    // project_id: props.match.params.id,
     id: '',
     infos: '',
     phases: '',
@@ -67,6 +68,7 @@ export default function Project(props) {
 
   const handleInputChange = e => {
     const { name, value } = e.target;
+    console.log('targetttttttttttttt', e.target.value);
     setBtnDisable(e.target.value);
     setCurrentData(prevState => ({
       ...prevState,
@@ -76,6 +78,7 @@ export default function Project(props) {
 
   const saveItem = async () => {
     await DataService.createGreen(greenData).then(response => {
+      console.log('reeeeeeeeeee', response.data);
       setGreenData(response.data);
     });
   };
@@ -105,26 +108,27 @@ export default function Project(props) {
   return (
     <Container>
       <Content>
-        <h1>dash</h1>
-        <br />
-        <br />
-        <h2>project data</h2>
         {projectData.map(item => (
           <div className="" key={item.id + item.name}>
-            <p>project id: {item.id}</p>
-            <p>project name: {item.name}</p>
-            <p>project infos: {item.infos}</p>
-            <p>project tools: {item.tools}</p>
+            <h1>{item.harvest_name}</h1>
+            <br />
+            <p>Strain: {item.strain_name}</p>
+            <p>Breeder: {item.breeder}</p>
+            <br />
+            <p>{item.infos}</p>
+            <p>Tools: {item.tools}</p>
+            <p>Soil: {item.soil}</p>
+            <p>Nutrients: {item.nutrients}</p>
+            <p>Pot Size: {item.pot_size}</p>
+            <p>Light Schedule: {item.light_schedule}</p>
           </div>
         ))}
       </Content>
       <Content>
         {projectDataFiltered.map(item => (
           <WrapperContent key={item.id}>
-            <Dia onClick={() => toggle(item.id)}>Dia: {item.id}</Dia>
+            <Dia onClick={() => toggle(item.id)}>Day: {item.id}</Dia>
             <WrapperData hide={isToggled === item.id}>
-              <p>green project name: {item.project.name}</p>
-              <p>green project infos: {item.project.infos}</p>
               <p>green infos: {item.infos}</p>
               <p>green phases: {item.phases}</p>
               <p>green ph: {item.ph}</p>
@@ -132,7 +136,7 @@ export default function Project(props) {
               <p>green temp_max: {item.temp_max}</p>
               <p>green temp_min: {item.temp_min}</p>
               <p>green moisture: {item.moisture}</p>
-              <img src={item.img || 'img null'} alt={item.name} />
+              {/* <img src={item.img.url} alt={item.name} /> */}
             </WrapperData>
           </WrapperContent>
         ))}
@@ -210,20 +214,20 @@ export default function Project(props) {
                 />
               </label>
               {/* <label htmlFor="color">
-          IMAGE
-          <input
-            type="text"
-            name="img"
-            id="img"
-            placeholder="img"
-            onChange={handleInputChange}
-          />
-        </label> */}
+                IMAGE
+                <input
+                  type="text"
+                  name="img"
+                  id="img"
+                  placeholder="img"
+                  onChange={handleInputChange}
+                />
+              </label> */}
               <div className="buttons">
                 <button
                   disabled={!btnDisable}
-                  className="salvar"
                   type="button"
+                  className="salvar"
                   onClick={e => {
                     e.preventDefault();
                     if (
