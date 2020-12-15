@@ -18,7 +18,7 @@ export const Content = styled.div`
 export const WrapperContent = styled.div`
   width: 100%;
   height: 100%;
-  padding: 20px 0;
+  padding: 10px 0;
 `;
 
 export const WrapperData = styled.div`
@@ -33,18 +33,6 @@ export const WrapperDataAdd = styled.div`
   height: 100%;
   border: 1px solid black;
   display: ${props => (props.hideAdd ? 'block' : 'none')};
-`;
-
-export const Dia = styled.button`
-  width: 100%;
-  height: 100%;
-  border: 1px solid black;
-  background: white;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-flow: column;
 `;
 
 export const Form = styled.form`
@@ -115,11 +103,11 @@ export const Form = styled.form`
 
 export const Row = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-flow: row;
-  padding: 10px 20px;
 `;
 
 export const WrapperInfos = styled.div`
@@ -131,8 +119,107 @@ export const WrapperInfos = styled.div`
 `;
 
 export const Col = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-flow: column;
+`;
+
+export const DayWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
+  cursor: pointer;
+`;
+
+export const AddWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
+  cursor: pointer;
+  padding: 20px;
+`;
+
+export const RowDay = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: row;
+  background: white;
+
+  p:nth-child(1) {
+    font-size: 12px;
+  }
+
+  p:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    font-size: 36px;
+  }
+
+  @media (max-width: 768px) {
+    p:nth-child(1) {
+      font-size: 8px;
+    }
+
+    p:nth-child(2) {
+      font-size: 18px;
+    }
+  }
+`;
+
+export const RowDayWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: row;
+  background: black;
+`;
+
+export const ColDay = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+`;
+
+export const Number = styled.div`
+  padding: 0 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  color: white;
+  font-size: 2rem;
+`;
+
+export const BorderLeft = styled.div`
+  width: 100%;
+  height: 100%;
+  border-left: 2px solid black;
+`;
+
+export const BorderBotAndLeft = styled.div`
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
 `;

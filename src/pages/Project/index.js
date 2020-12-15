@@ -9,10 +9,17 @@ import {
   WrapperContent,
   WrapperData,
   WrapperDataAdd,
-  Dia,
+  DayWrapper,
+  AddWrapper,
   Row,
+  RowDay,
   Col,
+  ColDay,
   WrapperInfos,
+  Number,
+  RowDayWrapper,
+  BorderLeft,
+  BorderBotAndLeft,
 } from './styles';
 
 export default function Project(props) {
@@ -182,7 +189,43 @@ export default function Project(props) {
       <Content>
         {projectDataFiltered.map((item, index) => (
           <WrapperContent key={item.id}>
-            <Dia onClick={() => toggle(item.id)}>Day: {index + 1}</Dia>
+            <DayWrapper onClick={() => toggle(item.id)}>
+              <RowDayWrapper>
+                <Number>{index + 1}</Number>
+                <ColDay>
+                  <RowDay>
+                    <BorderBotAndLeft>
+                      <p>TEMPERATURE MAX:</p>
+                      <p>{item.temp_max}</p>
+                    </BorderBotAndLeft>
+                  </RowDay>
+                  <RowDay>
+                    <BorderLeft>
+                      <p>TEMPERATURE MIN:</p>
+                      <p>{item.temp_min}</p>
+                    </BorderLeft>
+                  </RowDay>
+                </ColDay>
+                <ColDay>
+                  <RowDay>
+                    <BorderBotAndLeft>
+                      <p>PHASE:</p>
+                      <p>{item.phases}</p>
+                    </BorderBotAndLeft>
+                  </RowDay>
+                  <RowDay>
+                    <BorderLeft>
+                      <p>PH:</p>
+                      <p>{item.ph}</p>
+                    </BorderLeft>
+                    <BorderLeft>
+                      <p>EC:</p>
+                      <p>{item.ec}</p>
+                    </BorderLeft>
+                  </RowDay>
+                </ColDay>
+              </RowDayWrapper>
+            </DayWrapper>
             <WrapperData hide={isToggled === item.id}>
               <Row>
                 <WrapperInfos>
@@ -249,7 +292,7 @@ export default function Project(props) {
           </WrapperContent>
         ))}
         <WrapperContent>
-          <Dia onClick={() => toggleAdd()}>Add</Dia>
+          <AddWrapper onClick={() => toggleAdd()}>Add</AddWrapper>
           <WrapperDataAdd hideAdd={isToggledAdd}>
             <Form>
               <label htmlFor="infos">

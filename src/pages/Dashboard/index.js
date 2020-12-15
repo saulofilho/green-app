@@ -9,23 +9,34 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
+  ResponsiveContainer,
+  Area,
+  AreaChart,
+  Pie,
+  PieChart,
+  Bar,
+  BarChart,
+  Legend,
+  Tooltip,
+  ComposedChart,
+  Scatter,
 } from 'recharts';
+import { parseISO } from 'date-fns';
 import DataService from '../../services/crudApi';
 
-import { Container, Content, Graphs, Row, WrapperWizard, Form } from './styles';
+import {
+  Container,
+  Content,
+  WrapperWizard,
+  Form,
+  CreateHarvestBtn,
+} from './styles';
 
 export default function Dashboard() {
   const profile = useSelector(state => state.user.profile);
   const [wizardOn, setWizardOn] = useState(false);
-  const dataChart = [
-    { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-    { name: 'Page B', uv: 5400, pv: 300, amt: 2100 },
-    { name: 'Page C', uv: 5400, pv: 300, amt: 2100 },
-    { name: 'Page D', uv: 400, pv: 30, amt: 210 },
-    { name: 'Page E', uv: 540, pv: 300, amt: 200 },
-  ];
-
   const [projectData, setProjectData] = useState([]);
+  const [greenData, setGreenData] = useState([]);
 
   const initialFormState = {
     id: '',
@@ -44,7 +55,7 @@ export default function Dashboard() {
 
   // get
   useEffect(() => {
-    async function loadItens() {
+    async function loadDataProjects() {
       const response = await DataService.getProjects();
 
       const { data } = response;
@@ -52,7 +63,17 @@ export default function Dashboard() {
       setProjectData([...data]);
     }
 
-    loadItens();
+    loadDataProjects();
+
+    async function loadDataGreen() {
+      const response = await DataService.getGreens();
+
+      const { data } = response;
+
+      setGreenData([...data]);
+    }
+
+    loadDataGreen();
   }, []);
 
   const [btnDisable, setBtnDisable] = useState('');
@@ -73,13 +94,22 @@ export default function Dashboard() {
     });
   };
 
+  const dateFormatMonth = greenData.map(date => {
+    return {
+      ...date,
+      createdAt: parseISO(date.createdAt).toLocaleString('en-US'),
+      updatedAt: parseISO(date.createdAt).toLocaleString('default', {
+        weekday: 'long',
+        day: '2-digit',
+      }),
+    };
+  });
+
   return (
     <Container>
       <Content>
-        <h1>
-          bem-vindo, <strong>{profile.name}</strong>
-        </h1>
-        <br />
+        <h3>bem-vindo,</h3>
+        <h1>{profile.name}</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -89,55 +119,85 @@ export default function Dashboard() {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <br />
         <h2>Graphs about data</h2>
-        <br />
-        <Graphs>
-          <LineChart width={600} height={300} data={dataChart}>
-            <LineRecharts type="monotone" dataKey="uv" stroke="#8884d8" />
-            <LineRecharts type="monotone" dataKey="pv" stroke="#4484d8" />
-            <LineRecharts type="monotone" dataKey="amt" stroke="#1133d8" />
+        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
+          <LineChart data={dateFormatMonth}>
+            <LineRecharts type="monotone" dataKey="ph" stroke="#8884d8" />
+            <LineRecharts type="monotone" dataKey="ec" stroke="#4484d8" />
+            <LineRecharts type="monotone" dataKey="moisture" stroke="#1133d8" />
             <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="createdAt" />
             <YAxis />
+            <Tooltip />
           </LineChart>
-        </Graphs>
-        <br />
-        <Row>
-          <Graphs>
-            <LineChart width={200} height={300} data={dataChart}>
-              <LineRecharts type="monotone" dataKey="uv" stroke="#8884d8" />
-              <LineRecharts type="monotone" dataKey="pv" stroke="#4484d8" />
-              <LineRecharts type="monotone" dataKey="amt" stroke="#1133d8" />
-              <CartesianGrid stroke="#ccc" />
-              <XAxis dataKey="name" />
-              <YAxis />
-            </LineChart>
-          </Graphs>
-          <Graphs>
-            <LineChart width={200} height={300} data={dataChart}>
-              <LineRecharts type="monotone" dataKey="uv" stroke="#8884d8" />
-              <LineRecharts type="monotone" dataKey="pv" stroke="#4484d8" />
-              <LineRecharts type="monotone" dataKey="amt" stroke="#1133d8" />
-              <CartesianGrid stroke="#ccc" />
-              <XAxis dataKey="name" />
-              <YAxis />
-            </LineChart>
-          </Graphs>
-        </Row>
-        <br />
+        </ResponsiveContainer>
+        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
+          <AreaChart data={dateFormatMonth}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="createdAt" />
+            <YAxis />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="ph"
+              stackId="1"
+              stroke="#8884d8"
+              fill="#8884d8"
+            />
+            <Area
+              type="monotone"
+              dataKey="ec"
+              stackId="1"
+              stroke="#82ca9d"
+              fill="#82ca9d"
+            />
+            <Area
+              type="monotone"
+              dataKey="moisture"
+              stackId="1"
+              stroke="#ffc658"
+              fill="#ffc658"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
+          <BarChart data={dateFormatMonth}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="createdAt" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="temp_max" stackId="a" fill="#8884d8" />
+            <Bar dataKey="temp_min" stackId="a" fill="#82ca9d" />
+            <Bar dataKey="moisture" fill="#ffc658" />
+          </BarChart>
+        </ResponsiveContainer>
+        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
+          <ComposedChart data={dateFormatMonth}>
+            <CartesianGrid stroke="#f5f5f5" />
+            <XAxis dataKey="createdAt" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Area
+              type="monotone"
+              dataKey="ph"
+              fill="#8884d8"
+              stroke="#8884d8"
+            />
+            <Bar dataKey="ec" barSize={20} fill="#413ea0" />
+            <LineRecharts type="monotone" dataKey="moisture" stroke="#ff7300" />
+            <Scatter dataKey="temp_max" fill="red" />
+          </ComposedChart>
+        </ResponsiveContainer>
         <h2>Harvests</h2>
         {projectData.length ? (
-          <div>
-            <p>
-              Total de tarefas cadastradas:{' '}
-              <strong>{projectData.length}</strong>
-            </p>
-          </div>
+          <p>
+            You have <strong>{projectData.length}</strong> harvests.
+          </p>
         ) : (
           <p>Carregando...</p>
         )}
-        <br />
         {projectData
           .sort((a, b) => a.id - b.id)
           .map(item => (
@@ -147,18 +207,19 @@ export default function Dashboard() {
               </li>
             </ul>
           ))}
-        <br />
         <h2>Create harvest</h2>
-        <button type="button" onClick={() => setWizardOn(!wizardOn)}>
-          new
-        </button>
+        <CreateHarvestBtn type="button" onClick={() => setWizardOn(!wizardOn)}>
+          {!wizardOn ? 'New!' : 'Close'}
+        </CreateHarvestBtn>
         <WrapperWizard hide={wizardOn}>
           <Wizard
             render={({ next, previous, step, steps }) => (
               <>
                 <Line
                   percent={((steps.indexOf(step) + 1) / steps.length) * 100}
-                  className="pad-b"
+                  strokeWidth="1"
+                  strokeColor="yellowgreen"
+                  strokeLinecap="square"
                 />
                 <Steps key={step.id} step={step}>
                   <Step id="one">
@@ -329,7 +390,6 @@ export default function Dashboard() {
             )}
           />
         </WrapperWizard>
-        <br />
       </Content>
     </Container>
   );

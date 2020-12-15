@@ -16,6 +16,8 @@ export default createGlobalStyle`
 
   html, body, #root {
     height: 100%;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -36,5 +38,19 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
-    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px var(pink);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(123, 255, 0);
+  }
+  ::selection {
+    background: yellowgreen;
+    color: darkblue;
+  }
 `;
