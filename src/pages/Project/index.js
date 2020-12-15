@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
 import DataService from '../../services/crudApi';
-
+import ImgInput from './ImgInput';
+import 'remixicon/fonts/remixicon.css';
 import {
   Container,
   Content,
@@ -10,6 +10,9 @@ import {
   WrapperData,
   WrapperDataAdd,
   Dia,
+  Row,
+  Col,
+  WrapperInfos,
 } from './styles';
 
 export default function Project(props) {
@@ -38,7 +41,7 @@ export default function Project(props) {
 
   // GREEN DATA
   const initialFormState = {
-    // project_id: props.match.params.id,
+    project_id: props.match.params.id,
     id: '',
     infos: '',
     phases: '',
@@ -47,7 +50,6 @@ export default function Project(props) {
     temp_max: '',
     temp_min: '',
     moisture: '',
-    // img: '',
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
@@ -68,7 +70,6 @@ export default function Project(props) {
 
   const handleInputChange = e => {
     const { name, value } = e.target;
-    console.log('targetttttttttttttt', e.target.value);
     setBtnDisable(e.target.value);
     setCurrentData(prevState => ({
       ...prevState,
@@ -77,9 +78,8 @@ export default function Project(props) {
   };
 
   const saveItem = async () => {
-    await DataService.createGreen(greenData).then(response => {
-      console.log('reeeeeeeeeee', response.data);
-      setGreenData(response.data);
+    await DataService.createGreen(currentData).then(response => {
+      setCurrentData(response.data);
     });
   };
 
@@ -105,6 +105,61 @@ export default function Project(props) {
   //   setCurrentItem(item);
   // };
 
+  // https://fontawesome.com/
+  // https://tablericons.com/
+  // https://systemuicons.com/
+
+  const badgeTheme = status => {
+    let theme;
+    switch (status) {
+      case 'pending':
+        theme = 'muted';
+        break;
+      case 'sent':
+        theme = 'success';
+        break;
+      case 'delayed':
+        theme = 'danger';
+        break;
+      case 'processing':
+        theme = 'warning';
+        break;
+      default:
+        theme = 'muted';
+        break;
+    }
+    return theme;
+  };
+
+  // <BadgeStatus theme={badgeTheme(row.status)}>
+  //   {row.status || '--'}
+  // </BadgeStatus>;
+
+  // const theme = (theme) => {
+  //   switch(theme) {
+  //     case "primary":
+  //       return primaryColor.default;
+  //     case "secondary":
+  //       return secondaryColor.default;
+  //     case "muted":
+  //       return colors.black1;
+  //     case "info":
+  //       return colors.purple2;
+  //     case "success":
+  //       return colors.green2;
+  //     case "warning":
+  //       return colors.yellow2;
+  //     case "error":
+  //       return colors.red2;
+  //     case "white":
+  //       return colors.white;
+  //   }
+  // };
+
+  //   export const BadgeStatus = styled(BsBadge)`
+  //   background-color: ${props => props.theme ? theme(props.theme) : primaryColor.default} !important;
+  // `;
+
   return (
     <Container>
       <Content>
@@ -125,18 +180,71 @@ export default function Project(props) {
         ))}
       </Content>
       <Content>
-        {projectDataFiltered.map(item => (
+        {projectDataFiltered.map((item, index) => (
           <WrapperContent key={item.id}>
-            <Dia onClick={() => toggle(item.id)}>Day: {item.id}</Dia>
+            <Dia onClick={() => toggle(item.id)}>Day: {index + 1}</Dia>
             <WrapperData hide={isToggled === item.id}>
-              <p>green infos: {item.infos}</p>
-              <p>green phases: {item.phases}</p>
-              <p>green ph: {item.ph}</p>
-              <p>green ec: {item.ec}</p>
-              <p>green temp_max: {item.temp_max}</p>
-              <p>green temp_min: {item.temp_min}</p>
-              <p>green moisture: {item.moisture}</p>
-              {/* <img src={item.img.url} alt={item.name} /> */}
+              <Row>
+                <WrapperInfos>
+                  <i className="ri-home-line ri-3x" />
+                  <Col>
+                    <p>Infos: </p>
+                    <p>
+                      <strong>{item.infos}</strong>
+                    </p>
+                  </Col>
+                </WrapperInfos>
+              </Row>
+              <Row>
+                <WrapperInfos>
+                  <i className="ri-home-line ri-3x" />
+                  <Col>
+                    <p>Phase: </p>
+                    <p>{item.phases}</p>
+                  </Col>
+                </WrapperInfos>
+                <WrapperInfos>
+                  <i className="ri-home-line ri-3x" />
+                  <Col>
+                    <p>PH: </p>
+                    <p>{item.ph}</p>
+                  </Col>
+                </WrapperInfos>
+                <WrapperInfos>
+                  <i className="ri-home-line ri-3x" />
+                  <Col>
+                    <p>EC: </p>
+                    <p>{item.ec} PPM</p>
+                  </Col>
+                </WrapperInfos>
+              </Row>
+              <Row>
+                <WrapperInfos>
+                  <i className="ri-home-line ri-3x" />
+                  <Col>
+                    <p>Temperature Max: </p>
+                    <p>{item.temp_max} °C</p>
+                  </Col>
+                </WrapperInfos>
+                <WrapperInfos>
+                  <i className="ri-home-line ri-3x" />
+                  <Col>
+                    <p>Temperature Min: </p>
+                    <p>{item.temp_min} °C</p>
+                  </Col>
+                </WrapperInfos>
+                <WrapperInfos>
+                  <i className="ri-home-line ri-3x" />
+                  <Col>
+                    <p>Air Humidity: </p>
+                    <p>{item.moisture} %</p>
+                  </Col>
+                </WrapperInfos>
+              </Row>
+              <img
+                src={item.img === null ? 'No image.' : item.img.url}
+                alt={item.name}
+              />
             </WrapperData>
           </WrapperContent>
         ))}
@@ -164,7 +272,7 @@ export default function Project(props) {
                 />
               </label>
               <label htmlFor="ph">
-                ph
+                PH
                 <input
                   type="text"
                   name="ph"
@@ -174,7 +282,7 @@ export default function Project(props) {
                 />
               </label>
               <label htmlFor="ec">
-                ec
+                EC
                 <input
                   type="text"
                   name="ec"
@@ -184,7 +292,7 @@ export default function Project(props) {
                 />
               </label>
               <label htmlFor="temp_max">
-                temp_max
+                Temperature Max
                 <input
                   type="text"
                   name="temp_max"
@@ -194,7 +302,7 @@ export default function Project(props) {
                 />
               </label>
               <label htmlFor="temp_min">
-                temp_min
+                Temperature Min
                 <input
                   type="text"
                   name="temp_min"
@@ -204,25 +312,16 @@ export default function Project(props) {
                 />
               </label>
               <label htmlFor="moisture">
-                Moisture
+                Air Humidity
                 <input
                   type="text"
                   name="moisture"
                   id="moisture"
-                  placeholder="Wet"
+                  placeholder="50%"
                   onChange={handleInputChange}
                 />
               </label>
-              {/* <label htmlFor="color">
-                IMAGE
-                <input
-                  type="text"
-                  name="img"
-                  id="img"
-                  placeholder="img"
-                  onChange={handleInputChange}
-                />
-              </label> */}
+              <ImgInput name="avatar_id" />
               <div className="buttons">
                 <button
                   disabled={!btnDisable}
@@ -242,7 +341,7 @@ export default function Project(props) {
                       return;
 
                     saveItem(currentData);
-                    // window.location.reload();
+                    window.location.reload();
                   }}
                 >
                   Salvar

@@ -65,28 +65,27 @@ export const Form = styled.form`
   }
 
   label {
-    font-size: 14px;
+    font-size: 24px;
     font-weight: normal;
-    color: #8493a5;
+    color: #000;
   }
 
   input {
     width: 100%;
     height: auto;
     padding: 10px 15px;
-    background: #f9fafc;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
+    border: unset;
+    border-bottom: 2px solid #000;
     margin: 5px 0 20px;
+    margin: 0 10px;
   }
 
   textarea {
     width: 100%;
     height: auto;
     padding: 10px 15px;
-    background: #f9fafc;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
+    border: unset;
+    border-bottom: 2px solid #000;
     overflow: auto;
     resize: vertical;
     margin: 5px 0 20px;
@@ -112,4 +111,28 @@ export const Form = styled.form`
       color: white;
     }
   }
+`;
+
+export const Row = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row;
+  padding: 10px 20px;
+`;
+
+export const WrapperInfos = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row;
+`;
+
+export const Col = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
 `;

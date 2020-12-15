@@ -58,18 +58,17 @@ export const Form = styled.form`
   }
 
   label {
-    font-size: 14px;
+    font-size: 24px;
     font-weight: normal;
-    color: #8493a5;
+    color: #000;
   }
 
   input {
     width: 100%;
     height: auto;
     padding: 10px 15px;
-    background: #f9fafc;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
+    border: unset;
+    border-bottom: 2px solid #000;
     margin: 5px 0 20px;
   }
 
@@ -77,9 +76,8 @@ export const Form = styled.form`
     width: 100%;
     height: auto;
     padding: 10px 15px;
-    background: #f9fafc;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
+    border: unset;
+    border-bottom: 2px solid #000;
     overflow: auto;
     resize: vertical;
     margin: 5px 0 20px;

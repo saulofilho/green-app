@@ -75,123 +75,6 @@ export default function Dashboard() {
 
   return (
     <Container>
-      <Form>
-        <label htmlFor="harvest_name">
-          harvest_name
-          <input
-            type="text"
-            name="harvest_name"
-            id="harvest_name"
-            placeholder="harvest_name"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label htmlFor="strain_name">
-          strain_name
-          <input
-            type="text"
-            name="strain_name"
-            id="strain_name"
-            placeholder="harvest_name"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label htmlFor="breeder">
-          breeder
-          <input
-            type="text"
-            name="breeder"
-            id="breeder"
-            placeholder="harvest_name"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label htmlFor="infos">
-          Infos
-          <textarea
-            name="infos"
-            id="infos"
-            placeholder="Infos..."
-            onChange={handleInputChange}
-          />
-        </label>
-        <label htmlFor="tools">
-          Tools
-          <input
-            type="text"
-            name="tools"
-            id="tools"
-            placeholder="tools"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label htmlFor="nutrients">
-          nutrients
-          <input
-            type="text"
-            name="nutrients"
-            id="nutrients"
-            placeholder="nutrients"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label htmlFor="soil">
-          soil
-          <input
-            type="text"
-            name="soil"
-            id="soil"
-            placeholder="soil"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label htmlFor="pot_size">
-          pot_size
-          <input
-            type="text"
-            name="pot_size"
-            id="pot_size"
-            placeholder="pot_size"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label htmlFor="light_schedule">
-          light_schedule
-          <input
-            type="text"
-            name="light_schedule"
-            id="light_schedule"
-            placeholder="light_schedule"
-            onChange={handleInputChange}
-          />
-        </label>
-        <div className="buttons">
-          <button
-            disabled={!btnDisable}
-            className="salvar"
-            type="button"
-            onClick={e => {
-              e.preventDefault();
-              if (
-                !currentData.harvest_name ||
-                !currentData.strain_name ||
-                !currentData.infos ||
-                !currentData.tools ||
-                !currentData.nutrients ||
-                !currentData.soil ||
-                !currentData.pot_size ||
-                !currentData.light_schedule
-              )
-                return;
-
-              saveItem(currentData);
-              // window.location.reload();
-            }}
-          >
-            Salvar
-          </button>
-        </div>
-      </Form>
       <Content>
         <h1>
           bem-vindo, <strong>{profile.name}</strong>
@@ -209,20 +92,39 @@ export default function Dashboard() {
         <br />
         <h2>Graphs about data</h2>
         <br />
-        <Graphs />
+        <Graphs>
+          <LineChart width={600} height={300} data={dataChart}>
+            <LineRecharts type="monotone" dataKey="uv" stroke="#8884d8" />
+            <LineRecharts type="monotone" dataKey="pv" stroke="#4484d8" />
+            <LineRecharts type="monotone" dataKey="amt" stroke="#1133d8" />
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="name" />
+            <YAxis />
+          </LineChart>
+        </Graphs>
         <br />
         <Row>
-          <Graphs />
-          <Graphs />
+          <Graphs>
+            <LineChart width={200} height={300} data={dataChart}>
+              <LineRecharts type="monotone" dataKey="uv" stroke="#8884d8" />
+              <LineRecharts type="monotone" dataKey="pv" stroke="#4484d8" />
+              <LineRecharts type="monotone" dataKey="amt" stroke="#1133d8" />
+              <CartesianGrid stroke="#ccc" />
+              <XAxis dataKey="name" />
+              <YAxis />
+            </LineChart>
+          </Graphs>
+          <Graphs>
+            <LineChart width={200} height={300} data={dataChart}>
+              <LineRecharts type="monotone" dataKey="uv" stroke="#8884d8" />
+              <LineRecharts type="monotone" dataKey="pv" stroke="#4484d8" />
+              <LineRecharts type="monotone" dataKey="amt" stroke="#1133d8" />
+              <CartesianGrid stroke="#ccc" />
+              <XAxis dataKey="name" />
+              <YAxis />
+            </LineChart>
+          </Graphs>
         </Row>
-        <LineChart width={600} height={300} data={dataChart}>
-          <LineRecharts type="monotone" dataKey="uv" stroke="#8884d8" />
-          <LineRecharts type="monotone" dataKey="pv" stroke="#4484d8" />
-          <LineRecharts type="monotone" dataKey="amt" stroke="#1133d8" />
-          <CartesianGrid stroke="#ccc" />
-          <XAxis dataKey="name" />
-          <YAxis />
-        </LineChart>
         <br />
         <h2>Harvests</h2>
         {projectData.length ? (
@@ -235,6 +137,7 @@ export default function Dashboard() {
         ) : (
           <p>Carregando...</p>
         )}
+        <br />
         {projectData
           .sort((a, b) => a.id - b.id)
           .map(item => (
@@ -258,36 +161,116 @@ export default function Dashboard() {
                   className="pad-b"
                 />
                 <Steps key={step.id} step={step}>
-                  <Step id="merlin">
+                  <Step id="one">
                     <div>
-                      <h1>Merlin</h1>
                       <Form>
-                        <label htmlFor="name">
-                          Project Name
+                        <label htmlFor="harvest_name">
+                          Choose a nice name to your harvest
                           <input
                             type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Bola"
+                            name="harvest_name"
+                            id="harvest_name"
+                            placeholder="The Great Gorilla"
+                            value={currentData.harvest_name}
                             onChange={handleInputChange}
                           />
                         </label>
-                        <label htmlFor="info">
+                        <label htmlFor="infos">
                           Infos
                           <textarea
                             name="infos"
                             id="infos"
-                            placeholder="Infos..."
+                            placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                            value={currentData.infos}
                             onChange={handleInputChange}
                           />
                         </label>
+                      </Form>
+                    </div>
+                  </Step>
+                  <Step id="two">
+                    <div>
+                      <Form>
+                        <label htmlFor="strain_name">
+                          strain_name
+                          <input
+                            type="text"
+                            name="strain_name"
+                            id="strain_name"
+                            placeholder="strain_name"
+                            value={currentData.strain_name}
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                        <label htmlFor="breeder">
+                          breeder
+                          <input
+                            type="text"
+                            name="breeder"
+                            id="breeder"
+                            placeholder="breeder"
+                            value={currentData.breeder}
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                      </Form>
+                    </div>
+                  </Step>
+                  <Step id="three">
+                    <div>
+                      <Form>
                         <label htmlFor="tools">
                           Tools
                           <input
                             type="text"
                             name="tools"
                             id="tools"
-                            placeholder="One, two, three..."
+                            placeholder="tools"
+                            value={currentData.tools}
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                        <label htmlFor="nutrients">
+                          nutrients
+                          <input
+                            type="text"
+                            name="nutrients"
+                            id="nutrients"
+                            placeholder="nutrients"
+                            value={currentData.nutrients}
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                        <label htmlFor="soil">
+                          soil
+                          <input
+                            type="text"
+                            name="soil"
+                            id="soil"
+                            placeholder="soil"
+                            value={currentData.soil}
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                        <label htmlFor="pot_size">
+                          pot_size
+                          <input
+                            type="text"
+                            name="pot_size"
+                            id="pot_size"
+                            placeholder="pot_size"
+                            value={currentData.pot_size}
+                            onChange={handleInputChange}
+                          />
+                        </label>
+                        <label htmlFor="light_schedule">
+                          light_schedule
+                          <input
+                            type="text"
+                            name="light_schedule"
+                            id="light_schedule"
+                            placeholder="light_schedule"
+                            value={currentData.light_schedule}
                             onChange={handleInputChange}
                           />
                         </label>
@@ -299,9 +282,14 @@ export default function Dashboard() {
                             onClick={e => {
                               e.preventDefault();
                               if (
-                                !currentData.name ||
+                                !currentData.harvest_name ||
+                                !currentData.strain_name ||
                                 !currentData.infos ||
-                                !currentData.tools
+                                !currentData.tools ||
+                                !currentData.nutrients ||
+                                !currentData.soil ||
+                                !currentData.pot_size ||
+                                !currentData.light_schedule
                               )
                                 return;
 
@@ -313,16 +301,6 @@ export default function Dashboard() {
                           </button>
                         </div>
                       </Form>
-                    </div>
-                  </Step>
-                  <Step id="x">
-                    <div>
-                      <h1>x</h1>
-                    </div>
-                  </Step>
-                  <Step id="xx">
-                    <div>
-                      <h1>xx</h1>
                     </div>
                   </Step>
                 </Steps>

@@ -7,7 +7,6 @@ import SignUp from '../pages/SignUp';
 
 import Dashboard from '../pages/Dashboard';
 import Project from '../pages/Project';
-import Greens from '../pages/Greens';
 import Profile from '../pages/Profile';
 
 export default function Routes() {
@@ -17,7 +16,6 @@ export default function Routes() {
       <Route path="/register" component={SignUp} />
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/project/:id" component={Project} isPrivate />
-      <Route path="/data" component={Greens} isPrivate />
       <Route path="/profile" component={Profile} isPrivate />
       {/* <Route path="/" component={() => <h1>404</h1>} /> */}
     </Switch>
