@@ -1,6 +1,25 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
+const theme = theme => {
+  switch (theme) {
+    case 'germination':
+      return 'red';
+    case 'vegetation':
+      return 'green';
+    case 'flowering':
+      return 'blue';
+    case 'washing':
+      return 'yellow';
+    case 'drying':
+      return 'pink';
+    case 'cured':
+      return 'gray';
+    case 'none':
+      return 'black';
+  }
+};
+
 export const Container = styled.div`
   margin: 0px auto;
   padding: 0 30px;
@@ -189,7 +208,8 @@ export const RowDayWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-flow: row;
-  background: black;
+  background-color: ${props =>
+    props.theme ? theme(props.theme) : 'black'} !important;
 `;
 
 export const ColDay = styled.div`

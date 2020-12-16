@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DataService from '../../services/crudApi';
 import ImgInput from './ImgInput';
 import 'remixicon/fonts/remixicon.css';
+import Select from 'react-select';
 import {
   Container,
   Content,
@@ -128,53 +129,30 @@ export default function Project(props) {
   const badgeTheme = status => {
     let theme;
     switch (status) {
-      case 'pending':
-        theme = 'muted';
+      case 'germination':
+        theme = 'germination';
         break;
-      case 'sent':
-        theme = 'success';
+      case 'vegetation':
+        theme = 'vegetation';
         break;
-      case 'delayed':
-        theme = 'danger';
+      case 'flowering':
+        theme = 'flowering';
         break;
-      case 'processing':
-        theme = 'warning';
+      case 'washing':
+        theme = 'washing';
+        break;
+      case 'drying':
+        theme = 'drying';
+        break;
+      case 'cured':
+        theme = 'cured';
         break;
       default:
-        theme = 'muted';
+        theme = 'none';
         break;
     }
     return theme;
   };
-
-  // <BadgeStatus theme={badgeTheme(row.status)}>
-  //   {row.status || '--'}
-  // </BadgeStatus>;
-
-  // const theme = (theme) => {
-  //   switch(theme) {
-  //     case "primary":
-  //       return primaryColor.default;
-  //     case "secondary":
-  //       return secondaryColor.default;
-  //     case "muted":
-  //       return colors.black1;
-  //     case "info":
-  //       return colors.purple2;
-  //     case "success":
-  //       return colors.green2;
-  //     case "warning":
-  //       return colors.yellow2;
-  //     case "error":
-  //       return colors.red2;
-  //     case "white":
-  //       return colors.white;
-  //   }
-  // };
-
-  //   export const BadgeStatus = styled(BsBadge)`
-  //   background-color: ${props => props.theme ? theme(props.theme) : primaryColor.default} !important;
-  // `;
 
   return (
     <Container>
@@ -199,7 +177,7 @@ export default function Project(props) {
         {projectDataFiltered.map((item, index) => (
           <WrapperContent key={item.id}>
             <DayWrapper onClick={() => toggle(item.id)}>
-              <RowDayWrapper>
+              <RowDayWrapper theme={badgeTheme(item.phase)}>
                 <Number>{index + 1}</Number>
                 <ColDay>
                   <RowDay>
@@ -319,12 +297,19 @@ export default function Project(props) {
               </label>
               <label htmlFor="phase">
                 Phase
-                <input
+                {/* <input
                   type="text"
                   name="phase"
                   id="phase"
                   placeholder="One, two, three..."
                   onChange={handleInputChange}
+                /> */}
+                <Select
+                  className="basic-single"
+                  classNamePrefix="select"
+                  defaultValue={phase[0]}
+                  name="color"
+                  options={phase}
                 />
               </label>
               <label htmlFor="ph">
