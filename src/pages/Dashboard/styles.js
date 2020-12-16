@@ -2,8 +2,27 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
+  font-family: 'Merriweather', serif;
   margin: 0px auto;
   padding: 0 30px;
+`;
+
+export const Title = styled.p`
+  font-family: 'Merriweather', serif;
+  font-size: 24px;
+  padding: 10px 0 20px;
+`;
+
+export const Subtitle = styled.p`
+  font-family: 'Merriweather', serif;
+  font-size: 14px;
+  padding: 10px 0 20px;
+`;
+
+export const Text = styled.p`
+  font-family: 'Merriweather', serif;
+  font-size: 12px;
+  padding: 10px 0 20px;
 `;
 
 export const Content = styled.div`

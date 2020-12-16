@@ -51,7 +51,7 @@ export default function Project(props) {
     project_id: props.match.params.id,
     id: '',
     infos: '',
-    phases: '',
+    phase: '',
     ph: '',
     ec: '',
     temp_max: '',
@@ -115,6 +115,15 @@ export default function Project(props) {
   // https://fontawesome.com/
   // https://tablericons.com/
   // https://systemuicons.com/
+
+  const phase = [
+    'germination',
+    'vegetation',
+    'flowering',
+    'washing',
+    'drying',
+    'cured',
+  ];
 
   const badgeTheme = status => {
     let theme;
@@ -210,17 +219,17 @@ export default function Project(props) {
                   <RowDay>
                     <BorderBotAndLeft>
                       <p>PHASE:</p>
-                      <p>{item.phases}</p>
+                      <p>{item.phase}</p>
                     </BorderBotAndLeft>
                   </RowDay>
                   <RowDay>
                     <BorderLeft>
-                      <p>PH:</p>
-                      <p>{item.ph}</p>
+                      <p>PH Water:</p>
+                      <p>{item.ph_water}</p>
                     </BorderLeft>
                     <BorderLeft>
-                      <p>EC:</p>
-                      <p>{item.ec}</p>
+                      <p>PH Soil:</p>
+                      <p>{item.ph_water}</p>
                     </BorderLeft>
                   </RowDay>
                 </ColDay>
@@ -243,14 +252,16 @@ export default function Project(props) {
                   <i className="ri-home-line ri-3x" />
                   <Col>
                     <p>Phase: </p>
-                    <p>{item.phases}</p>
+                    <p>{item.phase}</p>
                   </Col>
                 </WrapperInfos>
                 <WrapperInfos>
                   <i className="ri-home-line ri-3x" />
                   <Col>
-                    <p>PH: </p>
-                    <p>{item.ph}</p>
+                    <p>PH Water: </p>
+                    <p>{item.ph_water}</p>
+                    <p>PH Soil: </p>
+                    <p>{item.ph_soil}</p>
                   </Col>
                 </WrapperInfos>
                 <WrapperInfos>
@@ -279,8 +290,10 @@ export default function Project(props) {
                 <WrapperInfos>
                   <i className="ri-home-line ri-3x" />
                   <Col>
-                    <p>Air Humidity: </p>
+                    <p>Soil Moisture: </p>
                     <p>{item.moisture} %</p>
+                    <p>Air Humidity: </p>
+                    <p>{item.air_humidity} %</p>
                   </Col>
                 </WrapperInfos>
               </Row>
@@ -304,12 +317,12 @@ export default function Project(props) {
                   onChange={handleInputChange}
                 />
               </label>
-              <label htmlFor="phases">
+              <label htmlFor="phase">
                 Phase
                 <input
                   type="text"
-                  name="phases"
-                  id="phases"
+                  name="phase"
+                  id="phase"
                   placeholder="One, two, three..."
                   onChange={handleInputChange}
                 />
@@ -374,7 +387,7 @@ export default function Project(props) {
                     e.preventDefault();
                     if (
                       !currentData.infos ||
-                      !currentData.phases ||
+                      !currentData.phase ||
                       !currentData.ph ||
                       !currentData.ec ||
                       !currentData.temp_max ||

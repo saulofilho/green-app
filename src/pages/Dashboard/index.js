@@ -30,6 +30,7 @@ import {
   WrapperWizard,
   Form,
   CreateHarvestBtn,
+  Title,
 } from './styles';
 
 export default function Dashboard() {
@@ -49,6 +50,7 @@ export default function Dashboard() {
     soil: '',
     pot_size: '',
     light_schedule: '',
+    grow_techniques: '',
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
@@ -109,7 +111,7 @@ export default function Dashboard() {
     <Container>
       <Content>
         <h3>bem-vindo,</h3>
-        <h1>{profile.name}</h1>
+        <Title>{profile.name}</Title>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -119,7 +121,7 @@ export default function Dashboard() {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <h2>Graphs about data</h2>
+        <Title>Graphs about data</Title>
         <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
           <LineChart data={dateFormatMonth}>
             <LineRecharts type="monotone" dataKey="ph" stroke="#8884d8" />
@@ -190,7 +192,7 @@ export default function Dashboard() {
             <Scatter dataKey="temp_max" fill="red" />
           </ComposedChart>
         </ResponsiveContainer>
-        <h2>Harvests</h2>
+        <Title>Harvests</Title>
         {projectData.length ? (
           <p>
             You have <strong>{projectData.length}</strong> harvests.
@@ -207,7 +209,7 @@ export default function Dashboard() {
               </li>
             </ul>
           ))}
-        <h2>Create harvest</h2>
+        <Title>Create harvest</Title>
         <CreateHarvestBtn type="button" onClick={() => setWizardOn(!wizardOn)}>
           {!wizardOn ? 'New!' : 'Close'}
         </CreateHarvestBtn>
