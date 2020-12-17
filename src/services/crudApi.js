@@ -15,15 +15,18 @@ const getGreens = () => {
 const createGreen = data => {
   return api.post('/green', data);
 };
+const updateGreen = (id, data) => {
+  return api.put(`/green/${id}`, data);
+};
 const upImg = data => {
   return api.post('/imgs', data);
 };
 
-// const updateTodo = (id, data) => {
-//   return api.put(`/todo/${id}`, data);
+// const removeGreen = id => {
+//   return api.delete(`/green/${id}`);
 // };
-// const removeTodo = id => {
-//   return api.delete(`/todo/${id}`);
+// const removeProject = id => {
+//   return api.delete(`/project/${id}`);
 // };
 
 export default {
@@ -32,5 +35,6 @@ export default {
   createProjects,
   getGreens,
   createGreen,
+  updateGreen,
   upImg,
 };

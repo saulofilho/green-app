@@ -2,27 +2,52 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  font-family: 'Merriweather', serif;
   margin: 0px auto;
   padding: 0 30px;
 `;
 
 export const Title = styled.p`
-  font-family: 'Merriweather', serif;
-  font-size: 24px;
-  padding: 10px 0 20px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 36px;
+  padding: 0 0 10px;
 `;
 
 export const Subtitle = styled.p`
-  font-family: 'Merriweather', serif;
-  font-size: 14px;
-  padding: 10px 0 20px;
+  font-family: 'Source Serif Pro', serif;
+  font-size: 18px;
+  padding: 0 0 25px;
+  font-style: italic;
+  font-weight: bolder;
 `;
 
 export const Text = styled.p`
-  font-family: 'Merriweather', serif;
-  font-size: 12px;
-  padding: 10px 0 20px;
+  font-family: 'Source Serif Pro', serif;
+  font-size: 16px;
+  padding: 0 0 50px;
+`;
+
+export const NumberHarvests = styled.p`
+  font-family: 'Source Serif Pro', serif;
+  font-size: 16px;
+  padding: 0 0 20px;
+  font-style: italic;
+`;
+
+export const HarvestName = styled.ul`
+  padding: 0 0 50px;
+
+  li {
+    padding: 0 0 5px 20px;
+  }
+  a {
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    color: #071a52;
+  }
+  a:hover {
+    color: #17b978;
+    font-style: italic;
+  }
 `;
 
 export const Content = styled.div`
@@ -35,17 +60,33 @@ export const Content = styled.div`
 `;
 
 export const WrapperWizard = styled.div`
+  padding: 50px 20px;
   width: 100%;
   height: 100%;
-  padding: 30px 0;
   display: ${props => (props.hide ? 'block' : 'none')};
 `;
 
 export const CreateHarvestBtn = styled.button`
   margin-top: 10px;
+  margin-right: 20px;
   border: 2px solid black;
   padding: 5px 10px;
   background: unset;
+`;
+
+export const FormWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: column;
+
+  p {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 18px;
+    padding: 0 0 5px;
+    font-style: italic;
+    font-weight: bolder;
+  }
 `;
 
 export const Form = styled.form`
@@ -58,31 +99,26 @@ export const Form = styled.form`
   background-color: #ffffff;
   padding: 50px 0;
 
-  p {
-    font-size: 16px;
-    font-weight: normal;
-    padding: 16px;
-    margin-bottom: 34px;
-  }
-
-  label {
-    font-size: 24px;
-    font-weight: normal;
-    color: #000;
-  }
-
   input {
-    width: 100%;
+    font-family: 'Rubik', sans-serif;
+    width: 50%;
     height: auto;
     padding: 10px 15px;
     border: unset;
     border-bottom: 2px solid #000;
-    margin: 5px 0 20px;
+    margin: 0 0 50px;
+    font-size: 24px;
+  }
+
+  #flowering_type {
+    width: 100%;
   }
 
   textarea {
+    font-family: 'Rubik', sans-serif;
+    font-size: 24px;
     width: 100%;
-    height: auto;
+    min-height: 400px;
     padding: 10px 15px;
     border: unset;
     border-bottom: 2px solid #000;
@@ -98,9 +134,9 @@ export const Form = styled.form`
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
-    border: solid 1px rgba(255, 255, 255, 0.16);
-    background-color: lightgreen;
-    color: #fff;
+    border: solid 2px #086972;
+    background-color: #a7ff83;
+    color: #000;
 
     &[disabled] {
       background-color: #dee2e6;
@@ -108,7 +144,7 @@ export const Form = styled.form`
 
     &[enable]:hover {
       background: ${darken(0.09, 'lightgreen')};
-      color: white;
+      color: #000;
     }
   }
 `;

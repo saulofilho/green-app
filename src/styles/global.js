@@ -43,14 +43,14 @@ export default createGlobalStyle`
   ::-webkit-scrollbar {
     width: 10px;
   }
-  ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 3px var(pink);
-  }
+  /* ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px #086972;
+  } */
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(123, 255, 0);
+    background-color: #a7ff83;
   }
   ::selection {
-    background: yellowgreen;
-    color: darkblue;
+    background: #071a52;
+    color: #17b978;
   }
 `;

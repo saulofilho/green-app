@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 import DataService from '../../services/crudApi';
 import ImgInput from './ImgInput';
 import 'remixicon/fonts/remixicon.css';
-import Select from 'react-select';
 import {
   Container,
   Content,
@@ -21,6 +21,17 @@ import {
   RowDayWrapper,
   BorderLeft,
   BorderBotAndLeft,
+  Title,
+  Subtitle,
+  Text,
+  TextWrapper,
+  WrapperProjectInfos,
+  FormWrapper,
+  SmallText,
+  BigText,
+  TitleBox,
+  TextBox,
+  Button,
 } from './styles';
 
 export default function Project(props) {
@@ -29,6 +40,7 @@ export default function Project(props) {
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledAdd, setIsToggledAdd] = useState(false);
   const [projectDataFiltered, setProjectDataFiltered] = useState([]);
+  const [editOn, setEditOn] = useState(false);
 
   useEffect(() => {
     const loadItens = async id => {
@@ -52,12 +64,14 @@ export default function Project(props) {
     project_id: props.match.params.id,
     id: '',
     infos: '',
-    phase: '',
-    ph: '',
+    ph_water: '',
+    ph_soil: '',
     ec: '',
     temp_max: '',
     temp_min: '',
     moisture: '',
+    air_humidity: '',
+    phase: '',
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
@@ -85,6 +99,13 @@ export default function Project(props) {
     }));
   };
 
+  const handleSelectChange = item => {
+    setCurrentData(prevState => ({
+      ...prevState,
+      phase: item.value,
+    }));
+  };
+
   const saveItem = async () => {
     await DataService.createGreen(currentData).then(response => {
       setCurrentData(response.data);
@@ -99,31 +120,29 @@ export default function Project(props) {
     setIsToggledAdd(!isToggledAdd);
   };
 
-  // const updateItem = async (id, updatedContact) => {
-  //   await DataService.updateProducts(currentItem.id, currentItem).then(
-  //     response => {
-  //       setItens(itens.map(item => (item.id === id ? updatedContact : item)));
-  //     }
-  //   );
-  //   window.location.reload();
-  // };
+  const updateItem = async (id, updateGreenData) => {
+    await DataService.updateGreen(currentData.id, currentData).then(
+      response => {
+        setGreenData(
+          greenData.map(item => (item.id === id ? updateGreenData : item))
+        );
+      }
+    );
+    window.location.reload();
+  };
 
-  // const editRow = item => {
-  //   toggleSecondModal();
-  //   setCurrentItem(item);
-  // };
+  const editButton = item => {
+    setEditOn(!editOn);
+    setCurrentData(item);
+  };
 
-  // https://fontawesome.com/
-  // https://tablericons.com/
-  // https://systemuicons.com/
-
-  const phase = [
-    'germination',
-    'vegetation',
-    'flowering',
-    'washing',
-    'drying',
-    'cured',
+  const phases = [
+    { value: 'germination', label: 'Germination' },
+    { value: 'vegetation', label: 'Vegetation' },
+    { value: 'flowering', label: 'Flowering' },
+    { value: 'washing', label: 'Washing' },
+    { value: 'drying', label: 'Drying' },
+    { value: 'cured', label: 'Cured' },
   ];
 
   const badgeTheme = status => {
@@ -158,19 +177,46 @@ export default function Project(props) {
     <Container>
       <Content>
         {projectData.map(item => (
-          <div className="" key={item.id + item.name}>
-            <h1>{item.harvest_name}</h1>
+          <WrapperProjectInfos key={item.id + item.name}>
+            <Title>{item.harvest_name}</Title>
+            <TextWrapper>
+              <Text>Strain:&nbsp;</Text>
+              <Subtitle>{item.strain_name}</Subtitle>
+            </TextWrapper>
+            <TextWrapper>
+              <Text>Breeder:&nbsp;</Text>
+              <Subtitle>{item.breeder}</Subtitle>
+            </TextWrapper>
+            <TextWrapper>
+              <Text>Flowering Type:&nbsp;</Text>
+              <Subtitle>{item.flowering_type}</Subtitle>
+            </TextWrapper>
             <br />
-            <p>Strain: {item.strain_name}</p>
-            <p>Breeder: {item.breeder}</p>
-            <br />
-            <p>{item.infos}</p>
-            <p>Tools: {item.tools}</p>
-            <p>Soil: {item.soil}</p>
-            <p>Nutrients: {item.nutrients}</p>
-            <p>Pot Size: {item.pot_size}</p>
-            <p>Light Schedule: {item.light_schedule}</p>
-          </div>
+            <TextWrapper>
+              <Text>Infos:&nbsp;</Text>
+              <Subtitle>{item.infos}</Subtitle>
+            </TextWrapper>
+            <TextWrapper>
+              <Text>Tools:&nbsp;</Text>
+              <Subtitle>{item.tools}</Subtitle>
+            </TextWrapper>
+            <TextWrapper>
+              <Text>Soil:&nbsp;</Text>
+              <Subtitle>{item.soil}</Subtitle>
+            </TextWrapper>
+            <TextWrapper>
+              <Text>Nutrients:&nbsp;</Text>
+              <Subtitle>{item.nutrients}</Subtitle>
+            </TextWrapper>
+            <TextWrapper>
+              <Text>Pot Size:&nbsp;</Text>
+              <Subtitle>{item.pot_size} L</Subtitle>
+            </TextWrapper>
+            <TextWrapper>
+              <Text>Light Schedule:&nbsp;</Text>
+              <Subtitle>{item.light_schedule}</Subtitle>
+            </TextWrapper>
+          </WrapperProjectInfos>
         ))}
       </Content>
       <Content>
@@ -182,32 +228,32 @@ export default function Project(props) {
                 <ColDay>
                   <RowDay>
                     <BorderBotAndLeft>
-                      <p>TEMPERATURE MAX:</p>
-                      <p>{item.temp_max}</p>
+                      <SmallText>TEMPERATURE MAX:</SmallText>
+                      <BigText>{item.temp_max}</BigText>
                     </BorderBotAndLeft>
                   </RowDay>
                   <RowDay>
                     <BorderLeft>
-                      <p>TEMPERATURE MIN:</p>
-                      <p>{item.temp_min}</p>
+                      <SmallText>TEMPERATURE MIN:</SmallText>
+                      <BigText>{item.temp_min}</BigText>
                     </BorderLeft>
                   </RowDay>
                 </ColDay>
                 <ColDay>
                   <RowDay>
                     <BorderBotAndLeft>
-                      <p>PHASE:</p>
-                      <p>{item.phase}</p>
+                      <SmallText>PHASE:</SmallText>
+                      <BigText>{item.phase}</BigText>
                     </BorderBotAndLeft>
                   </RowDay>
                   <RowDay>
                     <BorderLeft>
-                      <p>PH Water:</p>
-                      <p>{item.ph_water}</p>
+                      <SmallText>PH Water:</SmallText>
+                      <BigText>{item.ph_water}</BigText>
                     </BorderLeft>
                     <BorderLeft>
-                      <p>PH Soil:</p>
-                      <p>{item.ph_water}</p>
+                      <SmallText>PH Soil:</SmallText>
+                      <BigText>{item.ph_water}</BigText>
                     </BorderLeft>
                   </RowDay>
                 </ColDay>
@@ -216,114 +262,255 @@ export default function Project(props) {
             <WrapperData hide={isToggled === item.id}>
               <Row>
                 <WrapperInfos>
-                  <i className="ri-home-line ri-3x" />
+                  <i className="ri-information-line ri-2x" />
                   <Col>
-                    <p>Infos: </p>
-                    <p>
-                      <strong>{item.infos}</strong>
-                    </p>
+                    <TitleBox>Infos: </TitleBox>
+                    <TextBox>{item.infos}</TextBox>
                   </Col>
                 </WrapperInfos>
               </Row>
               <Row>
                 <WrapperInfos>
-                  <i className="ri-home-line ri-3x" />
+                  <i className="ri-contrast-2-line ri-2x" />
                   <Col>
-                    <p>Phase: </p>
-                    <p>{item.phase}</p>
+                    <TitleBox>Phase: </TitleBox>
+                    <TextBox>{item.phase}</TextBox>
                   </Col>
                 </WrapperInfos>
                 <WrapperInfos>
-                  <i className="ri-home-line ri-3x" />
+                  <i className="ri-water-flash-line ri-2x" />
                   <Col>
-                    <p>PH Water: </p>
-                    <p>{item.ph_water}</p>
-                    <p>PH Soil: </p>
-                    <p>{item.ph_soil}</p>
+                    <TitleBox>PH Water: </TitleBox>
+                    <TextBox>{item.ph_water}</TextBox>
                   </Col>
                 </WrapperInfos>
                 <WrapperInfos>
-                  <i className="ri-home-line ri-3x" />
+                  <i className="ri-earth-line ri-2x" />
                   <Col>
-                    <p>EC: </p>
-                    <p>{item.ec} PPM</p>
+                    <TitleBox>PH Soil: </TitleBox>
+                    <TextBox>{item.ph_soil}</TextBox>
+                  </Col>
+                </WrapperInfos>
+                <WrapperInfos>
+                  <i className="ri-flask-line ri-2x" />
+                  <Col>
+                    <TitleBox>EC: </TitleBox>
+                    <TextBox>{item.ec} PPM</TextBox>
                   </Col>
                 </WrapperInfos>
               </Row>
               <Row>
                 <WrapperInfos>
-                  <i className="ri-home-line ri-3x" />
+                  <i className="ri-sun-line ri-2x" />
                   <Col>
-                    <p>Temperature Max: </p>
-                    <p>{item.temp_max} °C</p>
+                    <TitleBox>Temperature Max: </TitleBox>
+                    <TextBox>{item.temp_max} °C</TextBox>
                   </Col>
                 </WrapperInfos>
                 <WrapperInfos>
-                  <i className="ri-home-line ri-3x" />
+                  <i className="ri-rainy-line ri-2x" />
                   <Col>
-                    <p>Temperature Min: </p>
-                    <p>{item.temp_min} °C</p>
+                    <TitleBox>Temperature Min: </TitleBox>
+                    <TextBox>{item.temp_min} °C</TextBox>
                   </Col>
                 </WrapperInfos>
                 <WrapperInfos>
-                  <i className="ri-home-line ri-3x" />
+                  <i className="ri-umbrella-line ri-2x" />
                   <Col>
-                    <p>Soil Moisture: </p>
-                    <p>{item.moisture} %</p>
-                    <p>Air Humidity: </p>
-                    <p>{item.air_humidity} %</p>
+                    <TitleBox>Soil Moisture: </TitleBox>
+                    <TextBox>{item.moisture} %</TextBox>
+                  </Col>
+                </WrapperInfos>
+                <WrapperInfos>
+                  <i className="ri-temp-cold-line ri-2x" />
+                  <Col>
+                    <TitleBox>Air Humidity: </TitleBox>
+                    <TextBox>{item.air_humidity} %</TextBox>
                   </Col>
                 </WrapperInfos>
               </Row>
-              <img
-                src={item.img === null ? 'No image.' : item.img.url}
-                alt={item.name}
-              />
+              <Row>
+                <WrapperInfos>
+                  <i className="ri-camera-line ri-2x" />
+                  <Col>
+                    <TitleBox>Image: </TitleBox>
+                    <img
+                      src={item.img ? item.img.url : 'No image.'}
+                      alt={item.name}
+                    />
+                  </Col>
+                </WrapperInfos>
+              </Row>
+              <Row>
+                <WrapperInfos>
+                  <Col>
+                    <Button type="button" onClick={() => editButton(item)}>
+                      <i className="ri-file-edit-line ri-2x" />
+                    </Button>
+                    <TitleBox>Edit your data: </TitleBox>
+                    <WrapperDataAdd hideAdd={editOn}>
+                      <Form>
+                        <FormWrapper>
+                          <p>Infos</p>
+                          <textarea
+                            name="infos"
+                            id="infos"
+                            onChange={handleInputChange}
+                            value={currentData && currentData.infos}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>Phase</p>
+                          <Select
+                            defaultMenuIsOpen
+                            id="phase"
+                            name="phase"
+                            onChange={handleSelectChange}
+                            options={phases}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>PH Water</p>
+                          <input
+                            type="text"
+                            name="ph_water"
+                            id="ph_water"
+                            onChange={handleInputChange}
+                            value={currentData && currentData.ph_water}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>PH Soil</p>
+                          <input
+                            type="text"
+                            name="ph_soil"
+                            id="ph_soil"
+                            onChange={handleInputChange}
+                            value={currentData && currentData.ph_soil}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>EC</p>
+                          <input
+                            type="text"
+                            name="ec"
+                            id="ec"
+                            onChange={handleInputChange}
+                            value={currentData && currentData.ec}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>Temperature Max</p>
+                          <input
+                            type="text"
+                            name="temp_max"
+                            id="temp_max"
+                            onChange={handleInputChange}
+                            value={currentData && currentData.temp_max}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>Temperature Min</p>
+                          <input
+                            type="text"
+                            name="temp_min"
+                            id="temp_min"
+                            onChange={handleInputChange}
+                            value={currentData && currentData.temp_min}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>Soil Moisture</p>
+                          <input
+                            type="text"
+                            name="moisture"
+                            id="moisture"
+                            onChange={handleInputChange}
+                            value={currentData && currentData.moisture}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>Air Humidity</p>
+                          <input
+                            type="text"
+                            name="air_humidity"
+                            id="air_humidity"
+                            onChange={handleInputChange}
+                            value={currentData && currentData.air_humidity}
+                          />
+                        </FormWrapper>
+                        <FormWrapper>
+                          <p>Image</p>
+                          <ImgInput name="avatar_id" />
+                          <div className="buttons">
+                            <button
+                              disabled={!btnDisable}
+                              type="button"
+                              className="salvar"
+                              onClick={e => {
+                                e.preventDefault();
+                                updateItem(currentData.id, currentData);
+                              }}
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        </FormWrapper>
+                      </Form>
+                    </WrapperDataAdd>
+                  </Col>
+                </WrapperInfos>
+              </Row>
             </WrapperData>
           </WrapperContent>
         ))}
         <WrapperContent>
-          <AddWrapper onClick={() => toggleAdd()}>Add</AddWrapper>
+          <AddWrapper onClick={() => toggleAdd()}>
+            Add a brand new day!
+          </AddWrapper>
           <WrapperDataAdd hideAdd={isToggledAdd}>
             <Form>
-              <label htmlFor="infos">
-                Infos
+              <FormWrapper>
+                <p>Infos</p>
                 <textarea
                   name="infos"
                   id="infos"
                   placeholder="Infos..."
                   onChange={handleInputChange}
                 />
-              </label>
-              <label htmlFor="phase">
-                Phase
-                {/* <input
-                  type="text"
-                  name="phase"
-                  id="phase"
-                  placeholder="One, two, three..."
-                  onChange={handleInputChange}
-                /> */}
+              </FormWrapper>
+              <FormWrapper>
+                <p>Phase</p>
                 <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  defaultValue={phase[0]}
-                  name="color"
-                  options={phase}
+                  defaultValue={phases[0]}
+                  id="phase"
+                  name="phase"
+                  onChange={handleSelectChange}
+                  options={phases}
                 />
-              </label>
-              <label htmlFor="ph">
-                PH
+              </FormWrapper>
+              <FormWrapper>
+                <p>PH Water</p>
                 <input
                   type="text"
-                  name="ph"
-                  id="ph"
+                  name="ph_water"
+                  id="ph_water"
                   placeholder="6.2"
                   onChange={handleInputChange}
                 />
-              </label>
-              <label htmlFor="ec">
-                EC
+              </FormWrapper>
+              <FormWrapper>
+                <p>PH Soil</p>
+                <input
+                  type="text"
+                  name="ph_soil"
+                  id="ph_soil"
+                  placeholder="6.2"
+                  onChange={handleInputChange}
+                />
+              </FormWrapper>
+              <FormWrapper>
+                <p>EC</p>
                 <input
                   type="text"
                   name="ec"
@@ -331,9 +518,9 @@ export default function Project(props) {
                   placeholder="2000"
                   onChange={handleInputChange}
                 />
-              </label>
-              <label htmlFor="temp_max">
-                Temperature Max
+              </FormWrapper>
+              <FormWrapper>
+                <p>Temperature Max</p>
                 <input
                   type="text"
                   name="temp_max"
@@ -341,9 +528,9 @@ export default function Project(props) {
                   placeholder="37"
                   onChange={handleInputChange}
                 />
-              </label>
-              <label htmlFor="temp_min">
-                Temperature Min
+              </FormWrapper>
+              <FormWrapper>
+                <p>Temperature Min</p>
                 <input
                   type="text"
                   name="temp_min"
@@ -351,9 +538,9 @@ export default function Project(props) {
                   placeholder="20"
                   onChange={handleInputChange}
                 />
-              </label>
-              <label htmlFor="moisture">
-                Air Humidity
+              </FormWrapper>
+              <FormWrapper>
+                <p>Soil Moisture</p>
                 <input
                   type="text"
                   name="moisture"
@@ -361,33 +548,48 @@ export default function Project(props) {
                   placeholder="50%"
                   onChange={handleInputChange}
                 />
-              </label>
-              <ImgInput name="avatar_id" />
-              <div className="buttons">
-                <button
-                  disabled={!btnDisable}
-                  type="button"
-                  className="salvar"
-                  onClick={e => {
-                    e.preventDefault();
-                    if (
-                      !currentData.infos ||
-                      !currentData.phase ||
-                      !currentData.ph ||
-                      !currentData.ec ||
-                      !currentData.temp_max ||
-                      !currentData.temp_min ||
-                      !currentData.moisture
-                    )
-                      return;
+              </FormWrapper>
+              <FormWrapper>
+                <p>Air Humidity</p>
+                <input
+                  type="text"
+                  name="air_humidity"
+                  id="air_humidity"
+                  placeholder="10%"
+                  onChange={handleInputChange}
+                />
+              </FormWrapper>
+              <FormWrapper>
+                <p>Image</p>
+                <ImgInput name="avatar_id" />
+                <div className="buttons">
+                  <button
+                    disabled={!btnDisable}
+                    type="button"
+                    className="salvar"
+                    onClick={e => {
+                      e.preventDefault();
+                      if (
+                        !currentData.infos ||
+                        !currentData.phase ||
+                        !currentData.ph_water ||
+                        !currentData.ph_soil ||
+                        !currentData.ec ||
+                        !currentData.temp_max ||
+                        !currentData.temp_min ||
+                        !currentData.air_humidity ||
+                        !currentData.moisture
+                      )
+                        return;
 
-                    saveItem(currentData);
-                    window.location.reload();
-                  }}
-                >
-                  Salvar
-                </button>
-              </div>
+                      saveItem(currentData);
+                      window.location.reload();
+                    }}
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </FormWrapper>
             </Form>
           </WrapperDataAdd>
         </WrapperContent>

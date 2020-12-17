@@ -15,10 +15,8 @@ export default function Header() {
         </nav>
         <aside>
           <Profile>
-            <div>
-              <strong>{profile.name}</strong>
-              <Link to="/profile">Meu perfil</Link>
-            </div>
+            <p>Hello,&nbsp;</p>
+            <Link to="/profile">{profile.name}</Link>
           </Profile>
         </aside>
       </Content>

@@ -5,26 +5,23 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  height: 64px;
+  height: 80px;
   max-width: 900px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-flow: row;
 
   nav {
     display: flex;
     align-items: center;
 
-    img {
-      margin-right: 20px;
-      padding-right: 20px;
-      border-right: 1px solid #eee;
-    }
-
     a {
       font-weight: bold;
-      color: lightblue;
+      font-size: 18px;
+      color: #17b978;
+      font-family: 'Rubik', sans-serif;
     }
   }
 
@@ -32,33 +29,30 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
   }
+
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: column;
+    flex-direction: column-reverse;
+  }
 `;
 
 export const Profile = styled.div`
   display: flex;
-  margin-left: 20px;
-  padding-left: 20px;
+  justify-content: center;
+  align-items: flex-end;
 
-  div {
-    text-align: right;
-    margin-right: 10px;
-
-    strong {
-      display: block;
-      color: #333;
-    }
-
-    a {
-      display: block;
-      margin-top: 2px;
-      font-size: 12px;
-      color: #999;
-    }
+  p {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 12px;
   }
 
-  img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+  a {
+    display: block;
+    font-size: 16px;
+    color: #17b978;
+    font-family: 'Rubik', sans-serif;
   }
 `;
