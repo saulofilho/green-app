@@ -76,7 +76,8 @@ export const Form = styled.form`
     font-size: 24px;
   }
 
-  #phase {
+  #phase,
+  #img_id {
     width: 100%;
   }
 
@@ -112,6 +113,11 @@ export const Form = styled.form`
       background: ${darken(0.09, 'lightgreen')};
       color: #000;
     }
+  }
+
+  img {
+    width: 100%;
+    border: 1px solid #000;
   }
 `;
 

@@ -18,9 +18,6 @@ const createGreen = data => {
 const updateGreen = (id, data) => {
   return api.put(`/green/${id}`, data);
 };
-const upImg = data => {
-  return api.post('/imgs', data);
-};
 
 // const removeGreen = id => {
 //   return api.delete(`/green/${id}`);
@@ -36,5 +33,4 @@ export default {
   getGreens,
   createGreen,
   updateGreen,
-  upImg,
 };

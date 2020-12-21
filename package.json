@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/bar": "^0.67.0",
+    "@nivo/bump": "^0.67.0",
+    "@nivo/core": "^0.67.0",
     "@rocketseat/unform": "^1.6.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -26,7 +29,6 @@
     "reactotron-react-js": "^3.3.7",
     "reactotron-redux": "^3.1.2",
     "reactotron-redux-saga": "^4.2.3",
-    "recharts": "^1.8.5",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",

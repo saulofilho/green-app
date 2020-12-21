@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Select from 'react-select';
+import { useField } from '@rocketseat/unform';
 import DataService from '../../services/crudApi';
-import ImgInput from './ImgInput';
+import api from '../../services/api';
 import 'remixicon/fonts/remixicon.css';
 import {
   Container,
@@ -42,6 +43,11 @@ export default function Project(props) {
   const [projectDataFiltered, setProjectDataFiltered] = useState([]);
   const [editOn, setEditOn] = useState(false);
 
+  const { defaultValue, registerField } = useField('img_green');
+  const [file, setFile] = useState(defaultValue && defaultValue.id);
+  const [preview, setPreview] = useState(defaultValue && defaultValue.url);
+  const ref = useRef();
+
   useEffect(() => {
     const loadItens = async id => {
       await DataService.getProject(id).then(response => {
@@ -72,6 +78,7 @@ export default function Project(props) {
     moisture: '',
     air_humidity: '',
     phase: '',
+    img_id: '',
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
@@ -103,6 +110,34 @@ export default function Project(props) {
     setCurrentData(prevState => ({
       ...prevState,
       phase: item.value,
+    }));
+  };
+
+  useEffect(() => {
+    if (ref.current) {
+      registerField({
+        name: 'img_id',
+        ref: ref.current,
+        path: 'dataset.file',
+      });
+    }
+  }, [ref, registerField]);
+
+  const handleChange = async e => {
+    const data = new FormData();
+
+    data.append('file', e.target.files[0]);
+
+    const response = await api.post('imgs', data);
+
+    const { id, url } = response.data;
+
+    setFile(id);
+    setPreview(url);
+
+    setCurrentData(prevState => ({
+      ...prevState,
+      img_id: id,
     }));
   };
 
@@ -335,9 +370,12 @@ export default function Project(props) {
                   <Col>
                     <TitleBox>Image: </TitleBox>
                     <img
-                      src={item.img ? item.img.url : 'No image.'}
+                      src={
+                        item.img ? item.img.url : '../../assets/images/x.jpg'
+                      }
                       alt={item.name}
                     />
+                    <img src={preview} alt={item.name} />
                   </Col>
                 </WrapperInfos>
               </Row>
@@ -440,8 +478,6 @@ export default function Project(props) {
                           />
                         </FormWrapper>
                         <FormWrapper>
-                          <p>Image</p>
-                          <ImgInput name="avatar_id" />
                           <div className="buttons">
                             <button
                               disabled={!btnDisable}
@@ -561,7 +597,16 @@ export default function Project(props) {
               </FormWrapper>
               <FormWrapper>
                 <p>Image</p>
-                <ImgInput name="avatar_id" />
+                {preview ? <img src={preview} alt="green data img" /> : ''}
+                <input
+                  name="img_id"
+                  type="file"
+                  id="img_id"
+                  accept="image/*"
+                  data-file={file}
+                  onChange={handleChange}
+                  ref={ref}
+                />
                 <div className="buttons">
                   <button
                     disabled={!btnDisable}
