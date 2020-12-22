@@ -9,6 +9,12 @@ const getProjects = () => {
 const createProjects = data => {
   return api.post('/project', data);
 };
+const removeProject = id => {
+  return api.delete(`/project/${id}`);
+};
+const editProject = (id, data) => {
+  return api.put(`/project/${id}`, data);
+};
 const getGreens = () => {
   return api.get('/greens');
 };
@@ -19,13 +25,6 @@ const updateGreen = (id, data) => {
   return api.put(`/green/${id}`, data);
 };
 
-// const removeGreen = id => {
-//   return api.delete(`/green/${id}`);
-// };
-// const removeProject = id => {
-//   return api.delete(`/project/${id}`);
-// };
-
 export default {
   getProject,
   getProjects,
@@ -33,4 +32,6 @@ export default {
   getGreens,
   createGreen,
   updateGreen,
+  removeProject,
+  editProject,
 };

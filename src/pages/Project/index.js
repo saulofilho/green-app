@@ -1,18 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Select from 'react-select';
 import { useField } from '@rocketseat/unform';
 import DataService from '../../services/crudApi';
 import api from '../../services/api';
 import 'remixicon/fonts/remixicon.css';
+import ProjectData from '../../components/ProjectData';
+import AddData from '../../components/AddData';
+import EditData from '../../components/EditData';
 import {
   Container,
   Content,
-  Form,
   WrapperContent,
   WrapperData,
-  WrapperDataAdd,
   DayWrapper,
-  AddWrapper,
   Row,
   RowDay,
   Col,
@@ -22,17 +21,10 @@ import {
   RowDayWrapper,
   BorderLeft,
   BorderBotAndLeft,
-  Title,
-  Subtitle,
-  Text,
-  TextWrapper,
-  WrapperProjectInfos,
-  FormWrapper,
   SmallText,
   BigText,
   TitleBox,
   TextBox,
-  Button,
 } from './styles';
 
 export default function Project(props) {
@@ -65,7 +57,6 @@ export default function Project(props) {
     loadItens(props.match.params.id);
   }, [props, greenData]);
 
-  // GREEN DATA
   const initialFormState = {
     project_id: props.match.params.id,
     id: '',
@@ -163,7 +154,6 @@ export default function Project(props) {
         );
       }
     );
-    window.location.reload();
   };
 
   const editButton = item => {
@@ -211,48 +201,10 @@ export default function Project(props) {
   return (
     <Container>
       <Content>
-        {projectData.map(item => (
-          <WrapperProjectInfos key={item.id + item.name}>
-            <Title>{item.harvest_name}</Title>
-            <TextWrapper>
-              <Text>Strain:&nbsp;</Text>
-              <Subtitle>{item.strain_name}</Subtitle>
-            </TextWrapper>
-            <TextWrapper>
-              <Text>Breeder:&nbsp;</Text>
-              <Subtitle>{item.breeder}</Subtitle>
-            </TextWrapper>
-            <TextWrapper>
-              <Text>Flowering Type:&nbsp;</Text>
-              <Subtitle>{item.flowering_type}</Subtitle>
-            </TextWrapper>
-            <br />
-            <TextWrapper>
-              <Text>Infos:&nbsp;</Text>
-              <Subtitle>{item.infos}</Subtitle>
-            </TextWrapper>
-            <TextWrapper>
-              <Text>Tools:&nbsp;</Text>
-              <Subtitle>{item.tools}</Subtitle>
-            </TextWrapper>
-            <TextWrapper>
-              <Text>Soil:&nbsp;</Text>
-              <Subtitle>{item.soil}</Subtitle>
-            </TextWrapper>
-            <TextWrapper>
-              <Text>Nutrients:&nbsp;</Text>
-              <Subtitle>{item.nutrients}</Subtitle>
-            </TextWrapper>
-            <TextWrapper>
-              <Text>Pot Size:&nbsp;</Text>
-              <Subtitle>{item.pot_size} L</Subtitle>
-            </TextWrapper>
-            <TextWrapper>
-              <Text>Light Schedule:&nbsp;</Text>
-              <Subtitle>{item.light_schedule}</Subtitle>
-            </TextWrapper>
-          </WrapperProjectInfos>
-        ))}
+        <ProjectData
+          projectData={projectData}
+          setProjectData={setProjectData}
+        />
       </Content>
       <Content>
         {projectDataFiltered.map((item, index) => (
@@ -380,264 +332,34 @@ export default function Project(props) {
                 </WrapperInfos>
               </Row>
               <Row>
-                <WrapperInfos>
-                  <Col>
-                    <Button type="button" onClick={() => editButton(item)}>
-                      <i className="ri-file-edit-line ri-2x" />
-                    </Button>
-                    <TitleBox>Edit your data: </TitleBox>
-                    <WrapperDataAdd hideAdd={editOn}>
-                      <Form>
-                        <FormWrapper>
-                          <p>Infos</p>
-                          <textarea
-                            name="infos"
-                            id="infos"
-                            onChange={handleInputChange}
-                            value={currentData && currentData.infos}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Phase</p>
-                          <Select
-                            defaultMenuIsOpen
-                            id="phase"
-                            name="phase"
-                            onChange={handleSelectChange}
-                            options={phases}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>PH Water</p>
-                          <input
-                            type="text"
-                            name="ph_water"
-                            id="ph_water"
-                            onChange={handleInputChange}
-                            value={currentData && currentData.ph_water}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>PH Soil</p>
-                          <input
-                            type="text"
-                            name="ph_soil"
-                            id="ph_soil"
-                            onChange={handleInputChange}
-                            value={currentData && currentData.ph_soil}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>EC</p>
-                          <input
-                            type="text"
-                            name="ec"
-                            id="ec"
-                            onChange={handleInputChange}
-                            value={currentData && currentData.ec}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Temperature Max</p>
-                          <input
-                            type="text"
-                            name="temp_max"
-                            id="temp_max"
-                            onChange={handleInputChange}
-                            value={currentData && currentData.temp_max}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Temperature Min</p>
-                          <input
-                            type="text"
-                            name="temp_min"
-                            id="temp_min"
-                            onChange={handleInputChange}
-                            value={currentData && currentData.temp_min}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Soil Moisture</p>
-                          <input
-                            type="text"
-                            name="moisture"
-                            id="moisture"
-                            onChange={handleInputChange}
-                            value={currentData && currentData.moisture}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Air Humidity</p>
-                          <input
-                            type="text"
-                            name="air_humidity"
-                            id="air_humidity"
-                            onChange={handleInputChange}
-                            value={currentData && currentData.air_humidity}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <div className="buttons">
-                            <button
-                              disabled={!btnDisable}
-                              type="button"
-                              className="salvar"
-                              onClick={e => {
-                                e.preventDefault();
-                                updateItem(currentData.id, currentData);
-                              }}
-                            >
-                              Edit
-                            </button>
-                          </div>
-                        </FormWrapper>
-                      </Form>
-                    </WrapperDataAdd>
-                  </Col>
-                </WrapperInfos>
+                <EditData
+                  editButton={editButton}
+                  editOn={editOn}
+                  item={item}
+                  handleInputChange={handleInputChange}
+                  updateItem={updateItem}
+                  currentData={currentData}
+                  handleSelectChange={handleSelectChange}
+                  phases={phases}
+                  btnDisable={btnDisable}
+                />
               </Row>
             </WrapperData>
           </WrapperContent>
         ))}
-        <WrapperContent>
-          <AddWrapper onClick={() => toggleAdd()}>
-            Add a brand new day!
-          </AddWrapper>
-          <WrapperDataAdd hideAdd={isToggledAdd}>
-            <Form>
-              <FormWrapper>
-                <p>Infos</p>
-                <textarea
-                  name="infos"
-                  id="infos"
-                  placeholder="Infos..."
-                  onChange={handleInputChange}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>Phase</p>
-                <Select
-                  defaultValue={phases[0]}
-                  id="phase"
-                  name="phase"
-                  onChange={handleSelectChange}
-                  options={phases}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>PH Water</p>
-                <input
-                  type="text"
-                  name="ph_water"
-                  id="ph_water"
-                  placeholder="6.2"
-                  onChange={handleInputChange}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>PH Soil</p>
-                <input
-                  type="text"
-                  name="ph_soil"
-                  id="ph_soil"
-                  placeholder="6.2"
-                  onChange={handleInputChange}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>EC</p>
-                <input
-                  type="text"
-                  name="ec"
-                  id="ec"
-                  placeholder="2000"
-                  onChange={handleInputChange}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>Temperature Max</p>
-                <input
-                  type="text"
-                  name="temp_max"
-                  id="temp_max"
-                  placeholder="37"
-                  onChange={handleInputChange}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>Temperature Min</p>
-                <input
-                  type="text"
-                  name="temp_min"
-                  id="temp_min"
-                  placeholder="20"
-                  onChange={handleInputChange}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>Soil Moisture</p>
-                <input
-                  type="text"
-                  name="moisture"
-                  id="moisture"
-                  placeholder="50%"
-                  onChange={handleInputChange}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>Air Humidity</p>
-                <input
-                  type="text"
-                  name="air_humidity"
-                  id="air_humidity"
-                  placeholder="10%"
-                  onChange={handleInputChange}
-                />
-              </FormWrapper>
-              <FormWrapper>
-                <p>Image</p>
-                {preview ? <img src={preview} alt="green data img" /> : ''}
-                <input
-                  name="img_id"
-                  type="file"
-                  id="img_id"
-                  accept="image/*"
-                  data-file={file}
-                  onChange={handleChange}
-                  ref={ref}
-                />
-                <div className="buttons">
-                  <button
-                    disabled={!btnDisable}
-                    type="button"
-                    className="salvar"
-                    onClick={e => {
-                      e.preventDefault();
-                      if (
-                        !currentData.infos ||
-                        !currentData.phase ||
-                        !currentData.ph_water ||
-                        !currentData.ph_soil ||
-                        !currentData.ec ||
-                        !currentData.temp_max ||
-                        !currentData.temp_min ||
-                        !currentData.air_humidity ||
-                        !currentData.moisture
-                      )
-                        return;
-
-                      saveItem(currentData);
-                      window.location.reload();
-                    }}
-                  >
-                    Salvar
-                  </button>
-                </div>
-              </FormWrapper>
-            </Form>
-          </WrapperDataAdd>
-        </WrapperContent>
+        <AddData
+          toggleAdd={toggleAdd}
+          isToggledAdd={isToggledAdd}
+          handleInputChange={handleInputChange}
+          handleChange={handleChange}
+          saveItem={saveItem}
+          currentData={currentData}
+          phases={phases}
+          handleSelectChange={handleSelectChange}
+          preview={preview}
+          file={file}
+          btnDisable={btnDisable}
+        />
       </Content>
     </Container>
   );
