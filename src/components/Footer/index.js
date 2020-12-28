@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <Container>
       <Content>
-        <h5>speedweed, inc</h5>
+        <h5>buenavistalab & speedweed, inc</h5>
       </Content>
     </Container>
   );

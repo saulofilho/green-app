@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 // import logo from '~/assets/logo.svg';
+import Granim from 'react-granim';
 import { signInRequest } from '../../store/modules/auth/actions';
 
 const schema = Yup.object().shape({
@@ -24,17 +25,14 @@ export default function SignIn() {
   return (
     <>
       {/* <img src={logo} alt="GoBarber" /> */}
-      <h1>API Rest</h1>
+      <h1>BOTANIC DAILY DATA *beta</h1>
       <Form schema={schema} onSubmit={handleSubmit}>
-        <Input name="email" type="email" placeholder="Seu email" />
-        <Input
-          name="password"
-          type="password"
-          placeholder="sua senha secreta"
-        />
+        <Input name="email" type="email" placeholder="admin@admin.com" />
+        <Input name="password" type="password" placeholder="123456" />
         <button type="submit">{loading ? 'Carregando...' : 'Acessar'}</button>
-        <Link to="/register">Criar conta gratuita</Link>
+        {/* <Link to="/register">Criar conta gratuita</Link> */}
       </Form>
+      <Granim id="granim" />
     </>
   );
 }

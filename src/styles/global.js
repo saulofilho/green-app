@@ -53,4 +53,8 @@ export default createGlobalStyle`
     background: #071a52;
     color: #17b978;
   }
+
+  #granim {
+    z-index: -9;
+  }
 `;
