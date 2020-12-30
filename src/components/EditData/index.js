@@ -128,7 +128,6 @@ export default function EditData({
                   onClick={e => {
                     e.preventDefault();
                     updateItem(currentData.id, currentData);
-                    window.location.reload();
                   }}
                 >
                   Edit

@@ -101,7 +101,7 @@ export const Form = styled.form`
 
   input {
     font-family: 'Rubik', sans-serif;
-    width: 50%;
+    width: 100%;
     height: auto;
     padding: 10px 15px;
     border: unset;
@@ -118,7 +118,7 @@ export const Form = styled.form`
     font-family: 'Rubik', sans-serif;
     font-size: 24px;
     width: 100%;
-    min-height: 400px;
+    min-height: 100px;
     padding: 10px 15px;
     border: unset;
     border-bottom: 2px solid #000;

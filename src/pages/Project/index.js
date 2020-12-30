@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
 import DataService from '../../services/crudApi';
 import api from '../../services/api';
 import 'remixicon/fonts/remixicon.css';
@@ -135,6 +136,14 @@ export default function Project(props) {
   const saveItem = async () => {
     await DataService.createGreen(currentData).then(response => {
       setCurrentData(response.data);
+      if (response.status === 200) {
+        toast.success('Saved successfully.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } else if (response.status !== 200) {
+        toast.error('Something went wrong.');
+      }
     });
   };
 
@@ -152,6 +161,14 @@ export default function Project(props) {
         setGreenData(
           greenData.map(item => (item.id === id ? updateGreenData : item))
         );
+        if (response.status === 200) {
+          toast.success('Saved successfully.');
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        } else if (response.status !== 200) {
+          toast.error('Something went wrong.');
+        }
       }
     );
   };

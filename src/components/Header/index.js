@@ -11,7 +11,7 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <Link to="/">The Harvest Analytic</Link>
+          <Link to="/">BOTANIC DAILY DATA</Link>
         </nav>
         <aside>
           <Profile>

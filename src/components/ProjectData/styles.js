@@ -16,7 +16,6 @@ export const Subtitle = styled.p`
 export const Text = styled.p`
   font-family: 'Rubik', sans-serif;
   font-size: 16px;
-  padding: 0 0 10px;
 `;
 
 export const TextWrapper = styled.div`
@@ -24,6 +23,7 @@ export const TextWrapper = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   flex-flow: row;
+  padding: 0 0 15px;
 `;
 
 export const WrapperProjectInfos = styled.div`

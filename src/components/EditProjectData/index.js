@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import DataService from '../../services/crudApi';
 import {
   WrapperInfos,
@@ -47,8 +48,15 @@ export default function EditProjectData({
       setProjectData(
         projectData.map(item => (item.id === id ? updateProjectData : item))
       );
+      if (response.status === 200) {
+        toast.success('Saved successfully.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } else if (response.status !== 200) {
+        toast.error('Something went wrong.');
+      }
     });
-    window.location.reload();
   };
 
   const editButton = item => {
@@ -116,7 +124,7 @@ export default function EditProjectData({
             </FormWrapper>
             <FormWrapper>
               <p>Infos</p>
-              <input
+              <textarea
                 type="text"
                 name="infos"
                 id="infos"
@@ -193,7 +201,6 @@ export default function EditProjectData({
                   onClick={e => {
                     e.preventDefault();
                     updateProject(currentProjectData.id, currentProjectData);
-                    window.location.reload();
                   }}
                 >
                   Edit

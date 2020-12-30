@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { Wizard, Steps, Step } from 'react-albus';
@@ -82,15 +83,23 @@ export default function Dashboard() {
   const saveItem = async () => {
     await DataService.createProjects(currentData).then(response => {
       setCurrentData(response.data);
+      if (response.status === 200) {
+        toast.success('Saved successfully.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } else if (response.status !== 200) {
+        toast.error('Something went wrong.');
+      }
     });
   };
 
   const flowering_type = [
-    { value: 'regular', label: 'Regular' },
-    { value: 'feminised', label: 'Feminised' },
-    { value: 'autoflowering', label: 'Autoflowering' },
-    { value: 'autoflowering_regular', label: 'Autoflowering Regular' },
-    { value: 'fast', label: 'Fast' },
+    { value: 'Regular', label: 'Regular' },
+    { value: 'Feminised', label: 'Feminised' },
+    { value: 'Autoflowering', label: 'Autoflowering' },
+    { value: 'Autoflowering Regular', label: 'Autoflowering Regular' },
+    { value: 'Fast', label: 'Fast' },
   ];
 
   const handleSelectChange = item => {
@@ -104,7 +113,6 @@ export default function Dashboard() {
     <Container>
       <Content>
         <Title>Hey! I am your harvest data.</Title>
-
         <Subtitle>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
@@ -220,7 +228,7 @@ export default function Dashboard() {
                         <FormWrapper>
                           <p>Flowering Type</p>
                           <Select
-                            defaultValue={flowering_type[0]}
+                            defaultMenuIsOpen
                             id="flowering_type"
                             name="flowering_type"
                             onChange={handleSelectChange}
@@ -283,7 +291,7 @@ export default function Dashboard() {
                             type="text"
                             name="pot_size"
                             id="pot_size"
-                            placeholder="99 L"
+                            placeholder="99"
                             value={currentData.pot_size}
                             onChange={handleInputChange}
                           />
@@ -308,26 +316,11 @@ export default function Dashboard() {
                             type="button"
                             onClick={e => {
                               e.preventDefault();
-                              if (
-                                !currentData.harvest_name ||
-                                !currentData.infos ||
-                                !currentData.strain_name ||
-                                !currentData.breeder ||
-                                !currentData.flowering_type ||
-                                !currentData.tools ||
-                                !currentData.nutrients ||
-                                !currentData.soil ||
-                                !currentData.grow_techniques ||
-                                !currentData.pot_size ||
-                                !currentData.light_schedule
-                              )
-                                return;
 
                               saveItem(currentData);
-                              window.location.reload();
                             }}
                           >
-                            Salvar
+                            Save
                           </button>
                         </div>
                       </Form>
@@ -335,16 +328,6 @@ export default function Dashboard() {
                   </Step>
                 </Steps>
                 <div className="example-buttons">
-                  {steps.indexOf(step) < steps.length - 1 && (
-                    <CreateHarvestBtn
-                      type="button"
-                      className="btn-fluid margin-1-b"
-                      onClick={next}
-                    >
-                      Next
-                    </CreateHarvestBtn>
-                  )}
-
                   {steps.indexOf(step) > 0 && (
                     <CreateHarvestBtn
                       type="button"
@@ -352,6 +335,16 @@ export default function Dashboard() {
                       onClick={previous}
                     >
                       Back
+                    </CreateHarvestBtn>
+                  )}
+
+                  {steps.indexOf(step) < steps.length - 1 && (
+                    <CreateHarvestBtn
+                      type="button"
+                      className="btn-fluid margin-1-b"
+                      onClick={next}
+                    >
+                      Next
                     </CreateHarvestBtn>
                   )}
                 </div>

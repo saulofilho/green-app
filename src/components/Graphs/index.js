@@ -17,6 +17,8 @@ export default function Graphs({ greenData }) {
   //   };
   // });
 
+  console.log('greeeeeeeeeen', greenData);
+
   const dataTeste = [
     {
       id: 'JavaScript',
@@ -76,93 +78,6 @@ export default function Graphs({ greenData }) {
         },
       ],
     },
-    {
-      id: 'TypeScript',
-      data: [
-        {
-          x: 2000,
-          y: 16,
-        },
-        {
-          x: 2001,
-          y: 24,
-        },
-        {
-          x: 2002,
-          y: 25,
-        },
-        {
-          x: 2003,
-          y: 21,
-        },
-        {
-          x: 2004,
-          y: 29,
-        },
-        {
-          x: 2005,
-          y: 28,
-        },
-      ],
-    },
-    {
-      id: 'Elm',
-      data: [
-        {
-          x: 2000,
-          y: 20,
-        },
-        {
-          x: 2001,
-          y: 25,
-        },
-        {
-          x: 2002,
-          y: 29,
-        },
-        {
-          x: 2003,
-          y: 16,
-        },
-        {
-          x: 2004,
-          y: 18,
-        },
-        {
-          x: 2005,
-          y: 22,
-        },
-      ],
-    },
-    {
-      id: 'CoffeeScript',
-      data: [
-        {
-          x: 2000,
-          y: 21,
-        },
-        {
-          x: 2001,
-          y: 21,
-        },
-        {
-          x: 2002,
-          y: 21,
-        },
-        {
-          x: 2003,
-          y: 22,
-        },
-        {
-          x: 2004,
-          y: 17,
-        },
-        {
-          x: 2005,
-          y: 30,
-        },
-      ],
-    },
   ];
 
   return (
@@ -197,13 +112,13 @@ export default function Graphs({ greenData }) {
           fill={[
             {
               match: {
-                id: 'CoffeeScript',
+                id: 'JavaScript',
               },
               id: 'dots',
             },
             {
               match: {
-                id: 'TypeScript',
+                id: 'ReasonML',
               },
               id: 'lines',
             },
@@ -230,7 +145,7 @@ export default function Graphs({ greenData }) {
       <WrapperGraph>
         <ResponsiveBar
           data={dataTeste}
-          keys={['y', 'x']}
+          keys={['JavaScript', 'ReasonML']}
           indexBy="id"
           margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
           padding={0.3}
@@ -260,13 +175,13 @@ export default function Graphs({ greenData }) {
           fill={[
             {
               match: {
-                id: 'x',
+                id: 'JavaScript',
               },
               id: 'dots',
             },
             {
               match: {
-                id: 'y',
+                id: 'ReasonML',
               },
               id: 'lines',
             },

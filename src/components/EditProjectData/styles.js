@@ -74,12 +74,12 @@ export const Form = styled.form`
 
   input {
     font-family: 'Rubik', sans-serif;
-    width: 50%;
+    width: 100%;
     height: auto;
-    padding: 10px 15px;
+    padding: 10px 5px;
     border: unset;
     border-bottom: 2px solid #000;
-    margin: 0 0 50px;
+    margin: 0 0 30px;
     font-size: 24px;
   }
 
@@ -92,7 +92,7 @@ export const Form = styled.form`
     font-family: 'Rubik', sans-serif;
     font-size: 24px;
     width: 100%;
-    min-height: 400px;
+    min-height: 100px;
     padding: 10px 15px;
     border: unset;
     border-bottom: 2px solid #000;
@@ -133,7 +133,7 @@ export const FormWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   flex-flow: column;
-  padding: 30px;
+  padding: 0 30px 10px;
 
   p {
     font-family: 'Source Serif Pro', serif;

@@ -39,7 +39,7 @@ export default function AddData({
           <FormWrapper>
             <p>Phase</p>
             <Select
-              defaultValue={phases[0]}
+              defaultMenuIsOpen
               id="phase"
               name="phase"
               onChange={handleSelectChange}
@@ -102,7 +102,7 @@ export default function AddData({
               type="text"
               name="moisture"
               id="moisture"
-              placeholder="50%"
+              placeholder="80"
               onChange={handleInputChange}
             />
           </FormWrapper>
@@ -112,7 +112,7 @@ export default function AddData({
               type="text"
               name="air_humidity"
               id="air_humidity"
-              placeholder="10%"
+              placeholder="60"
               onChange={handleInputChange}
             />
           </FormWrapper>
@@ -135,24 +135,11 @@ export default function AddData({
                 className="salvar"
                 onClick={e => {
                   e.preventDefault();
-                  if (
-                    !currentData.infos ||
-                    !currentData.phase ||
-                    !currentData.ph_water ||
-                    !currentData.ph_soil ||
-                    !currentData.ec ||
-                    !currentData.temp_max ||
-                    !currentData.temp_min ||
-                    !currentData.air_humidity ||
-                    !currentData.moisture
-                  )
-                    return;
 
                   saveItem(currentData);
-                  window.location.reload();
                 }}
               >
-                Salvar
+                Save
               </button>
             </div>
           </FormWrapper>
