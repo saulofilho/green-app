@@ -1,21 +1,25 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveAreaBump } from '@nivo/bump';
-// import { parseISO } from 'date-fns';
+import { ResponsivePie } from '@nivo/pie';
+import { parseISO } from 'date-fns';
 
 import { Content, WrapperGraph } from './styles';
 
 export default function Graphs({ greenData }) {
-  // const dateFormatMonth = greenData.map(date => {
-  //   return {
-  //     ...date,
-  //     createdAt: parseISO(date.createdAt).toLocaleString('en-US'),
-  //     updatedAt: parseISO(date.createdAt).toLocaleString('default', {
-  //       weekday: 'long',
-  //       day: '2-digit',
-  //     }),
-  //   };
-  // });
+  const dateFormatMonth = greenData.map(date => {
+    return {
+      ...date,
+      createdAt: parseISO(date.createdAt).toLocaleString('en-US', {
+        weekday: 'long',
+        day: '2-digit',
+      }),
+      updatedAt: parseISO(date.createdAt).toLocaleString('en-US', {
+        weekday: 'long',
+        day: '2-digit',
+      }),
+    };
+  });
 
   console.log('greeeeeeeeeen', greenData);
 
@@ -235,6 +239,118 @@ export default function Graphs({ greenData }) {
           animate
           motionStiffness={90}
           motionDamping={15}
+        />
+      </WrapperGraph>
+      <WrapperGraph>
+        <ResponsivePie
+          data={dateFormatMonth}
+          margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+          innerRadius={0.5}
+          padAngle={0.7}
+          cornerRadius={3}
+          colors={{ scheme: 'greens' }}
+          borderWidth={1}
+          borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+          radialLabelsSkipAngle={10}
+          radialLabelsTextColor="#333333"
+          radialLabelsLinkColor={{ from: 'color' }}
+          sliceLabelsSkipAngle={10}
+          sliceLabelsTextColor="#333333"
+          defs={[
+            {
+              id: 'dots',
+              type: 'patternDots',
+              background: 'inherit',
+              color: 'rgba(255, 255, 255, 0.3)',
+              size: 4,
+              padding: 1,
+              stagger: true,
+            },
+            {
+              id: 'lines',
+              type: 'patternLines',
+              background: 'inherit',
+              color: 'rgba(255, 255, 255, 0.3)',
+              rotation: -45,
+              lineWidth: 6,
+              spacing: 10,
+            },
+          ]}
+          fill={[
+            {
+              match: {
+                id: 'ph_water',
+              },
+              id: 'dots',
+            },
+            {
+              match: {
+                id: 'ph_soil',
+              },
+              id: 'dots',
+            },
+            {
+              match: {
+                id: 'ec',
+              },
+              id: 'dots',
+            },
+            {
+              match: {
+                id: 'temp_max',
+              },
+              id: 'dots',
+            },
+            {
+              match: {
+                id: 'temp_min',
+              },
+              id: 'lines',
+            },
+            {
+              match: {
+                id: 'moisture',
+              },
+              id: 'lines',
+            },
+            {
+              match: {
+                id: 'air_mudity',
+              },
+              id: 'lines',
+            },
+            {
+              match: {
+                id: 'ec',
+              },
+              id: 'lines',
+            },
+          ]}
+          legends={[
+            {
+              anchor: 'bottom',
+              direction: 'row',
+              justify: false,
+              translateX: 0,
+              translateY: 56,
+              itemsSpacing: 0,
+              itemWidth: 100,
+              itemHeight: 18,
+              itemTextColor: '#999',
+              itemDirection: 'left-to-right',
+              itemOpacity: 1,
+              symbolSize: 18,
+              symbolShape: 'circle',
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemTextColor: '#000',
+                  },
+                },
+              ],
+            },
+          ]}
         />
       </WrapperGraph>
     </Content>

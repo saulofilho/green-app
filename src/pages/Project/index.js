@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import DataService from '../../services/crudApi';
 import api from '../../services/api';
 import 'remixicon/fonts/remixicon.css';
+import GraphsData from '../../components/GraphsData';
 import ProjectData from '../../components/ProjectData';
 import AddData from '../../components/AddData';
 import EditData from '../../components/EditData';
@@ -377,6 +378,7 @@ export default function Project(props) {
           file={file}
           btnDisable={btnDisable}
         />
+        <GraphsData greenData={projectDataFiltered} />
       </Content>
     </Container>
   );
