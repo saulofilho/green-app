@@ -26,6 +26,7 @@ import {
 export default function Dashboard() {
   const [wizardOn, setWizardOn] = useState(false);
   const [projectData, setProjectData] = useState([]);
+  const [allProjectsData, setAllProjectsData] = useState([]);
   const [greenData, setGreenData] = useState([]);
 
   const initialFormState = {
@@ -45,7 +46,7 @@ export default function Dashboard() {
 
   const [currentData, setCurrentData] = useState(initialFormState);
 
-  // get
+  // all get
   useEffect(() => {
     async function loadDataProjects() {
       const response = await DataService.getProjects();
@@ -66,11 +67,21 @@ export default function Dashboard() {
     }
 
     loadDataGreen();
+
+    async function loadDataAllProjects() {
+      const response = await DataService.getProjects();
+
+      const { data } = response;
+
+      setAllProjectsData([...data]);
+    }
+
+    loadDataAllProjects();
   }, []);
 
   const [btnDisable, setBtnDisable] = useState('');
 
-  // save
+  // save data
   const handleInputChange = e => {
     const { name, value } = e.target;
     setBtnDisable(e.target.value);
@@ -132,7 +143,7 @@ export default function Dashboard() {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
         </Subtitle>
 
-        <Graphs greenData={greenData} />
+        <Graphs greenData={greenData} allProjectsData={allProjectsData} />
 
         <Title>Harvests</Title>
 

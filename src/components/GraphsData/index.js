@@ -2,7 +2,6 @@ import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveStream } from '@nivo/stream';
 import { ResponsiveMarimekko } from '@nivo/marimekko';
-import { ResponsiveFunnel } from '@nivo/funnel';
 import { parseISO } from 'date-fns';
 
 import { Content, WrapperGraph } from './styles';
@@ -43,7 +42,6 @@ export default function Graphs({ greenData }) {
             'moisture',
             'air_humidity',
           ]}
-          indexBy="createdAt"
           margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
           padding={0.3}
           valueScale={{ type: 'linear' }}

@@ -187,9 +187,23 @@ export const BigText = styled.p`
   justify-content: center;
   align-items: center;
   flex-flow: column;
-  font-size: 36px;
+  font-size: 30px;
 
   @media (max-width: 768px) {
     font-size: 18px;
   }
+`;
+
+export const Title = styled.p`
+  font-family: 'Rubik', sans-serif;
+  font-size: 36px;
+  padding: 30px 0 10px;
+`;
+
+export const Subtitle = styled.p`
+  font-family: 'Source Serif Pro', serif;
+  font-size: 18px;
+  padding: 0 0 25px;
+  font-style: italic;
+  font-weight: bolder;
 `;

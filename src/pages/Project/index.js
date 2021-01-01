@@ -27,6 +27,8 @@ import {
   BigText,
   TitleBox,
   TextBox,
+  Title,
+  Subtitle,
 } from './styles';
 
 export default function Project(props) {
@@ -253,11 +255,11 @@ export default function Project(props) {
                   </RowDay>
                   <RowDay>
                     <BorderLeft>
-                      <SmallText>PH Water:</SmallText>
+                      <SmallText>PH WATER:</SmallText>
                       <BigText>{item.ph_water}</BigText>
                     </BorderLeft>
                     <BorderLeft>
-                      <SmallText>PH Soil:</SmallText>
+                      <SmallText>PH SOIL:</SmallText>
                       <BigText>{item.ph_water}</BigText>
                     </BorderLeft>
                   </RowDay>
@@ -378,6 +380,11 @@ export default function Project(props) {
           file={file}
           btnDisable={btnDisable}
         />
+        <Title>Graphs about data</Title>
+        <Subtitle>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
+        </Subtitle>
         <GraphsData greenData={projectDataFiltered} />
       </Content>
     </Container>

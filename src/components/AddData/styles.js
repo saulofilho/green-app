@@ -43,6 +43,10 @@ export const AddWrapper = styled.div`
   padding: 20px;
   font-family: 'Rubik', sans-serif;
   font-size: 24px;
+
+  :hover {
+    background-color: #a7ff83;
+  }
 `;
 
 export const WrapperContent = styled.div`
