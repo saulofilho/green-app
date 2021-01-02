@@ -18,10 +18,13 @@ export const Content = styled.div`
     align-items: center;
 
     a {
-      font-weight: bold;
-      font-size: 18px;
-      color: #17b978;
-      font-family: 'Rubik', sans-serif;
+      display: inline-block;
+      width: auto;
+      margin: 0;
+    }
+
+    img {
+      width: 150px;
     }
   }
 

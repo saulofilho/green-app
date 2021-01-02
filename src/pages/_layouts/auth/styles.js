@@ -9,6 +9,11 @@ export const Wrapper = styled.div`
     rgb(251, 215, 134),
     rgb(247, 121, 125)
   ); */
+  width: 100%;
+  background-image: url('../../assets/images/bg-plants.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,14 +32,13 @@ export const Content = styled.div`
     input {
       background: rgba(0, 0, 0, 0.1);
       border: 0;
-      border-radius: 4px;
       height: 44px;
       padding: 0 15px;
-      color: red;
+      color: white;
       margin: 0 0 10px;
 
       &::placeholder {
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba(255, 255, 255, 0.4);
       }
     }
 
@@ -49,16 +53,18 @@ export const Content = styled.div`
     button {
       margin: 5px 0 0;
       height: 44px;
-      background: lightblue;
-      font-weight: bold;
+      background: #a7ff83;
+
       color: #fff;
       border: 0;
       border-radius: 4px;
       font-size: 16px;
       transition: background 0.2s;
+      font-family: 'Rubik', sans-serif;
 
       &:hover {
-        background: ${darken(0.03, 'lightblue')};
+        background: ${darken(0.03, 'lightgreen')};
+        color: #000;
       }
     }
   }

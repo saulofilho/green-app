@@ -11,4 +11,14 @@ export const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  a {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+  }
+
+  img {
+    width: 100px;
+  }
 `;

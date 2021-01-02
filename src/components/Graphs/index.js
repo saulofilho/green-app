@@ -13,7 +13,6 @@ import {
   ComposedChart,
   Area,
   Bar,
-  Cell,
   BarChart,
   AreaChart,
   PolarAngleAxis,
@@ -21,9 +20,6 @@ import {
   Radar,
   RadarChart,
   PolarGrid,
-  RadialBarChart,
-  RadialBar,
-  ReferenceLine,
 } from 'recharts';
 import { parseISO } from 'date-fns';
 
@@ -44,16 +40,17 @@ export default function Graphs({ greenData, allProjectsData }) {
     };
   });
 
-  const x = dateFormatMonth.map(item => item.green).flat();
+  const x = dateFormatMonth.map(item => item.green);
+  const y = x.map(item => item.ec);
 
-  console.log('allProjectsDataallProjectsData', x);
+  console.log('allProjectsDataallProjectsDataallProjectsData', allProjectsData);
 
   return (
     <Content>
       <WrapperGraph>
         <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
           <LineChart data={dateFormatMonth}>
-            <Line type="monotone" dataKey='pot_size' stroke="red" />
+            <Line type="monotone" dataKey="pot_size" stroke="red" />
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="harvest_name" />
             <YAxis />
@@ -117,12 +114,7 @@ export default function Graphs({ greenData, allProjectsData }) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar
-              dataKey="pot_size"
-              stackId="a"
-              fill="#8884d8"
-              barSize={5}
-            />
+            <Bar dataKey="pot_size" stackId="a" fill="#8884d8" barSize={5} />
             <Bar
               dataKey="product_price"
               stackId="a"
@@ -173,9 +165,7 @@ export default function Graphs({ greenData, allProjectsData }) {
           </ComposedChart>
         </ResponsiveContainer>
       </WrapperGraph>
-      <WrapperGraph>
-
-      </WrapperGraph>
+      <WrapperGraph />
     </Content>
   );
 }

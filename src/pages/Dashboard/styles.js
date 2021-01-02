@@ -72,6 +72,10 @@ export const CreateHarvestBtn = styled.button`
   border: 2px solid black;
   padding: 5px 10px;
   background: unset;
+
+  &:hover {
+    background: #a7ff83;
+  }
 `;
 
 export const FormWrapper = styled.div`

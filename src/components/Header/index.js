@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import headerLogo from '../../assets/images/logo-2.svg';
 import { Container, Content, Profile } from './styles';
 
 export default function Header() {
@@ -11,7 +11,9 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <Link to="/">BOTANIC DAILY DATA</Link>
+          <Link to="/">
+            <img src={headerLogo} alt="Botanic Daily Data Logo Header" />
+          </Link>
         </nav>
         <aside>
           <Profile>
