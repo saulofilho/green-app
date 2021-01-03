@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
-
+import ScrollToTop from '../../../services/ScrollToTop';
 import { Wrapper } from './styles';
 
 export default function DefaultLayout({ children }) {
   return (
     <Wrapper>
-      <Header />
-      {children}
-      <Footer />
+      <ScrollToTop>
+        <Header />
+        {children}
+        <Footer />
+      </ScrollToTop>
     </Wrapper>
   );
 }

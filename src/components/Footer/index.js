@@ -7,11 +7,11 @@ export default function Footer() {
   return (
     <Container>
       <Content>
-        <a href="https://saulofilho.com">
+        <a href="https://buenavistalab.com">
           <img src={bvlLogo} alt="SpeedWeed Inc Logo" />
         </a>
         & &nbsp;&nbsp;&nbsp;
-        <a href="https://saulofilho.com">
+        <a href="https://speedweedcyber.com">
           <img src={swLogo} alt="SpeedWeed Inc Logo" />
         </a>
       </Content>

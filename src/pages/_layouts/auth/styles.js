@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
     rgb(247, 121, 125)
   ); */
   width: 100%;
-  background-image: url('../../assets/images/bg-plants.jpg');
+  /* background-image: url('../../assets/images/bg-plants.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -20,26 +20,31 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
+  margin: 0px auto;
+  padding: 0 30px;
+  max-width: 300px;
   width: 100%;
-  max-width: 315px;
-  text-align: center;
 
   form {
     display: flex;
-    flex-direction: column;
-    margin-top: 30px;
+    justify-content: center;
+    flex-flow: column;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    padding: 50px 0;
 
     input {
-      background: rgba(0, 0, 0, 0.1);
-      border: 0;
-      height: 44px;
-      padding: 0 15px;
-      color: white;
-      margin: 0 0 10px;
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.4);
-      }
+      font-family: 'Rubik', sans-serif;
+      width: 100%;
+      height: auto;
+      padding: 10px 15px;
+      border: unset;
+      border-bottom: 2px solid #fff;
+      color: #fff;
+      margin: 0 0 20px;
+      font-size: 24px;
+      background: transparent;
     }
 
     span {

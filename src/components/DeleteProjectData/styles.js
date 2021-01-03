@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
 
 export const Title = styled.p`
   font-family: 'Rubik', sans-serif;
@@ -77,6 +76,7 @@ export const WrapperInfos = styled.div`
   flex-flow: row;
   padding: 0 0 20px;
   flex: 1;
+  display: ${props => (props.hide ? 'block' : 'none')};
 
   i {
     padding: 0 20px 0 0;
@@ -102,4 +102,12 @@ export const TitleBox = styled.p`
   @media (max-width: 768px) {
     font-size: 12px;
   }
+`;
+
+export const Row = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: row;
+  padding: 20px 0 0;
 `;

@@ -38,6 +38,7 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
+    font-family: 'Rubik', sans-serif;
   }
 
   ::-webkit-scrollbar {

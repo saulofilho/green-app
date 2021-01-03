@@ -40,19 +40,29 @@ export default function Graphs({ greenData, allProjectsData }) {
     };
   });
 
-  const x = dateFormatMonth.map(item => item.green);
-  const y = x.map(item => item.ec);
+  const x = dateFormatMonth.map(item => item.green.map(q => q.ec));
 
-  console.log('allProjectsDataallProjectsDataallProjectsData', allProjectsData);
+  // const y = x.map(green => {
+  //   return {
+  //     x: green[0].id,
+  //   };
+  // });
+
+  console.log('x---------------------------->', x);
+  console.log('dateFormatMonth-------------->', dateFormatMonth);
+  console.log(
+    'z----------->',
+    allProjectsData.map(el => el.green)
+  );
 
   return (
     <Content>
       <WrapperGraph>
         <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
-          <LineChart data={dateFormatMonth}>
-            <Line type="monotone" dataKey="pot_size" stroke="red" />
+          <LineChart data={allProjectsData}>
+            <Line type="monotone" dataKey="id" stroke="red" />
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="harvest_name" />
+            <XAxis dataKey="ec" />
             <YAxis />
             <Tooltip />
             <Legend />

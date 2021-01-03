@@ -3,7 +3,6 @@ import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveStream } from '@nivo/stream';
 import { ResponsiveMarimekko } from '@nivo/marimekko';
 import { parseISO } from 'date-fns';
-
 import { Content, WrapperGraph } from './styles';
 
 export default function Graphs({ greenData }) {
@@ -21,12 +20,9 @@ export default function Graphs({ greenData }) {
     };
   });
 
-  const dataRename = greenData.map(elm => {
-    return { ...elm, id: elm.phase, label: elm.infos, value: elm.ec };
-  });
-
-  console.log('dateFormatMonthdateFormatMonthdateFormatMonth', dateFormatMonth);
-  console.log('dataRename', dataRename);
+  // const dataRename = greenData.map(elm => {
+  //   return { ...elm, id: elm.phase, label: elm.infos, value: elm.ec };
+  // });
 
   return (
     <Content>
@@ -42,6 +38,7 @@ export default function Graphs({ greenData }) {
             'moisture',
             'air_humidity',
           ]}
+          indexBy="createdAt"
           margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
           padding={0.3}
           valueScale={{ type: 'linear' }}
@@ -224,6 +221,7 @@ export default function Graphs({ greenData }) {
       <WrapperGraph>
         <ResponsiveMarimekko
           data={dateFormatMonth}
+          id="id"
           value="moisture"
           dimensions={[
             {
@@ -329,22 +327,6 @@ export default function Graphs({ greenData }) {
             },
           ]}
         />
-      </WrapperGraph>
-      <WrapperGraph>
-        {/* <ResponsiveFunnel
-          data={dataRename}
-          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-          colors={{ scheme: 'pastel2' }}
-          borderWidth={20}
-          labelColor={{ from: 'color', modifiers: [['darker', 3]] }}
-          beforeSeparatorLength={100}
-          beforeSeparatorOffset={20}
-          afterSeparatorLength={100}
-          afterSeparatorOffset={20}
-          currentPartSizeExtension={10}
-          currentBorderWidth={40}
-          motionConfig="wobbly"
-        /> */}
       </WrapperGraph>
     </Content>
   );

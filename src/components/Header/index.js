@@ -17,7 +17,7 @@ export default function Header() {
         </nav>
         <aside>
           <Profile>
-            <p>Hello,&nbsp;</p>
+            <p>Welcome,&nbsp;</p>
             <Link to="/profile">{profile.name}</Link>
           </Profile>
         </aside>

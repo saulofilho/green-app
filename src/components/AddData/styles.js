@@ -107,7 +107,6 @@ export const Form = styled.form`
     overflow: auto;
     resize: vertical;
     margin: 5px 0 20px;
-    font-family: 'Open Sans', sans-serif;
   }
 
   .salvar {

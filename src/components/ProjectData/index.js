@@ -58,14 +58,14 @@ export default function ProjectData({ projectData, setProjectData }) {
             <Subtitle>{item.grow_techniques}</Subtitle>
           </TextWrapper>
           <Row>
-            <DeleteProjectData
+            <EditProjectData
               item={item}
               projectData={projectData}
               setProjectData={setProjectData}
             />
           </Row>
           <Row>
-            <EditProjectData
+            <DeleteProjectData
               item={item}
               projectData={projectData}
               setProjectData={setProjectData}
