@@ -67,8 +67,7 @@ export const WrapperWizard = styled.div`
 `;
 
 export const CreateHarvestBtn = styled.button`
-  margin-top: 10px;
-  margin-right: 20px;
+  margin: 10px 20px 50px 0;
   border: 2px solid black;
   padding: 5px 10px;
   background: unset;

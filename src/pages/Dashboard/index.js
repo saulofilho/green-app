@@ -120,33 +120,47 @@ export default function Dashboard() {
     }));
   };
 
+  // for (let x = 1; x <= greenData.length; x += 1) {
+  //   if (x % 2 === 0) {
+  //     console.log('seveeeeeeeen');
+  //   }
+  // }
+
+  // for (let x = 1; x <= 100; x++) {
+  //   let skip = 0;
+  //   if (x % 3 == 0) {
+  //     document.write('ping');
+  //     skip = 1;
+  //   }
+  //   if (x % 5 == 0) {
+  //     document.write('pong');
+  //     skip = 1;
+  //   }
+  //   if (!skip) {
+  //     document.write(x);
+  //   }
+  //   document.write('<br>'); // line breaks to enhance output readability
+  // }
+
   return (
     <Container>
       <Content>
-        <Title>Hey! I am your harvest data.</Title>
+        <Title>Welcome to your data storage.</Title>
         <Subtitle>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
+          Com o BDD você consegue cadastrar e controlar individualmente cada
+          plantação, tanto indoor quanto outdoor, de um jeito simples e
+          tecnológico.
         </Subtitle>
-
         <Text>
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          O primeiro passo é criar o seu projeto. Depois é só escolher qual
+          projeto acessar para dar início a entrada de dados do seu database.
+          Gráficos ajudam você a entender melhor qualquer acontecimento em sua
+          planta. Você pode comparar os dados de cada dia para entender e tomar
+          a melhor decisão. Abaixo você consegue cadastrar quantos projetos você
+          quiser. São apenas alguns passos. Vamos lá?
         </Text>
 
-        <Title>Graphs about data</Title>
-        <Subtitle>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
-        </Subtitle>
-
-        <Graphs greenData={greenData} allProjectsData={allProjectsData} />
-
-        <Title>Harvests</Title>
-
+        <Title>My harvests</Title>
         {projectData.length ? (
           <NumberHarvests>
             You have{' '}
@@ -167,7 +181,7 @@ export default function Dashboard() {
             ))}
         </HarvestName>
 
-        <Title>Create harvest</Title>
+        <Title>Create a new harvest</Title>
 
         <CreateHarvestBtn type="button" onClick={() => setWizardOn(!wizardOn)}>
           {!wizardOn ? 'New!' : 'Close'}
@@ -363,6 +377,13 @@ export default function Dashboard() {
             )}
           />
         </WrapperWizard>
+        <Title>Graphs about data</Title>
+        <Subtitle>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
+        </Subtitle>
+
+        <Graphs greenData={greenData} allProjectsData={allProjectsData} />
       </Content>
     </Container>
   );

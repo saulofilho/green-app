@@ -236,13 +236,13 @@ export default function Project(props) {
                   <RowDay>
                     <BorderBotAndLeft>
                       <SmallText>TEMPERATURE MAX:</SmallText>
-                      <BigText>{item.temp_max}</BigText>
+                      <BigText>{item.temp_max} °C</BigText>
                     </BorderBotAndLeft>
                   </RowDay>
                   <RowDay>
                     <BorderLeft>
                       <SmallText>TEMPERATURE MIN:</SmallText>
-                      <BigText>{item.temp_min}</BigText>
+                      <BigText>{item.temp_min} °C</BigText>
                     </BorderLeft>
                   </RowDay>
                 </ColDay>

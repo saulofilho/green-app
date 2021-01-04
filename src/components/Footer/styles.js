@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 20px 30px 50px;
+  padding: 20px 30px;
 `;
 
 export const Content = styled.div`
@@ -11,6 +11,7 @@ export const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Rubik', sans-serif;
 
   a {
     display: inline-block;
@@ -19,6 +20,6 @@ export const Content = styled.div`
   }
 
   img {
-    width: 100px;
+    width: 70px;
   }
 `;
