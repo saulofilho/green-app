@@ -140,6 +140,15 @@ export const Number = styled.div`
   font-size: 2rem;
 `;
 
+export const WrapperNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-flow: column;
+  color: white;
+`;
+
 export const BorderLeft = styled.div`
   width: 100%;
   height: 100%;

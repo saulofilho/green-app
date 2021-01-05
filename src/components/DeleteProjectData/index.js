@@ -37,12 +37,6 @@ export default function DeleteProjectData({
       <WrapperInfos hide={deleteConfirm}>
         <Row>
           <Col>
-            <Button type="button" onClick={() => deleteProject(item.id)}>
-              <i className="ri-question-mark ri-2x" />
-            </Button>
-            <TitleBox>Are sure to want to delete?</TitleBox>
-          </Col>
-          <Col>
             <Button
               type="button"
               onClick={() => setDeleteConfirm(!deleteConfirm)}
@@ -50,6 +44,12 @@ export default function DeleteProjectData({
               <i className="ri-close-line ri-2x" />
             </Button>
             <TitleBox>Nope.</TitleBox>
+          </Col>
+          <Col>
+            <Button type="button" onClick={() => deleteProject(item.id)}>
+              <i className="ri-check-line ri-2x" />
+            </Button>
+            <TitleBox>Are you sure?</TitleBox>
           </Col>
         </Row>
       </WrapperInfos>

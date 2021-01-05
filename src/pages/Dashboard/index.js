@@ -145,6 +145,7 @@ export default function Dashboard() {
   return (
     <Container>
       <Content>
+        <h5>Today is {new Date().toLocaleDateString()}</h5>
         <Title>Welcome to your data storage.</Title>
         <Subtitle>
           Com o BDD você consegue cadastrar e controlar individualmente cada
@@ -161,6 +162,11 @@ export default function Dashboard() {
         </Text>
 
         <Title>My harvests</Title>
+        <Subtitle>
+          Com o BDD você consegue cadastrar e controlar individualmente cada
+          plantação, tanto indoor quanto outdoor, de um jeito simples e
+          tecnológico.
+        </Subtitle>
         {projectData.length ? (
           <NumberHarvests>
             You have{' '}
@@ -168,7 +174,7 @@ export default function Dashboard() {
             harvests.
           </NumberHarvests>
         ) : (
-          <p>Carregando...</p>
+          <p>Loading...</p>
         )}
 
         <HarvestName>
@@ -182,7 +188,11 @@ export default function Dashboard() {
         </HarvestName>
 
         <Title>Create a new harvest</Title>
-
+        <Subtitle>
+          Com o BDD você consegue cadastrar e controlar individualmente cada
+          plantação, tanto indoor quanto outdoor, de um jeito simples e
+          tecnológico.
+        </Subtitle>
         <CreateHarvestBtn type="button" onClick={() => setWizardOn(!wizardOn)}>
           {!wizardOn ? 'New!' : 'Close'}
         </CreateHarvestBtn>
