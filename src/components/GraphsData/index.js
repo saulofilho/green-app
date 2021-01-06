@@ -2,27 +2,30 @@ import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveStream } from '@nivo/stream';
 import { ResponsiveMarimekko } from '@nivo/marimekko';
+import { ResponsiveCalendar } from '@nivo/calendar';
 import { parseISO } from 'date-fns';
 import { Content, WrapperGraph } from './styles';
 
-export default function Graphs({ greenData }) {
-  const dateFormatMonth = greenData.map(date => {
+export default function Graphs({ greenData, dateFormatMonth }) {
+  const dateFormatDay = greenData.map(date => {
     return {
       ...date,
-      createdAt: parseISO(date.createdAt).toLocaleString('en-US', {
-        weekday: 'long',
-        day: '2-digit',
-      }),
-      updatedAt: parseISO(date.createdAt).toLocaleString('en-US', {
-        weekday: 'long',
-        day: '2-digit',
-      }),
+      createdAt: parseISO(date.createdAt)
+        .toISOString()
+        .slice(0, 10),
+      updatedAt: parseISO(date.createdAt)
+        .toISOString()
+        .slice(0, 10),
     };
   });
 
-  // const dataRename = greenData.map(elm => {
-  //   return { ...elm, id: elm.phase, label: elm.infos, value: elm.ec };
-  // });
+  const graphFormatDay = dateFormatDay.map(elm => {
+    return {
+      ...elm,
+      day: elm.createdAt,
+      value: elm.ec,
+    };
+  });
 
   return (
     <Content>
@@ -324,6 +327,32 @@ export default function Graphs({ greenData }) {
                   },
                 },
               ],
+            },
+          ]}
+        />
+      </WrapperGraph>
+      <WrapperGraph>
+        <ResponsiveCalendar
+          data={graphFormatDay}
+          from="2020-12-01"
+          to="2021-12-31"
+          emptyColor="#eeeeee"
+          colors={['#61cdbb', '#97e3d5', '#a7ff83', '#17b978']}
+          margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+          yearSpacing={40}
+          monthBorderColor="#ffffff"
+          dayBorderWidth={2}
+          dayBorderColor="#ffffff"
+          legends={[
+            {
+              anchor: 'bottom-right',
+              direction: 'row',
+              translateY: 36,
+              itemCount: 4,
+              itemWidth: 42,
+              itemHeight: 36,
+              itemsSpacing: 14,
+              itemDirection: 'right-to-left',
             },
           ]}
         />

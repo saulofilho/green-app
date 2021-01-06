@@ -1,32 +1,11 @@
 import React from 'react';
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Tooltip,
-  Legend,
-  ComposedChart,
-  Area,
-  Bar,
-  BarChart,
-  AreaChart,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar,
-  RadarChart,
-  PolarGrid,
-} from 'recharts';
 import { ResponsiveAreaBump } from '@nivo/bump';
+import { ResponsiveLine } from '@nivo/line';
 import { parseISO } from 'date-fns';
 
 import { Content, WrapperGraph } from './styles';
 
-export default function Graphs({ greenData, allProjectsData }) {
+export default function Graphs({ allProjectsData }) {
   const dateFormatMonth = allProjectsData.map(date => {
     return {
       ...date,
@@ -41,7 +20,19 @@ export default function Graphs({ greenData, allProjectsData }) {
     };
   });
 
-  const dataRename = dateFormatMonth.map(elm => {
+  const dateFormatDay = allProjectsData.map(date => {
+    return {
+      ...date,
+      createdAt: parseISO(date.createdAt)
+        .toISOString()
+        .slice(0, 10),
+      updatedAt: parseISO(date.createdAt)
+        .toISOString()
+        .slice(0, 10),
+    };
+  });
+
+  const graphFormatMonth = dateFormatDay.map(elm => {
     return {
       ...elm,
       id: elm.harvest_name,
@@ -58,14 +49,22 @@ export default function Graphs({ greenData, allProjectsData }) {
     };
   });
 
+  const graphFormatDay = dateFormatDay.map(elm => {
+    return {
+      ...elm,
+      day: elm.createdAt,
+      value: elm.pot_size,
+    };
+  });
+
   return (
     <Content>
       <WrapperGraph>
         <ResponsiveAreaBump
-          data={dataRename}
+          data={graphFormatMonth}
           margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
           spacing={8}
-          colors={{ scheme: 'nivo' }}
+          colors={{ scheme: 'greens' }}
           blendMode="multiply"
           defs={[
             {
@@ -121,124 +120,72 @@ export default function Graphs({ greenData, allProjectsData }) {
         />
       </WrapperGraph>
       <WrapperGraph>
-        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
-          <LineChart data={allProjectsData}>
-            <Line type="monotone" dataKey="id" stroke="red" />
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="ec" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-          </LineChart>
-        </ResponsiveContainer>
+        <ResponsiveLine
+          data={graphFormatMonth}
+          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          xScale={{ type: 'point' }}
+          yScale={{
+            type: 'linear',
+            min: 'auto',
+            max: 'auto',
+            stacked: true,
+            reverse: false,
+          }}
+          yFormat=" >-.2f"
+          axisTop={null}
+          axisRight={null}
+          axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'transportation',
+            legendOffset: 36,
+            legendPosition: 'middle',
+          }}
+          axisLeft={{
+            orient: 'left',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'count',
+            legendOffset: -40,
+            legendPosition: 'middle',
+          }}
+          pointSize={10}
+          pointColor={{ theme: 'background' }}
+          pointBorderWidth={2}
+          pointBorderColor={{ from: 'serieColor' }}
+          pointLabelYOffset={-12}
+          useMesh
+          legends={[
+            {
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 100,
+              translateY: 0,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 80,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemBackground: 'rgba(0, 0, 0, .03)',
+                    itemOpacity: 1,
+                  },
+                },
+              ],
+            },
+          ]}
+        />
       </WrapperGraph>
-      <WrapperGraph>
-        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
-          <PieChart>
-            <Pie
-              data={dateFormatMonth}
-              dataKey="pot_size"
-              outerRadius={110}
-              fill="lightblue"
-              stroke="white"
-              label={{ fill: 'gray', fontSize: '12px' }}
-            />
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
-      </WrapperGraph>
-      <WrapperGraph>
-        <ResponsiveContainer width="99%" height={40}>
-          <AreaChart data={dateFormatMonth}>
-            <Area dataKey="pot_size" stroke="red" fill="#8884d8" />
-          </AreaChart>
-        </ResponsiveContainer>
-      </WrapperGraph>
-      <WrapperGraph>
-        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
-          <AreaChart
-            data={dateFormatMonth}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid />
-            <XAxis dataKey="pot_size" />
-            <YAxis />
-            <Tooltip />
-            <defs>
-              {/* <DefAreaValueColor
-                id="splitColor"
-                data={props.itens}
-                positiveColor="red"
-                negativeColor="ping"
-              /> */}
-            </defs>
-            <Area dataKey="pot_size" stroke="red" fill="#8884d8" />
-          </AreaChart>
-        </ResponsiveContainer>
-      </WrapperGraph>
-      <WrapperGraph>
-        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
-          <BarChart
-            data={dateFormatMonth}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="pot_size" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="pot_size" stackId="a" fill="#8884d8" barSize={5} />
-            <Bar
-              dataKey="product_price"
-              stackId="a"
-              fill="#8884d8"
-              barSize={5}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </WrapperGraph>
-      <WrapperGraph>
-        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
-          <RadarChart outerRadius={150} data={dateFormatMonth}>
-            <PolarGrid stroke="#8884d8" />
-            <PolarAngleAxis dataKey="pot_size" />
-            <PolarRadiusAxis angle={30} domain={[0, 150]} />
-            <Radar
-              name="Mike"
-              dataKey="pot_size"
-              stroke="red"
-              fill="#8884d8"
-              fillOpacity={0.3}
-            />
-            <Radar
-              name="Lily"
-              dataKey="product_price"
-              stroke="blue"
-              fill="#8884d8"
-              fillOpacity={0.3}
-            />
-            <Legend />
-          </RadarChart>
-        </ResponsiveContainer>
-      </WrapperGraph>
-      <WrapperGraph>
-        <ResponsiveContainer width="100%" aspect={6.0 / 3.0}>
-          <ComposedChart
-            data={dateFormatMonth}
-            margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid />
-            <XAxis dataKey="pot_size" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Area dataKey="pot_size" fill="red" stroke="red" />
-            <Bar dataKey="pot_size" barSize={5} fill="red" />
-            <Line dataKey="pot_size" stroke="white" activeDot={{ r: 5 }} />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </WrapperGraph>
-      <WrapperGraph />
     </Content>
   );
 }

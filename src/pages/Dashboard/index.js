@@ -145,7 +145,7 @@ export default function Dashboard() {
   return (
     <Container>
       <Content>
-        <h5>Today is {new Date().toLocaleDateString()}</h5>
+        <h5>Today is {new Date().toDateString()}</h5>
         <Title>Welcome to your data storage.</Title>
         <Subtitle>
           Com o BDD você consegue cadastrar e controlar individualmente cada
@@ -387,7 +387,7 @@ export default function Dashboard() {
             )}
           />
         </WrapperWizard>
-        <Title>Graphs about data</Title>
+        <Title>Graphs about your projects</Title>
         <Subtitle>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}

@@ -418,7 +418,7 @@ export default function Project(props) {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
         </Subtitle>
-        <GraphsData greenData={dateFormatMonth} />
+        <GraphsData greenData={greenData} dateFormatMonth={dateFormatMonth} />
       </Content>
     </Container>
   );
