@@ -11,12 +11,12 @@ import Welcome from '../pages/Welcome';
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={SignIn} />
-      <Route path="/register" component={SignUp} />
-      <Route path="/dashboard" component={Dashboard} isPrivate />
-      <Route path="/project/:id" component={Project} isPrivate />
-      <Route path="/profile" component={Profile} isPrivate />
-      <Route path="/welcome" component={Welcome} />
+      <Route path="/" exact component={Welcome} />
+      <Route path="/app" exact component={SignIn} />
+      <Route path="/app/register" exact component={SignUp} />
+      <Route path="/app/dashboard" exact component={Dashboard} isPrivate />
+      <Route path="/app/project/:id" exact component={Project} isPrivate />
+      <Route path="/app/profile" exact component={Profile} isPrivate />
       {/* <Route path="/" component={() => <h1>404</h1>} /> */}
     </Switch>
   );

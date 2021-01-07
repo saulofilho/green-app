@@ -3,20 +3,24 @@ import { darken } from 'polished';
 
 export const Wrapper = styled.div`
   height: 100%;
-  /* background: linear-gradient(
-    -225deg,
-    rgb(198, 255, 221),
-    rgb(251, 215, 134),
-    rgb(247, 121, 125)
-  ); */
   width: 100%;
-  /* background-image: url('../../assets/images/bg-plants.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const WrapperHome = styled.div`
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    -225deg,
+    rgb(198, 255, 221),
+    rgb(251, 215, 134),
+    rgb(247, 121, 125)
+  );
 `;
 
 export const Content = styled.div`

@@ -182,7 +182,7 @@ export default function Dashboard() {
             .sort((a, b) => a.id - b.id)
             .map(item => (
               <li key={item.id}>
-                <Link to={`/project/${item.id}`}>{item.harvest_name}</Link>
+                <Link to={`/app/project/${item.id}`}>{item.harvest_name}</Link>
               </li>
             ))}
         </HarvestName>
