@@ -31,6 +31,7 @@ import {
   Title,
   Subtitle,
   WrapperNumber,
+  Week,
 } from './styles';
 
 export default function Project(props) {
@@ -45,7 +46,6 @@ export default function Project(props) {
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
   const ref = useRef();
-  // const refWeek = useRef();
 
   useEffect(() => {
     const loadItens = async id => {
@@ -236,13 +236,6 @@ export default function Project(props) {
     };
   });
 
-  // for (let x = 1; x <= dateFormatMonth.length; x += 1) {
-  //   if (x % 3 === 0) {
-  //     console.log('seveeeeeeeen');
-  //     document.getElementById('#teste').refWeek = 'teste';
-  //   }
-  // }
-
   return (
     <Container>
       <Content>
@@ -394,7 +387,9 @@ export default function Project(props) {
                   />
                 </Row>
               </WrapperData>
-              {/* <p id="teste" ref={refWeek} /> */}
+              <Week>
+                {(index + 1) % 7 === 0 ? <p>Week {`${index}`}</p> : ''}
+              </Week>
             </WrapperContent>
           ))
         ) : (

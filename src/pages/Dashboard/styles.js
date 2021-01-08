@@ -65,6 +65,7 @@ export const WrapperWizard = styled.div`
   height: 100%;
   display: ${props => (props.hide ? 'block' : 'none')};
   border: 2px solid #000;
+  margin-bottom: 50px;
 `;
 
 export const CreateHarvestBtn = styled.button`

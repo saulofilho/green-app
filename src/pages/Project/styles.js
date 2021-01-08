@@ -216,3 +216,7 @@ export const Subtitle = styled.p`
   font-style: italic;
   font-weight: bolder;
 `;
+
+export const Week = styled.div`
+  background: #a7ff83;
+`;

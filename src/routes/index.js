@@ -17,7 +17,7 @@ export default function Routes() {
       <Route path="/app/dashboard" exact component={Dashboard} isPrivate />
       <Route path="/app/project/:id" exact component={Project} isPrivate />
       <Route path="/app/profile" exact component={Profile} isPrivate />
-      {/* <Route path="/" component={() => <h1>404</h1>} /> */}
+      <Route path="/" component={() => <h1>404</h1>} />
     </Switch>
   );
 }

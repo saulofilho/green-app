@@ -120,28 +120,6 @@ export default function Dashboard() {
     }));
   };
 
-  // for (let x = 1; x <= greenData.length; x += 1) {
-  //   if (x % 2 === 0) {
-  //     console.log('seveeeeeeeen');
-  //   }
-  // }
-
-  // for (let x = 1; x <= 100; x++) {
-  //   let skip = 0;
-  //   if (x % 3 == 0) {
-  //     document.write('ping');
-  //     skip = 1;
-  //   }
-  //   if (x % 5 == 0) {
-  //     document.write('pong');
-  //     skip = 1;
-  //   }
-  //   if (!skip) {
-  //     document.write(x);
-  //   }
-  //   document.write('<br>'); // line breaks to enhance output readability
-  // }
-
   return (
     <Container>
       <Content>
@@ -315,7 +293,7 @@ export default function Dashboard() {
                             type="text"
                             name="grow_techniques"
                             id="grow_techniques"
-                            placeholder="Coconut Mix"
+                            placeholder="LST"
                             value={currentData.grow_techniques}
                             onChange={handleInputChange}
                           />

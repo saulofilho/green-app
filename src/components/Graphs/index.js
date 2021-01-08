@@ -6,20 +6,6 @@ import { parseISO } from 'date-fns';
 import { Content, WrapperGraph } from './styles';
 
 export default function Graphs({ allProjectsData }) {
-  const dateFormatMonth = allProjectsData.map(date => {
-    return {
-      ...date,
-      createdAt: parseISO(date.createdAt).toLocaleString('en-US', {
-        weekday: 'long',
-        day: '2-digit',
-      }),
-      updatedAt: parseISO(date.createdAt).toLocaleString('en-US', {
-        weekday: 'long',
-        day: '2-digit',
-      }),
-    };
-  });
-
   const dateFormatDay = allProjectsData.map(date => {
     return {
       ...date,
@@ -49,11 +35,10 @@ export default function Graphs({ allProjectsData }) {
     };
   });
 
-  const graphFormatDay = dateFormatDay.map(elm => {
+  const populateDataUndefined = graphFormatMonth.map(elm => {
     return {
       ...elm,
-      day: elm.createdAt,
-      value: elm.pot_size,
+      data: elm.data.length === 0 ? [{ x: 0, y: 0 }] : elm.data,
     };
   });
 
@@ -61,7 +46,7 @@ export default function Graphs({ allProjectsData }) {
     <Content>
       <WrapperGraph>
         <ResponsiveAreaBump
-          data={graphFormatMonth}
+          data={populateDataUndefined}
           margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
           spacing={8}
           colors={{ scheme: 'greens' }}
