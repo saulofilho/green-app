@@ -3,7 +3,7 @@ import { ResponsiveAreaBump } from '@nivo/bump';
 import { ResponsiveLine } from '@nivo/line';
 import { parseISO } from 'date-fns';
 
-import { Content, WrapperGraph } from './styles';
+import { Content, WrapperGraph, CalendarLegend } from './styles';
 
 export default function Graphs({ allProjectsData }) {
   const dateFormatDay = allProjectsData.map(date => {
@@ -18,7 +18,7 @@ export default function Graphs({ allProjectsData }) {
     };
   });
 
-  const graphFormatMonth = dateFormatDay.map(elm => {
+  const graphFormatMoisture = dateFormatDay.map(elm => {
     return {
       ...elm,
       id: elm.harvest_name,
@@ -29,13 +29,64 @@ export default function Graphs({ allProjectsData }) {
             weekday: 'long',
             day: '2-digit',
           }),
-          y: item.temp_max,
+          y: item.moisture,
         };
       }),
     };
   });
 
-  const populateDataUndefined = graphFormatMonth.map(elm => {
+  const graphFormatAir = dateFormatDay.map(elm => {
+    return {
+      ...elm,
+      id: elm.harvest_name,
+      data: elm.green.map(item => {
+        return {
+          ...item,
+          x: parseISO(item.createdAt).toLocaleString('en-US', {
+            weekday: 'long',
+            day: '2-digit',
+          }),
+          y: item.air_humidity,
+        };
+      }),
+    };
+  });
+
+  const graphFormatPhSoil = dateFormatDay.map(elm => {
+    return {
+      ...elm,
+      id: elm.harvest_name,
+      data: elm.green.map(item => {
+        return {
+          ...item,
+          x: parseISO(item.createdAt).toLocaleString('en-US', {
+            weekday: 'long',
+            day: '2-digit',
+          }),
+          y: item.ph_soil,
+        };
+      }),
+    };
+  });
+
+  const graphFormatPhWater = dateFormatDay.map(elm => {
+    return {
+      ...elm,
+      id: elm.harvest_name,
+      data: elm.green.map(item => {
+        return {
+          ...item,
+          x: parseISO(item.createdAt).toLocaleString('en-US', {
+            weekday: 'long',
+            day: '2-digit',
+          }),
+          y: item.ph_water,
+        };
+      }),
+    };
+  });
+
+  const populateDataUndefined = graphFormatMoisture.map(elm => {
     return {
       ...elm,
       data: elm.data.length === 0 ? [{ x: 0, y: 0 }] : elm.data,
@@ -49,42 +100,8 @@ export default function Graphs({ allProjectsData }) {
           data={populateDataUndefined}
           margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
           spacing={8}
-          colors={{ scheme: 'greens' }}
+          colors={{ scheme: 'accent' }}
           blendMode="multiply"
-          defs={[
-            {
-              id: 'dots',
-              type: 'patternDots',
-              background: 'inherit',
-              color: '#38bcb2',
-              size: 4,
-              padding: 1,
-              stagger: true,
-            },
-            {
-              id: 'lines',
-              type: 'patternLines',
-              background: 'inherit',
-              color: '#eed312',
-              rotation: -45,
-              lineWidth: 6,
-              spacing: 10,
-            },
-          ]}
-          fill={[
-            {
-              match: {
-                id: 'The Greenable',
-              },
-              id: 'dots',
-            },
-            {
-              match: {
-                id: 'Coco Loko',
-              },
-              id: 'lines',
-            },
-          ]}
           startLabel="id"
           axisTop={{
             tickSize: 5,
@@ -103,10 +120,11 @@ export default function Graphs({ allProjectsData }) {
             legendOffset: 32,
           }}
         />
+        <CalendarLegend>soil moisture</CalendarLegend>
       </WrapperGraph>
       <WrapperGraph>
         <ResponsiveLine
-          data={graphFormatMonth}
+          data={graphFormatMoisture}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
           xScale={{ type: 'point' }}
           yScale={{
@@ -117,26 +135,7 @@ export default function Graphs({ allProjectsData }) {
             reverse: false,
           }}
           yFormat=" >-.2f"
-          axisTop={null}
-          axisRight={null}
-          axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'transportation',
-            legendOffset: 36,
-            legendPosition: 'middle',
-          }}
-          axisLeft={{
-            orient: 'left',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'count',
-            legendOffset: -40,
-            legendPosition: 'middle',
-          }}
+          colors={{ scheme: 'accent' }}
           pointSize={10}
           pointColor={{ theme: 'background' }}
           pointBorderWidth={2}
@@ -170,6 +169,154 @@ export default function Graphs({ allProjectsData }) {
             },
           ]}
         />
+        <CalendarLegend>soil moisture</CalendarLegend>
+      </WrapperGraph>
+      <WrapperGraph>
+        <ResponsiveLine
+          data={graphFormatAir}
+          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          xScale={{ type: 'point' }}
+          yScale={{
+            type: 'linear',
+            min: 'auto',
+            max: 'auto',
+            stacked: true,
+            reverse: false,
+          }}
+          yFormat=" >-.2f"
+          colors={{ scheme: 'accent' }}
+          pointSize={10}
+          pointColor={{ theme: 'background' }}
+          pointBorderWidth={2}
+          pointBorderColor={{ from: 'serieColor' }}
+          pointLabelYOffset={-12}
+          useMesh
+          legends={[
+            {
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 100,
+              translateY: 0,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 80,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemBackground: 'rgba(0, 0, 0, .03)',
+                    itemOpacity: 1,
+                  },
+                },
+              ],
+            },
+          ]}
+        />
+        <CalendarLegend>air humidity</CalendarLegend>
+      </WrapperGraph>
+      <WrapperGraph>
+        <ResponsiveLine
+          data={graphFormatPhSoil}
+          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          xScale={{ type: 'point' }}
+          yScale={{
+            type: 'linear',
+            min: 'auto',
+            max: 'auto',
+            stacked: true,
+            reverse: false,
+          }}
+          yFormat=" >-.2f"
+          colors={{ scheme: 'accent' }}
+          pointSize={10}
+          pointColor={{ theme: 'background' }}
+          pointBorderWidth={2}
+          pointBorderColor={{ from: 'serieColor' }}
+          pointLabelYOffset={-12}
+          useMesh
+          legends={[
+            {
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 100,
+              translateY: 0,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 80,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemBackground: 'rgba(0, 0, 0, .03)',
+                    itemOpacity: 1,
+                  },
+                },
+              ],
+            },
+          ]}
+        />
+        <CalendarLegend>ph soil</CalendarLegend>
+      </WrapperGraph>
+      <WrapperGraph>
+        <ResponsiveLine
+          data={graphFormatPhWater}
+          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          xScale={{ type: 'point' }}
+          yScale={{
+            type: 'linear',
+            min: 'auto',
+            max: 'auto',
+            stacked: true,
+            reverse: false,
+          }}
+          yFormat=" >-.2f"
+          colors={{ scheme: 'accent' }}
+          pointSize={10}
+          pointColor={{ theme: 'background' }}
+          pointBorderWidth={2}
+          pointBorderColor={{ from: 'serieColor' }}
+          pointLabelYOffset={-12}
+          useMesh
+          legends={[
+            {
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 100,
+              translateY: 0,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 80,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemBackground: 'rgba(0, 0, 0, .03)',
+                    itemOpacity: 1,
+                  },
+                },
+              ],
+            },
+          ]}
+        />
+        <CalendarLegend>ph water</CalendarLegend>
       </WrapperGraph>
     </Content>
   );

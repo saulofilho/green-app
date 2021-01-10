@@ -4,7 +4,7 @@ import { ResponsiveStream } from '@nivo/stream';
 import { ResponsiveMarimekko } from '@nivo/marimekko';
 import { ResponsiveCalendar } from '@nivo/calendar';
 import { parseISO } from 'date-fns';
-import { Content, WrapperGraph } from './styles';
+import { Content, WrapperGraph, CalendarLegend } from './styles';
 
 export default function Graphs({ greenData, dateFormatMonth }) {
   const dateFormatDay = greenData.map(date => {
@@ -23,7 +23,7 @@ export default function Graphs({ greenData, dateFormatMonth }) {
     return {
       ...elm,
       day: elm.createdAt,
-      value: elm.ec,
+      value: elm.ph_water,
     };
   });
 
@@ -33,13 +33,13 @@ export default function Graphs({ greenData, dateFormatMonth }) {
         <ResponsiveBar
           data={dateFormatMonth}
           keys={[
-            'ph_water',
-            'ph_soil',
             'ec',
             'temp_max',
             'temp_min',
             'moisture',
             'air_humidity',
+            'ph_water',
+            'ph_soil',
           ]}
           indexBy="createdAt"
           margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
@@ -70,13 +70,13 @@ export default function Graphs({ greenData, dateFormatMonth }) {
           fill={[
             {
               match: {
-                id: 'ph_water',
+                id: 'ec',
               },
               id: 'dots',
             },
             {
               match: {
-                id: 'ph_soil',
+                id: 'moisture',
               },
               id: 'lines',
             },
@@ -130,17 +130,15 @@ export default function Graphs({ greenData, dateFormatMonth }) {
         <ResponsiveStream
           data={dateFormatMonth}
           keys={[
-            'ph_water',
-            'ph_soil',
             'ec',
             'temp_max',
             'temp_min',
             'moisture',
             'air_humidity',
+            'ph_water',
+            'ph_soil',
           ]}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-          axisTop={null}
-          axisRight={null}
           axisBottom={{
             orient: 'bottom',
             tickSize: 5,
@@ -184,15 +182,15 @@ export default function Graphs({ greenData, dateFormatMonth }) {
           fill={[
             {
               match: {
-                id: 'ph_water',
+                id: 'moisture',
               },
-              id: 'dots',
+              id: 'lines',
             },
             {
               match: {
-                id: 'ph_soil',
+                id: 'ec',
               },
-              id: 'squares',
+              id: 'dots',
             },
           ]}
           dotSize={8}
@@ -225,7 +223,7 @@ export default function Graphs({ greenData, dateFormatMonth }) {
         <ResponsiveMarimekko
           data={dateFormatMonth}
           id="id"
-          value="moisture"
+          value="id"
           dimensions={[
             {
               id: 'ph of watter',
@@ -253,12 +251,6 @@ export default function Graphs({ greenData, dateFormatMonth }) {
             tickRotation: 0,
             legend: '',
             legendOffset: 0,
-          }}
-          axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
           }}
           axisLeft={{
             orient: 'left',
@@ -356,6 +348,7 @@ export default function Graphs({ greenData, dateFormatMonth }) {
             },
           ]}
         />
+        <CalendarLegend>ph water</CalendarLegend>
       </WrapperGraph>
     </Content>
   );

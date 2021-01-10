@@ -17,7 +17,7 @@ import {
   CreateHarvestBtn,
   Title,
   Subtitle,
-  Text,
+  Today,
   NumberHarvests,
   HarvestName,
   FormWrapper,
@@ -123,53 +123,12 @@ export default function Dashboard() {
   return (
     <Container>
       <Content>
-        <h5>Today is {new Date().toDateString()}</h5>
-        <Title>Welcome to your data storage.</Title>
-        <Subtitle>
-          Com o BDD você consegue cadastrar e controlar individualmente cada
-          plantação, tanto indoor quanto outdoor, de um jeito simples e
-          tecnológico.
-        </Subtitle>
-        <Text>
-          O primeiro passo é criar o seu projeto. Depois é só escolher qual
-          projeto acessar para dar início a entrada de dados do seu database.
-          Gráficos ajudam você a entender melhor qualquer acontecimento em sua
-          planta. Você pode comparar os dados de cada dia para entender e tomar
-          a melhor decisão. Abaixo você consegue cadastrar quantos projetos você
-          quiser. São apenas alguns passos. Vamos lá?
-        </Text>
-
-        <Title>My harvests</Title>
-        <Subtitle>
-          Com o BDD você consegue cadastrar e controlar individualmente cada
-          plantação, tanto indoor quanto outdoor, de um jeito simples e
-          tecnológico.
-        </Subtitle>
-        {projectData.length ? (
-          <NumberHarvests>
-            You have{' '}
-            <strong style={{ color: '#086972' }}>{projectData.length}</strong>{' '}
-            harvests.
-          </NumberHarvests>
-        ) : (
-          <p>Loading...</p>
-        )}
-
-        <HarvestName>
-          {projectData
-            .sort((a, b) => a.id - b.id)
-            .map(item => (
-              <li key={item.id}>
-                <Link to={`/app/project/${item.id}`}>{item.harvest_name}</Link>
-              </li>
-            ))}
-        </HarvestName>
+        <Today>Today is {new Date().toDateString()}</Today>
 
         <Title>Create a new harvest</Title>
         <Subtitle>
-          Com o BDD você consegue cadastrar e controlar individualmente cada
-          plantação, tanto indoor quanto outdoor, de um jeito simples e
-          tecnológico.
+          TL;DR: Aqui e o seu primeiro passo: cadastrar o seu projeto. Logo
+          abaixo voce encontra todos os seus projetos cadastrados.
         </Subtitle>
         <CreateHarvestBtn type="button" onClick={() => setWizardOn(!wizardOn)}>
           {!wizardOn ? 'New!' : 'Close'}
@@ -341,16 +300,6 @@ export default function Dashboard() {
                   </Step>
                 </Steps>
                 <div className="example-buttons">
-                  {steps.indexOf(step) > 0 && (
-                    <CreateHarvestBtn
-                      type="button"
-                      className="btn-fluid btn-secondary"
-                      onClick={previous}
-                    >
-                      Back
-                    </CreateHarvestBtn>
-                  )}
-
                   {steps.indexOf(step) < steps.length - 1 && (
                     <CreateHarvestBtn
                       type="button"
@@ -360,15 +309,52 @@ export default function Dashboard() {
                       Next
                     </CreateHarvestBtn>
                   )}
+
+                  {steps.indexOf(step) > 0 && (
+                    <CreateHarvestBtn
+                      type="button"
+                      className="btn-fluid btn-secondary"
+                      onClick={previous}
+                    >
+                      Back
+                    </CreateHarvestBtn>
+                  )}
                 </div>
               </>
             )}
           />
         </WrapperWizard>
+
+        <Title>My harvests</Title>
+        <Subtitle>
+          TL;DR: Selecione os projetos ja cadastrados para ver o seu diario de
+          dados sobre sua plantacao. Em cada diario voce pode criar e editar os
+          seus dados diarios.
+        </Subtitle>
+        {projectData.length ? (
+          <NumberHarvests>
+            You have{' '}
+            <strong style={{ color: '#086972' }}>{projectData.length}</strong>{' '}
+            harvests.
+          </NumberHarvests>
+        ) : (
+          <p>Loading...</p>
+        )}
+
+        <HarvestName>
+          {projectData
+            .sort((a, b) => a.id - b.id)
+            .map(item => (
+              <li key={item.id}>
+                <Link to={`/app/project/${item.id}`}>{item.harvest_name}</Link>
+              </li>
+            ))}
+        </HarvestName>
+
         <Title>Graphs about your projects</Title>
         <Subtitle>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
+          TL;DR: Abaixo voce consegue comparar os dados de cada projeto de forma
+          visual com os graficos.
         </Subtitle>
 
         <Graphs greenData={greenData} allProjectsData={allProjectsData} />

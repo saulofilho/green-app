@@ -5,6 +5,7 @@ export const Title = styled.p`
   font-size: 48px;
   padding: 0 0 30px;
   font-weight: bolder;
+  line-height: 40px;
 `;
 
 export const Subtitle = styled.p`

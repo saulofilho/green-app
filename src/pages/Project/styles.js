@@ -203,12 +203,6 @@ export const BigText = styled.p`
   }
 `;
 
-export const Title = styled.p`
-  font-family: 'Rubik', sans-serif;
-  font-size: 36px;
-  padding: 30px 0 10px;
-`;
-
 export const Subtitle = styled.p`
   font-family: 'Source Serif Pro', serif;
   font-size: 18px;
@@ -218,5 +212,21 @@ export const Subtitle = styled.p`
 `;
 
 export const Week = styled.div`
-  background: #a7ff83;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+  }
+  p {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    width: 60px;
+    color: #a7ff83;
+  }
+  span {
+    background: #a7ff83;
+    width: 100%;
+    height: 2px;
+  }
 `;

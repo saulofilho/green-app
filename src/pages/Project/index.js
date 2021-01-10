@@ -28,8 +28,6 @@ import {
   BigText,
   TitleBox,
   TextBox,
-  Title,
-  Subtitle,
   WrapperNumber,
   Week,
 } from './styles';
@@ -388,7 +386,14 @@ export default function Project(props) {
                 </Row>
               </WrapperData>
               <Week>
-                {(index + 1) % 7 === 0 ? <p>Week {`${index}`}</p> : ''}
+                {(index + 1) % 7 === 0 ? (
+                  <div>
+                    <p>Week {`${index - index + 1}`}</p>
+                    <span />
+                  </div>
+                ) : (
+                  ''
+                )}
               </Week>
             </WrapperContent>
           ))
@@ -408,11 +413,6 @@ export default function Project(props) {
           file={file}
           btnDisable={btnDisable}
         />
-        <Title>Graphs about data</Title>
-        <Subtitle>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
-        </Subtitle>
         <GraphsData greenData={greenData} dateFormatMonth={dateFormatMonth} />
       </Content>
     </Container>

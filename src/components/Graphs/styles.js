@@ -10,3 +10,9 @@ export const WrapperGraph = styled.div`
   width: 100%;
   height: 500px;
 `;
+
+export const CalendarLegend = styled.div`
+  text-align: center;
+  position: relative;
+  font-size: 12px;
+`;

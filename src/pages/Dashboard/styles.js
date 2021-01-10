@@ -20,10 +20,12 @@ export const Subtitle = styled.p`
   font-weight: bolder;
 `;
 
-export const Text = styled.p`
+export const Today = styled.p`
   font-family: 'Source Serif Pro', serif;
   font-size: 16px;
-  padding: 0 0 50px;
+  padding: 20px 0 50px;
+  text-align: center;
+  width: 100%;
 `;
 
 export const NumberHarvests = styled.p`
@@ -73,6 +75,9 @@ export const CreateHarvestBtn = styled.button`
   border: 2px solid black;
   padding: 5px 10px;
   background: unset;
+  width: 100%;
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
 
   &:hover {
     background: #a7ff83;

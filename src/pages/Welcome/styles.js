@@ -34,3 +34,9 @@ export const Subtitle = styled.p`
   font-style: italic;
   font-weight: bolder;
 `;
+
+export const Text = styled.p`
+  font-family: 'Source Serif Pro', serif;
+  font-size: 16px;
+  padding: 0 0 50px;
+`;
