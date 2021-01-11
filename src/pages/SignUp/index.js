@@ -34,7 +34,7 @@ export default function SignUp() {
           placeholder="sua senha secreta"
         />
         <button type="submit">Criar conta</button>
-        <Link to="/app">Já tenho login</Link>
+        <Link to="/">Já tenho login</Link>
       </Form>
     </>
   );

@@ -17,7 +17,6 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.token = action.payload.token;
         draft.signed = true;
         draft.loading = false;
-        window.location.replace('/app/dashboard');
         break;
       }
       case '@auth/SIGN_FAILURE': {

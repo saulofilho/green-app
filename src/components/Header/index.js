@@ -20,14 +20,14 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <Link to="/app">
+          <Link to="/">
             <img src={randomLogo} alt="Botanic Daily Data Logo Header" />
           </Link>
         </nav>
         <aside>
           <Profile>
             <p>Welcome,&nbsp;</p>
-            <Link to="/app/profile">{profile.name}</Link>
+            <Link to="/profile">{profile.name}</Link>
           </Profile>
         </aside>
       </Content>

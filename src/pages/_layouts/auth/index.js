@@ -5,15 +5,9 @@ import { Wrapper, WrapperHome, Content } from './styles';
 
 export default function AuthLayout({ children }) {
   return (
-    <>
-      {children.props.history.location.pathname === '/' ? (
-        <WrapperHome>{children}</WrapperHome>
-      ) : (
-        <Wrapper style={{ backgroundImage: `url(${logo})` }}>
-          <Content>{children}</Content>
-        </Wrapper>
-      )}
-    </>
+    <Wrapper style={{ backgroundImage: `url(${logo})` }}>
+      <Content>{children}</Content>
+    </Wrapper>
   );
 }
 

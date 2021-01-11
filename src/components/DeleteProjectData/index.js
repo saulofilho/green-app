@@ -18,7 +18,7 @@ export default function DeleteProjectData({
       if (response.status === 200) {
         toast.success('Deleted successfully.');
         setTimeout(() => {
-          window.location.replace('/app');
+          window.location.replace('/');
         }, 3000);
       } else if (response.status !== 200) {
         toast.error('Something went wrong.');
