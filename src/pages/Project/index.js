@@ -6,7 +6,7 @@ import DataService from '../../services/crudApi';
 import api from '../../services/api';
 import 'remixicon/fonts/remixicon.css';
 import GraphsData from '../../components/GraphsData';
-import ProjectData from '../../components/ProjectData';
+import ProjectInfos from '../../components/ProjectInfos';
 import AddData from '../../components/AddData';
 import EditData from '../../components/EditData';
 import {
@@ -30,37 +30,45 @@ import {
   TextBox,
   WrapperNumber,
   Week,
+  LoadData,
+  Warn,
 } from './styles';
 
 export default function Project(props) {
+  const [projectInfos, setProjectInfos] = useState([]);
   const [projectData, setProjectData] = useState([]);
+  const [allProjectData, setAllProjectData] = useState([]);
   const [greenData, setGreenData] = useState([]);
+  const [page, setPage] = useState(1);
+
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledAdd, setIsToggledAdd] = useState(false);
-  const [projectDataFiltered, setProjectDataFiltered] = useState([]);
   const [editOn, setEditOn] = useState(false);
+  const [btnDisable, setBtnDisable] = useState('');
 
   const { defaultValue, registerField } = useField('img_green');
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
   const ref = useRef();
 
+  const fetchData = async (id, currentPage) => {
+    await DataService.getProject(id, currentPage).then(response => {
+      const { data } = response;
+
+      setProjectData([...data.green]);
+      setProjectInfos([data]);
+    });
+  };
+
   useEffect(() => {
-    const loadItens = async id => {
-      await DataService.getProject(id).then(response => {
-        const { data } = response;
-        setProjectData([data]);
+    fetchData(props.match.params.id, page);
+  }, [props, page]);
 
-        const dataFiltered = greenData.filter(
-          item => item.project_id === data.id
-        );
-
-        setProjectDataFiltered(dataFiltered);
-      });
-    };
-
-    loadItens(props.match.params.id);
-  }, [props, greenData]);
+  function fetchDataNextPage() {
+    setPage(page + 1);
+    setAllProjectData(prevState => [...prevState, ...projectData]);
+    fetchData();
+  }
 
   const initialFormState = {
     project_id: props.match.params.id,
@@ -78,20 +86,6 @@ export default function Project(props) {
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
-
-  useEffect(() => {
-    async function loadItens() {
-      const response = await DataService.getGreens();
-
-      const { data } = response;
-
-      setGreenData([...data]);
-    }
-
-    loadItens();
-  }, []);
-
-  const [btnDisable, setBtnDisable] = useState('');
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -219,38 +213,41 @@ export default function Project(props) {
     return theme;
   };
 
-  const dateFormatMonth = projectDataFiltered.map(date => {
-    return {
-      ...date,
-      createdAt: parseISO(date.createdAt).toLocaleString('en-US', {
-        weekday: 'short',
-        month: '2-digit',
-        day: '2-digit',
-      }),
-      updatedAt: parseISO(date.createdAt).toLocaleString('en-US', {
-        weekday: 'short',
-        day: '2-digit',
-      }),
-    };
-  });
-
   return (
     <Container>
       <Content>
-        <ProjectData
-          projectData={projectData}
-          setProjectData={setProjectData}
+        <ProjectInfos
+          projectInfos={projectInfos}
+          setProjectInfos={setProjectInfos}
         />
       </Content>
       <Content>
-        {dateFormatMonth.length ? (
-          dateFormatMonth.map((item, index) => (
+        <AddData
+          toggleAdd={toggleAdd}
+          isToggledAdd={isToggledAdd}
+          handleInputChange={handleInputChange}
+          handleChange={handleChange}
+          saveItem={saveItem}
+          currentData={currentData}
+          phases={phases}
+          handleSelectChange={handleSelectChange}
+          preview={preview}
+          file={file}
+          btnDisable={btnDisable}
+        />
+        {allProjectData.length ? (
+          allProjectData.map((item, index) => (
             <WrapperContent key={item.id}>
               <DayWrapper onClick={() => toggle(item.id)}>
                 <RowDayWrapper theme={badgeTheme(item.phase)}>
                   <WrapperNumber>
                     <Number>{index + 1}</Number>
-                    <SmallText>{item.createdAt}</SmallText>
+                    <SmallText>
+                      {parseISO(item.createdAt).toLocaleString('en-US', {
+                        weekday: 'short',
+                        day: '2-digit',
+                      })}
+                    </SmallText>
                   </WrapperNumber>
                   <ColDay>
                     <RowDay>
@@ -280,7 +277,7 @@ export default function Project(props) {
                       </BorderLeft>
                       <BorderLeft>
                         <SmallText>PH SOIL:</SmallText>
-                        <BigText>{item.ph_water}</BigText>
+                        <BigText>{item.ph_soil}</BigText>
                       </BorderLeft>
                     </RowDay>
                   </ColDay>
@@ -398,22 +395,12 @@ export default function Project(props) {
             </WrapperContent>
           ))
         ) : (
-          <p>Loading...</p>
+          <Warn>Data will be displayed here.</Warn>
         )}
-        <AddData
-          toggleAdd={toggleAdd}
-          isToggledAdd={isToggledAdd}
-          handleInputChange={handleInputChange}
-          handleChange={handleChange}
-          saveItem={saveItem}
-          currentData={currentData}
-          phases={phases}
-          handleSelectChange={handleSelectChange}
-          preview={preview}
-          file={file}
-          btnDisable={btnDisable}
-        />
-        <GraphsData greenData={greenData} dateFormatMonth={dateFormatMonth} />
+        <LoadData type="button" onClick={() => fetchDataNextPage()}>
+          Load data.
+        </LoadData>
+        <GraphsData projectData={projectData} />
       </Content>
     </Container>
   );

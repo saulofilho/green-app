@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const theme = theme => {
+const themeColor = theme => {
   switch (theme) {
     case 'germination':
       return '#7d634b';
@@ -16,6 +16,8 @@ const theme = theme => {
       return '#ffa54f';
     case 'none':
       return '#000';
+    default:
+      return '#fff';
   }
 };
 
@@ -118,7 +120,7 @@ export const RowDayWrapper = styled.div`
   align-items: center;
   flex-flow: row;
   background-color: ${props =>
-    props.theme ? theme(props.theme) : 'black'} !important;
+    props.theme ? themeColor(props.theme) : 'black'} !important;
 `;
 
 export const ColDay = styled.div`
@@ -137,7 +139,7 @@ export const Number = styled.div`
   align-items: center;
   flex-flow: column;
   color: white;
-  font-size: 2rem;
+  font-size: 24px;
 `;
 
 export const WrapperNumber = styled.div`
@@ -196,10 +198,10 @@ export const BigText = styled.p`
   justify-content: center;
   align-items: center;
   flex-flow: column;
-  font-size: 30px;
+  font-size: 22px;
 
   @media (max-width: 768px) {
-    font-size: 18px;
+    font-size: 16px;
   }
 `;
 
@@ -211,12 +213,18 @@ export const Subtitle = styled.p`
   font-weight: bolder;
 `;
 
+export const Warn = styled.p`
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  padding: 10px 0 15px;
+`;
+
 export const Week = styled.div`
   div {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 10px;
+    padding-top: 20px;
   }
   p {
     font-family: 'Rubik', sans-serif;
@@ -228,5 +236,25 @@ export const Week = styled.div`
     background: #a7ff83;
     width: 100%;
     height: 2px;
+  }
+`;
+
+export const LoadData = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: row;
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  margin: 0 auto;
+
+  :hover {
+    background-color: #a7ff83;
   }
 `;

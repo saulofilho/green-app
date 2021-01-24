@@ -25,9 +25,7 @@ import {
 
 export default function Dashboard() {
   const [wizardOn, setWizardOn] = useState(false);
-  const [projectData, setProjectData] = useState([]);
-  const [allProjectsData, setAllProjectsData] = useState([]);
-  const [greenData, setGreenData] = useState([]);
+  const [projectsData, setProjectsData] = useState([]);
 
   const initialFormState = {
     id: '',
@@ -53,30 +51,10 @@ export default function Dashboard() {
 
       const { data } = response;
 
-      setProjectData([...data]);
+      setProjectsData([...data]);
     }
 
     loadDataProjects();
-
-    async function loadDataGreen() {
-      const response = await DataService.getGreens();
-
-      const { data } = response;
-
-      setGreenData([...data]);
-    }
-
-    loadDataGreen();
-
-    async function loadDataAllProjects() {
-      const response = await DataService.getProjects();
-
-      const { data } = response;
-
-      setAllProjectsData([...data]);
-    }
-
-    loadDataAllProjects();
   }, []);
 
   const [btnDisable, setBtnDisable] = useState('');
@@ -331,10 +309,10 @@ export default function Dashboard() {
           dados sobre sua plantacao. Em cada diario voce pode criar e editar os
           seus dados diarios.
         </Subtitle>
-        {projectData.length ? (
+        {projectsData.length ? (
           <NumberHarvests>
             You have{' '}
-            <strong style={{ color: '#086972' }}>{projectData.length}</strong>{' '}
+            <strong style={{ color: '#086972' }}>{projectsData.length}</strong>{' '}
             harvests.
           </NumberHarvests>
         ) : (
@@ -342,7 +320,7 @@ export default function Dashboard() {
         )}
 
         <HarvestName>
-          {projectData
+          {projectsData
             .sort((a, b) => a.id - b.id)
             .map(item => (
               <li key={item.id}>
@@ -357,7 +335,7 @@ export default function Dashboard() {
           visual com os graficos.
         </Subtitle>
 
-        <Graphs greenData={greenData} allProjectsData={allProjectsData} />
+        <Graphs projectsData={projectsData} />
       </Content>
     </Container>
   );

@@ -1,7 +1,7 @@
 import api from './api';
 
-const getProject = id => {
-  return api.get(`/project/${id}`);
+const getProject = (id, page) => {
+  return api.get(`/project/${id}?page=${page}`);
 };
 const getProjects = () => {
   return api.get('/projects');
@@ -15,9 +15,7 @@ const removeProject = id => {
 const editProject = (id, data) => {
   return api.put(`/project/${id}`, data);
 };
-const getGreens = () => {
-  return api.get('/greens');
-};
+
 const createGreen = data => {
   return api.post('/green', data);
 };
@@ -29,7 +27,6 @@ export default {
   getProject,
   getProjects,
   createProjects,
-  getGreens,
   createGreen,
   updateGreen,
   removeProject,

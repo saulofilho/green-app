@@ -4,16 +4,16 @@ import DataService from '../../services/crudApi';
 import { WrapperInfos, Col, Button, TitleBox, Row } from './styles';
 
 export default function DeleteProjectData({
-  projectData,
-  setProjectData,
+  projectInfos,
+  setProjectInfos,
   item,
 }) {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
 
   const deleteProject = async id => {
     await DataService.removeProject(id).then(response => {
-      setProjectData(
-        projectData.filter(project => project.id !== projectData.id)
+      setProjectInfos(
+        projectInfos.filter(project => project.id !== projectInfos.id)
       );
       if (response.status === 200) {
         toast.success('Deleted successfully.');

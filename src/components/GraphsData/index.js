@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveStream } from '@nivo/stream';
 import { ResponsiveMarimekko } from '@nivo/marimekko';
 import { ResponsiveCalendar } from '@nivo/calendar';
 import { parseISO } from 'date-fns';
+import Select from 'react-select';
+// import moment from 'moment';
 import { Content, WrapperGraph, CalendarLegend } from './styles';
 
-export default function Graphs({ greenData, dateFormatMonth }) {
-  const dateFormatDay = greenData.map(date => {
+export default function Graphs({ projectData }) {
+  const dateFormatCalendar = projectData.map(date => {
     return {
       ...date,
       createdAt: parseISO(date.createdAt)
@@ -19,7 +21,25 @@ export default function Graphs({ greenData, dateFormatMonth }) {
     };
   });
 
-  const graphFormatDay = dateFormatDay.map(elm => {
+  const dateFormatDay = projectData.map(date => {
+    return {
+      ...date,
+      createdAt: parseISO(date.createdAt).toLocaleString('en-US', {
+        day: '2-digit',
+      }),
+    };
+  });
+
+  const dateFormatMonth = projectData.map(date => {
+    return {
+      ...date,
+      createdAt: parseISO(date.createdAt).toLocaleString('en-US', {
+        month: 'short',
+      }),
+    };
+  });
+
+  const graphFormatDay = dateFormatCalendar.map(elm => {
     return {
       ...elm,
       day: elm.createdAt,
@@ -27,11 +47,40 @@ export default function Graphs({ greenData, dateFormatMonth }) {
     };
   });
 
+  const monthsSelect = [
+    { value: 'Jan', label: 'Jan' },
+    { value: 'Feb', label: 'Feb' },
+    { value: 'Mar', label: 'Mar' },
+    { value: 'Apr', label: 'Apr' },
+    { value: 'May', label: 'May' },
+    { value: 'Jun', label: 'Jun' },
+    { value: 'Jul', label: 'Jul' },
+    { value: 'Aug', label: 'Aug' },
+    { value: 'Sep', label: 'Sep' },
+    { value: 'Out', label: 'Out' },
+    { value: 'Nov', label: 'Nov' },
+    { value: 'Dec', label: 'Dec' },
+  ];
+
+  const [filterMonth, setFilterMonth] = useState([]);
+  const handleChange = e => {
+    const filteredDates = dateFormatMonth.filter(a => a.createdAt === e.value);
+    setFilterMonth(filteredDates);
+  };
+
+  console.log('aassas', dateFormatDay);
+
   return (
     <Content>
+      <Select
+        defaultMenuIsOpen
+        options={monthsSelect}
+        // defaultValue={monthsSelect[0]}
+        onChange={handleChange}
+      />
       <WrapperGraph>
         <ResponsiveBar
-          data={dateFormatMonth}
+          data={filterMonth}
           keys={[
             'ec',
             'temp_max',
@@ -128,7 +177,7 @@ export default function Graphs({ greenData, dateFormatMonth }) {
       </WrapperGraph>
       <WrapperGraph>
         <ResponsiveStream
-          data={dateFormatMonth}
+          data={dateFormatDay}
           keys={[
             'ec',
             'temp_max',
@@ -221,7 +270,7 @@ export default function Graphs({ greenData, dateFormatMonth }) {
       </WrapperGraph>
       <WrapperGraph>
         <ResponsiveMarimekko
-          data={dateFormatMonth}
+          data={dateFormatDay}
           id="id"
           value="id"
           dimensions={[
@@ -326,7 +375,7 @@ export default function Graphs({ greenData, dateFormatMonth }) {
       <WrapperGraph>
         <ResponsiveCalendar
           data={graphFormatDay}
-          from="2020-12-01"
+          from="2021-01-01"
           to="2021-12-31"
           emptyColor="#eeeeee"
           colors={['#61cdbb', '#97e3d5', '#a7ff83', '#17b978']}

@@ -5,8 +5,8 @@ import { parseISO } from 'date-fns';
 
 import { Content, WrapperGraph, CalendarLegend } from './styles';
 
-export default function Graphs({ allProjectsData }) {
-  const dateFormatDay = allProjectsData.map(date => {
+export default function Graphs({ projectsData }) {
+  const dateFormatDay = projectsData.map(date => {
     return {
       ...date,
       createdAt: parseISO(date.createdAt)

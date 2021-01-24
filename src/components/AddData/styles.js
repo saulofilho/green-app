@@ -38,11 +38,13 @@ export const AddWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-flow: column;
+  flex-flow: row;
   cursor: pointer;
-  padding: 20px;
+  padding: 10px;
   font-family: 'Rubik', sans-serif;
-  font-size: 24px;
+  font-size: 18px;
+  text-align: center;
+  margin: 0 auto;
 
   :hover {
     background-color: #a7ff83;

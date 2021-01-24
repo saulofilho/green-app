@@ -14,8 +14,8 @@ import {
 export default function EditProjectData({
   handleSelectChange,
   phases,
-  projectData,
-  setProjectData,
+  projectInfos,
+  setProjectInfos,
   item,
 }) {
   const [editOn, setEditOn] = useState(false);
@@ -45,8 +45,8 @@ export default function EditProjectData({
       currentProjectData.id,
       currentProjectData
     ).then(response => {
-      setProjectData(
-        projectData.map(item => (item.id === id ? updateProjectData : item))
+      setProjectInfos(
+        projectInfos.map(item => (item.id === id ? updateProjectData : item))
       );
       if (response.status === 200) {
         toast.success('Saved successfully.');

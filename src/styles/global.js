@@ -25,7 +25,7 @@ export default createGlobalStyle`
   }
 
   body, input, button {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Rubik', sans-serif;
   }
 
   a {
