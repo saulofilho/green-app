@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/bg-plants.jpg';
-import { Wrapper, WrapperHome, Content } from './styles';
+import { Wrapper, Content } from './styles';
 
 export default function AuthLayout({ children }) {
   return (

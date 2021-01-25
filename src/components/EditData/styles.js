@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Select from 'react-select';
 import { darken } from 'polished';
 
 export const Title = styled.p`
@@ -130,6 +131,13 @@ export const Form = styled.form`
     width: 100%;
     border: 1px solid #000;
   }
+
+  @media (max-width: 768px) {
+    input {
+      margin: 0 0 20px;
+      width: 100%;
+    }
+  }
 `;
 
 export const FormWrapper = styled.div`
@@ -145,6 +153,10 @@ export const FormWrapper = styled.div`
     padding: 0 0 5px;
     font-style: italic;
     font-weight: bolder;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 30px;
   }
 `;
 
@@ -195,4 +207,8 @@ export const TitleBox = styled.p`
   @media (max-width: 768px) {
     font-size: 12px;
   }
+`;
+
+export const SelectEdited = styled(Select)`
+  width: 100%;
 `;

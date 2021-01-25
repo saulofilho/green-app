@@ -140,6 +140,11 @@ export const Number = styled.div`
   flex-flow: column;
   color: white;
   font-size: 24px;
+
+  @media (max-width: 768px) {
+    padding: 0 15px;
+    font-size: 18px;
+  }
 `;
 
 export const WrapperNumber = styled.div`
@@ -179,7 +184,7 @@ export const TextBox = styled.p`
   font-weight: bolder;
 
   @media (max-width: 768px) {
-    font-size: 18px;
+    font-size: 14px;
   }
 `;
 
@@ -253,6 +258,32 @@ export const LoadData = styled.div`
   font-size: 18px;
   text-align: center;
   margin: 0 auto;
+
+  :hover {
+    background-color: #a7ff83;
+  }
+`;
+
+export const DownloadData = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: row;
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  margin: 20px auto 0;
+
+  a {
+    width: 100%;
+    color: #000;
+    text-decoration: none;
+  }
 
   :hover {
     background-color: #a7ff83;

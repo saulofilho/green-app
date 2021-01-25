@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import uniqid from 'uniqid';
 import {
   WrapperContent,
   AddWrapper,
@@ -31,7 +32,7 @@ export default function AddData({
             <p>Infos</p>
             <textarea
               name="infos"
-              id="infos"
+              id={uniqid()}
               placeholder="Infos..."
               onChange={handleInputChange}
             />
@@ -40,7 +41,7 @@ export default function AddData({
             <p>Phase</p>
             <Select
               defaultMenuIsOpen
-              id="phase"
+              id={uniqid()}
               name="phase"
               onChange={handleSelectChange}
               options={phases}
@@ -51,7 +52,7 @@ export default function AddData({
             <input
               type="text"
               name="ph_water"
-              id="ph_water"
+              id={uniqid()}
               placeholder="6.2"
               onChange={handleInputChange}
             />
@@ -61,7 +62,7 @@ export default function AddData({
             <input
               type="text"
               name="ph_soil"
-              id="ph_soil"
+              id={uniqid()}
               placeholder="6.2"
               onChange={handleInputChange}
             />
@@ -71,7 +72,7 @@ export default function AddData({
             <input
               type="text"
               name="ec"
-              id="ec"
+              id={uniqid()}
               placeholder="2000"
               onChange={handleInputChange}
             />
@@ -81,7 +82,7 @@ export default function AddData({
             <input
               type="text"
               name="temp_max"
-              id="temp_max"
+              id={uniqid()}
               placeholder="37"
               onChange={handleInputChange}
             />
@@ -91,7 +92,7 @@ export default function AddData({
             <input
               type="text"
               name="temp_min"
-              id="temp_min"
+              id={uniqid()}
               placeholder="20"
               onChange={handleInputChange}
             />
@@ -101,7 +102,7 @@ export default function AddData({
             <input
               type="text"
               name="moisture"
-              id="moisture"
+              id={uniqid()}
               placeholder="80"
               onChange={handleInputChange}
             />
@@ -111,8 +112,18 @@ export default function AddData({
             <input
               type="text"
               name="air_humidity"
-              id="air_humidity"
+              id={uniqid()}
               placeholder="60"
+              onChange={handleInputChange}
+            />
+          </FormWrapper>
+          <FormWrapper>
+            <p>Plant Size</p>
+            <input
+              type="text"
+              name="plant_size"
+              id={uniqid()}
+              placeholder="0.90"
               onChange={handleInputChange}
             />
           </FormWrapper>
@@ -122,7 +133,7 @@ export default function AddData({
             <input
               name="img_id"
               type="file"
-              id="img_id"
+              id={uniqid()}
               accept="image/*"
               data-file={file}
               onChange={handleChange}

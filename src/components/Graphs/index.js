@@ -103,21 +103,15 @@ export default function Graphs({ projectsData }) {
           colors={{ scheme: 'accent' }}
           blendMode="multiply"
           startLabel="id"
-          axisTop={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: '',
-            legendPosition: 'middle',
-            legendOffset: -36,
-          }}
+          axisTop={null}
           axisBottom={{
+            orient: 'bottom',
             tickSize: 5,
             tickPadding: 5,
-            tickRotation: 0,
+            tickRotation: 90,
             legend: '',
+            legendOffset: 31,
             legendPosition: 'middle',
-            legendOffset: 32,
           }}
         />
         <CalendarLegend>soil moisture</CalendarLegend>
@@ -142,6 +136,15 @@ export default function Graphs({ projectsData }) {
           pointBorderColor={{ from: 'serieColor' }}
           pointLabelYOffset={-12}
           useMesh
+          axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 90,
+            legend: '',
+            legendOffset: 31,
+            legendPosition: 'middle',
+          }}
           legends={[
             {
               anchor: 'bottom-right',
@@ -191,6 +194,15 @@ export default function Graphs({ projectsData }) {
           pointBorderColor={{ from: 'serieColor' }}
           pointLabelYOffset={-12}
           useMesh
+          axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 90,
+            legend: '',
+            legendOffset: 31,
+            legendPosition: 'middle',
+          }}
           legends={[
             {
               anchor: 'bottom-right',
@@ -240,6 +252,15 @@ export default function Graphs({ projectsData }) {
           pointBorderColor={{ from: 'serieColor' }}
           pointLabelYOffset={-12}
           useMesh
+          axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 90,
+            legend: '',
+            legendOffset: 31,
+            legendPosition: 'middle',
+          }}
           legends={[
             {
               anchor: 'bottom-right',
@@ -289,6 +310,15 @@ export default function Graphs({ projectsData }) {
           pointBorderColor={{ from: 'serieColor' }}
           pointLabelYOffset={-12}
           useMesh
+          axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 90,
+            legend: '',
+            legendOffset: 31,
+            legendPosition: 'middle',
+          }}
           legends={[
             {
               anchor: 'bottom-right',

@@ -15,4 +15,5 @@ export const CalendarLegend = styled.div`
   text-align: center;
   position: relative;
   font-size: 12px;
+  padding: 10px 0;
 `;

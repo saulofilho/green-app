@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from 'react-select';
+import uniqid from 'uniqid';
 import {
   WrapperInfos,
   Col,
@@ -8,6 +8,7 @@ import {
   WrapperDataAdd,
   Form,
   FormWrapper,
+  SelectEdited,
 } from './styles';
 
 export default function EditData({
@@ -34,37 +35,38 @@ export default function EditData({
               <p>Infos</p>
               <textarea
                 name="infos"
-                id="infos"
+                id={uniqid()}
                 onChange={handleInputChange}
                 value={currentData && currentData.infos}
               />
             </FormWrapper>
             <FormWrapper>
               <p>Phase</p>
-              <Select
+              <SelectEdited
                 defaultMenuIsOpen
-                id="phase"
+                id={uniqid()}
                 name="phase"
                 onChange={handleSelectChange}
                 options={phases}
+                defaultValue={currentData && currentData.phase}
               />
             </FormWrapper>
             <FormWrapper>
-              <p>PH Water</p>
+              <p>pH Water</p>
               <input
                 type="text"
                 name="ph_water"
-                id="ph_water"
+                id={uniqid()}
                 onChange={handleInputChange}
                 value={currentData && currentData.ph_water}
               />
             </FormWrapper>
             <FormWrapper>
-              <p>PH Soil</p>
+              <p>pH Soil</p>
               <input
                 type="text"
                 name="ph_soil"
-                id="ph_soil"
+                id={uniqid()}
                 onChange={handleInputChange}
                 value={currentData && currentData.ph_soil}
               />
@@ -74,7 +76,7 @@ export default function EditData({
               <input
                 type="text"
                 name="ec"
-                id="ec"
+                id={uniqid()}
                 onChange={handleInputChange}
                 value={currentData && currentData.ec}
               />
@@ -84,7 +86,7 @@ export default function EditData({
               <input
                 type="text"
                 name="temp_max"
-                id="temp_max"
+                id={uniqid()}
                 onChange={handleInputChange}
                 value={currentData && currentData.temp_max}
               />
@@ -94,7 +96,7 @@ export default function EditData({
               <input
                 type="text"
                 name="temp_min"
-                id="temp_min"
+                id={uniqid()}
                 onChange={handleInputChange}
                 value={currentData && currentData.temp_min}
               />
@@ -104,9 +106,19 @@ export default function EditData({
               <input
                 type="text"
                 name="moisture"
-                id="moisture"
+                id={uniqid()}
                 onChange={handleInputChange}
                 value={currentData && currentData.moisture}
+              />
+            </FormWrapper>
+            <FormWrapper>
+              <p>Plant Size</p>
+              <input
+                type="text"
+                name="plant_size"
+                id={uniqid()}
+                onChange={handleInputChange}
+                value={currentData && currentData.plant_size}
               />
             </FormWrapper>
             <FormWrapper>
@@ -114,7 +126,7 @@ export default function EditData({
               <input
                 type="text"
                 name="air_humidity"
-                id="air_humidity"
+                id={uniqid()}
                 onChange={handleInputChange}
                 value={currentData && currentData.air_humidity}
               />

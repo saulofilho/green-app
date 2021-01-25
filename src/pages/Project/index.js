@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { parseISO } from 'date-fns';
+import { CSVLink } from 'react-csv';
 import DataService from '../../services/crudApi';
 import api from '../../services/api';
 import 'remixicon/fonts/remixicon.css';
@@ -32,6 +33,7 @@ import {
   Week,
   LoadData,
   Warn,
+  DownloadData,
 } from './styles';
 
 export default function Project(props) {
@@ -67,7 +69,6 @@ export default function Project(props) {
   function fetchDataNextPage() {
     setPage(page + 1);
     setAllProjectData(prevState => [...prevState, ...projectData]);
-    fetchData();
   }
 
   const initialFormState = {
@@ -81,6 +82,7 @@ export default function Project(props) {
     temp_min: '',
     moisture: '',
     air_humidity: '',
+    plant_size: '',
     phase: '',
     img_id: '',
   };
@@ -97,6 +99,7 @@ export default function Project(props) {
   };
 
   const handleSelectChange = item => {
+    setBtnDisable(item.value);
     setCurrentData(prevState => ({
       ...prevState,
       phase: item.value,
@@ -177,10 +180,10 @@ export default function Project(props) {
   };
 
   const phases = [
-    { value: 'germination', label: 'Germination' },
-    { value: 'vegetation', label: 'Vegetation' },
+    { value: 'seeding', label: 'Seeding' },
+    { value: 'vegetation', label: 'Vegetative' },
     { value: 'flowering', label: 'Flowering' },
-    { value: 'washing', label: 'Washing' },
+    { value: 'washing', label: 'Flushing' },
     { value: 'drying', label: 'Drying' },
     { value: 'cured', label: 'Cured' },
   ];
@@ -304,15 +307,15 @@ export default function Project(props) {
                   <WrapperInfos>
                     <i className="ri-water-flash-line ri-2x" />
                     <Col>
-                      <TitleBox>PH Water: </TitleBox>
-                      <TextBox>{item.ph_water}</TextBox>
+                      <TitleBox>pH Water: </TitleBox>
+                      <TextBox>{item.ph_water} pH</TextBox>
                     </Col>
                   </WrapperInfos>
                   <WrapperInfos>
                     <i className="ri-earth-line ri-2x" />
                     <Col>
-                      <TitleBox>PH Soil: </TitleBox>
-                      <TextBox>{item.ph_soil}</TextBox>
+                      <TitleBox>pH Soil: </TitleBox>
+                      <TextBox>{item.ph_soil} pH</TextBox>
                     </Col>
                   </WrapperInfos>
                   <WrapperInfos>
@@ -350,6 +353,15 @@ export default function Project(props) {
                     <Col>
                       <TitleBox>Air Humidity: </TitleBox>
                       <TextBox>{item.air_humidity} %</TextBox>
+                    </Col>
+                  </WrapperInfos>
+                </Row>
+                <Row>
+                  <WrapperInfos>
+                    <i className="ri-seedling-line ri-2x" />
+                    <Col>
+                      <TitleBox>Plant Size: </TitleBox>
+                      <TextBox>{item.plant_size} cm</TextBox>
                     </Col>
                   </WrapperInfos>
                 </Row>
@@ -395,12 +407,25 @@ export default function Project(props) {
             </WrapperContent>
           ))
         ) : (
-          <Warn>Data will be displayed here.</Warn>
+          <Warn>
+            Data will be displayed here.
+            {/* You have {projectData.length} days of
+            data. */}
+          </Warn>
         )}
         <LoadData type="button" onClick={() => fetchDataNextPage()}>
           Load data.
         </LoadData>
-        <GraphsData projectData={projectData} />
+        <DownloadData>
+          <CSVLink
+            data={projectData}
+            filename="mybotanicdailydata.csv"
+            target="_blank"
+          >
+            Download CVS data.
+          </CSVLink>
+        </DownloadData>
+        <GraphsData projectData={projectData} allProjectData={allProjectData} />
       </Content>
     </Container>
   );

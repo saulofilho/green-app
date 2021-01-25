@@ -1,9 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-// import Granim from 'react-granim';
 import logo1green from '../../assets/images/logo-1-green.svg';
 import logo2green from '../../assets/images/logo-2-green.svg';
 import logo3green from '../../assets/images/logo-3-green.svg';
@@ -47,7 +45,6 @@ export default function SignIn() {
         <button type="submit">{loading ? 'Loading...' : 'Get in'}</button>
         {/* <Link to="/register">Criar conta gratuita</Link> */}
       </Form>
-      {/* <Granim id="granim" /> */}
     </>
   );
 }
