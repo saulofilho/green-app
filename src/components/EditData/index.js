@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
 import {
   WrapperInfos,
@@ -152,3 +153,15 @@ export default function EditData({
     </WrapperInfos>
   );
 }
+
+EditData.propTypes = {
+  editButton: PropTypes.func.isRequired,
+  editOn: PropTypes.bool.isRequired,
+  item: PropTypes.object.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  currentData: PropTypes.object.isRequired,
+  handleSelectChange: PropTypes.func.isRequired,
+  btnDisable: PropTypes.string.isRequired,
+  phases: PropTypes.array.isRequired,
+  updateItem: PropTypes.func.isRequired,
+};

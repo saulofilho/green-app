@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import DataService from '../../services/crudApi';
 import {
@@ -12,8 +13,6 @@ import {
 } from './styles';
 
 export default function EditProjectData({
-  handleSelectChange,
-  phases,
   projectInfos,
   setProjectInfos,
   item,
@@ -46,7 +45,7 @@ export default function EditProjectData({
       currentProjectData
     ).then(response => {
       setProjectInfos(
-        projectInfos.map(item => (item.id === id ? updateProjectData : item))
+        projectInfos.map(el => (el.id === id ? updateProjectData : item))
       );
       if (response.status === 200) {
         toast.success('Saved successfully.');
@@ -59,9 +58,9 @@ export default function EditProjectData({
     });
   };
 
-  const editButton = item => {
+  const editButton = itemSelected => {
     setEditOn(!editOn);
-    setCurrentProjectData(item);
+    setCurrentProjectData(itemSelected);
   };
 
   const handleInputChange = e => {
@@ -213,3 +212,12 @@ export default function EditProjectData({
     </WrapperInfos>
   );
 }
+
+EditProjectData.propTypes = {
+  projectInfos: PropTypes.array,
+  setProjectInfos: PropTypes.func.isRequired,
+};
+
+EditProjectData.defaultProps = {
+  projectInfos: [],
+};

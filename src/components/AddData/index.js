@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
 import uniqid from 'uniqid';
 import {
@@ -159,3 +160,24 @@ export default function AddData({
     </WrapperContent>
   );
 }
+
+AddData.propTypes = {
+  toggleAdd: PropTypes.func.isRequired,
+  isToggledAdd: PropTypes.bool.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  saveItem: PropTypes.func.isRequired,
+  currentData: PropTypes.object.isRequired,
+  phases: PropTypes.array.isRequired,
+  handleSelectChange: PropTypes.func.isRequired,
+  preview: PropTypes.string,
+  file: PropTypes.string,
+  ref: PropTypes.func,
+  btnDisable: PropTypes.string.isRequired,
+};
+
+AddData.defaultProps = {
+  preview: '',
+  file: '',
+  ref: () => {},
+};

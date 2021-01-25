@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ResponsiveAreaBump } from '@nivo/bump';
 import { ResponsiveLine } from '@nivo/line';
 import { parseISO } from 'date-fns';
@@ -351,3 +352,11 @@ export default function Graphs({ projectsData }) {
     </Content>
   );
 }
+
+Graphs.propTypes = {
+  projectsData: PropTypes.array,
+};
+
+Graphs.defaultProps = {
+  projectsData: [],
+};

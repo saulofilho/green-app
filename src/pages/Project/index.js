@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useField } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { parseISO } from 'date-fns';
@@ -37,6 +38,7 @@ import {
 } from './styles';
 
 export default function Project(props) {
+  const { match } = props;
   const [projectInfos, setProjectInfos] = useState([]);
   const [projectData, setProjectData] = useState([]);
   const [allProjectData, setAllProjectData] = useState([]);
@@ -63,8 +65,8 @@ export default function Project(props) {
   };
 
   useEffect(() => {
-    fetchData(props.match.params.id, page);
-  }, [props, page]);
+    fetchData(match.params.id, page);
+  }, [match.params.id, page]);
 
   function fetchDataNextPage() {
     setPage(page + 1);
@@ -72,7 +74,7 @@ export default function Project(props) {
   }
 
   const initialFormState = {
-    project_id: props.match.params.id,
+    project_id: match.params.id,
     id: '',
     infos: '',
     ph_water: '',
@@ -430,3 +432,11 @@ export default function Project(props) {
     </Container>
   );
 }
+
+Project.propTypes = {
+  match: PropTypes.object,
+};
+
+Project.defaultProps = {
+  match: {},
+};

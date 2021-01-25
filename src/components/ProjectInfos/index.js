@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import EditProjectData from '../EditProjectData';
 import DeleteProjectData from '../DeleteProjectData';
 import {
@@ -80,3 +81,13 @@ export default function ProjectInfos({ projectInfos, setProjectInfos }) {
     </>
   );
 }
+
+ProjectInfos.propTypes = {
+  projectInfos: PropTypes.array,
+  setProjectInfos: PropTypes.func,
+};
+
+ProjectInfos.defaultProps = {
+  projectInfos: [],
+  setProjectInfos: () => {},
+};

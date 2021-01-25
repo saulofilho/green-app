@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import DataService from '../../services/crudApi';
 import { WrapperInfos, Col, Button, TitleBox, Row } from './styles';
@@ -56,3 +57,9 @@ export default function DeleteProjectData({
     </>
   );
 }
+
+DeleteProjectData.propTypes = {
+  item: PropTypes.object.isRequired,
+  projectInfos: PropTypes.array.isRequired,
+  setProjectInfos: PropTypes.func.isRequired,
+};

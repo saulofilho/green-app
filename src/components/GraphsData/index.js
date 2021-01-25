@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveStream } from '@nivo/stream';
 import { ResponsiveMarimekko } from '@nivo/marimekko';
 import { ResponsiveCalendar } from '@nivo/calendar';
 import { parseISO } from 'date-fns';
-// import moment from 'moment';
 import {
   Content,
   WrapperGraph,
@@ -416,3 +416,11 @@ export default function Graphs({ allProjectData }) {
     </Content>
   );
 }
+
+Graphs.propTypes = {
+  allProjectData: PropTypes.array,
+};
+
+Graphs.defaultProps = {
+  allProjectData: [],
+};
