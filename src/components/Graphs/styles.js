@@ -8,7 +8,11 @@ export const Content = styled.div`
 
 export const WrapperGraph = styled.div`
   width: 100%;
-  height: 500px;
+  height: 100%;
+  overflow-y: hidden;
+  border: 1px solid #a7ff83;
+  padding-bottom: 50px;
+  margin-bottom: 50px;
 `;
 
 export const CalendarLegend = styled.div`

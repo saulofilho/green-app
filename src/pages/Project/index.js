@@ -183,9 +183,9 @@ export default function Project(props) {
 
   const phases = [
     { value: 'seeding', label: 'Seeding' },
-    { value: 'vegetation', label: 'Vegetative' },
+    { value: 'vegetative', label: 'Vegetative' },
     { value: 'flowering', label: 'Flowering' },
-    { value: 'washing', label: 'Flushing' },
+    { value: 'flushing', label: 'Flushing' },
     { value: 'drying', label: 'Drying' },
     { value: 'cured', label: 'Cured' },
   ];
@@ -193,17 +193,17 @@ export default function Project(props) {
   const badgeTheme = status => {
     let theme;
     switch (status) {
-      case 'germination':
-        theme = 'germination';
+      case 'seeding':
+        theme = 'seeding';
         break;
-      case 'vegetation':
-        theme = 'vegetation';
+      case 'vegetative':
+        theme = 'vegetative';
         break;
       case 'flowering':
         theme = 'flowering';
         break;
-      case 'washing':
-        theme = 'washing';
+      case 'flushing':
+        theme = 'flushing';
         break;
       case 'drying':
         theme = 'drying';
@@ -227,19 +227,6 @@ export default function Project(props) {
         />
       </Content>
       <Content>
-        <AddData
-          toggleAdd={toggleAdd}
-          isToggledAdd={isToggledAdd}
-          handleInputChange={handleInputChange}
-          handleChange={handleChange}
-          saveItem={saveItem}
-          currentData={currentData}
-          phases={phases}
-          handleSelectChange={handleSelectChange}
-          preview={preview}
-          file={file}
-          btnDisable={btnDisable}
-        />
         {allProjectData.length ? (
           allProjectData.map((item, index) => (
             <WrapperContent key={item.id}>
@@ -418,6 +405,23 @@ export default function Project(props) {
         <LoadData type="button" onClick={() => fetchDataNextPage()}>
           Load data.
         </LoadData>
+        {allProjectData.length ? (
+          <AddData
+            toggleAdd={toggleAdd}
+            isToggledAdd={isToggledAdd}
+            handleInputChange={handleInputChange}
+            handleChange={handleChange}
+            saveItem={saveItem}
+            currentData={currentData}
+            phases={phases}
+            handleSelectChange={handleSelectChange}
+            preview={preview}
+            file={file}
+            btnDisable={btnDisable}
+          />
+        ) : (
+          ''
+        )}
         <DownloadData>
           <CSVLink
             data={projectData}

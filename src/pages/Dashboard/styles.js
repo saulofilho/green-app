@@ -8,13 +8,13 @@ export const Container = styled.div`
 
 export const Title = styled.p`
   font-family: 'Rubik', sans-serif;
-  font-size: 36px;
+  font-size: 24px;
   padding: 0 0 10px;
 `;
 
 export const Subtitle = styled.p`
   font-family: 'Source Serif Pro', serif;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0 0 25px;
   font-style: italic;
   font-weight: bolder;
@@ -26,6 +26,7 @@ export const Today = styled.p`
   padding: 20px 0 50px;
   text-align: center;
   width: 100%;
+  color: #17b978;
 `;
 
 export const NumberHarvests = styled.p`
@@ -71,7 +72,7 @@ export const WrapperWizard = styled.div`
 `;
 
 export const CreateHarvestBtn = styled.button`
-  margin: 10px 20px 50px 0;
+  margin: 0 0 50px;
   border: 2px solid black;
   padding: 5px 10px;
   background: unset;

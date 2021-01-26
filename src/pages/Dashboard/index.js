@@ -105,8 +105,9 @@ export default function Dashboard() {
 
         <Title>Create a new harvest</Title>
         <Subtitle>
-          TL;DR: Aqui e o seu primeiro passo: cadastrar o seu projeto. Logo
-          abaixo voce encontra todos os seus projetos cadastrados.
+          Here will be your first step: creating your harvest.
+          <br />
+          Click on the button to input project`s data.
         </Subtitle>
         <CreateHarvestBtn type="button" onClick={() => setWizardOn(!wizardOn)}>
           {!wizardOn ? 'New!' : 'Close'}
@@ -305,15 +306,16 @@ export default function Dashboard() {
 
         <Title>My harvests</Title>
         <Subtitle>
-          TL;DR: Selecione os projetos ja cadastrados para ver o seu diario de
-          dados sobre sua plantacao. Em cada diario voce pode criar e editar os
-          seus dados diarios.
+          If you have registered any harvest, it will be displayed here. Click
+          in the selected project to see the daily data.
+          <br />
+          Besides that, you able to create and edit your daily data.
         </Subtitle>
         {projectsData.length ? (
           <NumberHarvests>
             You have{' '}
             <strong style={{ color: '#086972' }}>{projectsData.length}</strong>{' '}
-            harvests.
+            {projectsData.length <= 1 ? 'project.' : 'projects.'}
           </NumberHarvests>
         ) : (
           <p>Loading...</p>
@@ -331,8 +333,8 @@ export default function Dashboard() {
 
         <Title>Graphs about your projects</Title>
         <Subtitle>
-          TL;DR: Abaixo voce consegue comparar os dados de cada projeto de forma
-          visual com os graficos.
+          Below is possible to analyse, compare and cross the daily data of
+          which harvest.
         </Subtitle>
 
         <Graphs projectsData={projectsData} />

@@ -54,7 +54,7 @@ export const AddWrapper = styled.div`
 export const WrapperContent = styled.div`
   width: 100%;
   height: 100%;
-  padding: 10px 0;
+  padding-bottom: 20px;
 `;
 
 export const WrapperData = styled.div`

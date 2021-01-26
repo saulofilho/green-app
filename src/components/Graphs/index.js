@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ResponsiveAreaBump } from '@nivo/bump';
-import { ResponsiveLine } from '@nivo/line';
+import { AreaBump } from '@nivo/bump';
+import { Line } from '@nivo/line';
 import { parseISO } from 'date-fns';
 
 import { Content, WrapperGraph, CalendarLegend } from './styles';
@@ -96,8 +96,11 @@ export default function Graphs({ projectsData }) {
 
   return (
     <Content>
+      <CalendarLegend>soil moisture</CalendarLegend>
       <WrapperGraph>
-        <ResponsiveAreaBump
+        <AreaBump
+          width="1500"
+          height="600"
           data={populateDataUndefined}
           margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
           spacing={8}
@@ -115,10 +118,12 @@ export default function Graphs({ projectsData }) {
             legendPosition: 'middle',
           }}
         />
-        <CalendarLegend>soil moisture</CalendarLegend>
       </WrapperGraph>
+      <CalendarLegend>soil moisture</CalendarLegend>
       <WrapperGraph>
-        <ResponsiveLine
+        <Line
+          width="1500"
+          height="600"
           data={graphFormatMoisture}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
           xScale={{ type: 'point' }}
@@ -173,10 +178,12 @@ export default function Graphs({ projectsData }) {
             },
           ]}
         />
-        <CalendarLegend>soil moisture</CalendarLegend>
       </WrapperGraph>
+      <CalendarLegend>air humidity</CalendarLegend>
       <WrapperGraph>
-        <ResponsiveLine
+        <Line
+          width="1500"
+          height="600"
           data={graphFormatAir}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
           xScale={{ type: 'point' }}
@@ -231,10 +238,12 @@ export default function Graphs({ projectsData }) {
             },
           ]}
         />
-        <CalendarLegend>air humidity</CalendarLegend>
       </WrapperGraph>
+      <CalendarLegend>ph soil</CalendarLegend>
       <WrapperGraph>
-        <ResponsiveLine
+        <Line
+          width="1500"
+          height="600"
           data={graphFormatPhSoil}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
           xScale={{ type: 'point' }}
@@ -289,10 +298,12 @@ export default function Graphs({ projectsData }) {
             },
           ]}
         />
-        <CalendarLegend>ph soil</CalendarLegend>
       </WrapperGraph>
+      <CalendarLegend>ph water</CalendarLegend>
       <WrapperGraph>
-        <ResponsiveLine
+        <Line
+          width="1500"
+          height="600"
           data={graphFormatPhWater}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
           xScale={{ type: 'point' }}
@@ -347,7 +358,6 @@ export default function Graphs({ projectsData }) {
             },
           ]}
         />
-        <CalendarLegend>ph water</CalendarLegend>
       </WrapperGraph>
     </Content>
   );

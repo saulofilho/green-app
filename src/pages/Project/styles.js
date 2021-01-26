@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 const themeColor = theme => {
   switch (theme) {
-    case 'germination':
+    case 'seeding':
       return '#7d634b';
-    case 'vegetation':
+    case 'vegetative':
       return '#17b978';
     case 'flowering':
       return '#d592e5';
-    case 'washing':
+    case 'flushing':
       return '#c0d6e4';
     case 'drying':
       return '#a2a592';
@@ -257,7 +257,7 @@ export const LoadData = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 18px;
   text-align: center;
-  margin: 0 auto;
+  margin-bottom: 20px;
 
   :hover {
     background-color: #a7ff83;
@@ -277,7 +277,6 @@ export const DownloadData = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 18px;
   text-align: center;
-  margin: 20px auto 0;
 
   a {
     width: 100%;
