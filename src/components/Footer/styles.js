@@ -8,9 +8,6 @@ export const Content = styled.div`
   height: 64px;
   max-width: 900px;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-family: 'Rubik', sans-serif;
 
   a {
@@ -22,4 +19,34 @@ export const Content = styled.div`
   img {
     width: 70px;
   }
+`;
+
+export const LogosWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+`;
+
+export const ErrorWarning = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Rubik', sans-serif;
+  flex-flow: column;
+  text-align: center;
+  font-size: 12px;
+  padding: 10px;
+`;
+
+export const ThinkAbout = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Rubik', sans-serif;
+  flex-flow: column;
+  text-align: center;
+  font-size: 12px;
+  padding-top: 50px;
+  color: #a7ff83;
 `;

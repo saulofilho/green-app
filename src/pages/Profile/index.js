@@ -1,11 +1,20 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import { Link } from 'react-router-dom';
+import { store } from '../../store';
 
 import { signOut } from '../../store/modules/auth/actions';
 import { updateProfileRequest } from '../../store/modules/user/actions';
 
-import { Container, Content, FormEditRow, Title, Subtitle } from './styles';
+import {
+  Container,
+  Content,
+  FormEditRow,
+  Title,
+  Subtitle,
+  NewAccount,
+} from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -50,6 +59,13 @@ export default function Profile() {
             </button>
           </FormEditRow>
         </Form>
+        {store.getState().user.profile.admin ? (
+          <NewAccount>
+            <Link to="/register">Criar conta gratuita</Link>
+          </NewAccount>
+        ) : (
+          ''
+        )}
       </Content>
     </Container>
   );

@@ -85,3 +85,15 @@ export const Subtitle = styled.p`
   font-style: italic;
   font-weight: bolder;
 `;
+
+export const NewAccount = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+  margin: 0 auto;
+
+  a {
+    color: salmon;
+  }
+`;

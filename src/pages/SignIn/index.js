@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import logo1green from '../../assets/images/logo-1-green.svg';
@@ -44,7 +43,6 @@ export default function SignIn() {
         <Input name="email" type="email" placeholder="your@email.com" />
         <Input name="password" type="password" placeholder="123456" />
         <button type="submit">{loading ? 'Loading...' : 'Get in'}</button>
-        {/* <Link to="/register">Criar conta gratuita</Link> */}
       </Form>
     </>
   );

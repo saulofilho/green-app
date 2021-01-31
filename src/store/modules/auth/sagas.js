@@ -8,18 +8,19 @@ import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
-    const { email, password } = payload;
+    const { email, password, admin } = payload;
 
     const response = yield call(api.post, 'session', {
       email,
       password,
+      admin,
     });
 
     const { token, user } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    yield put(signInSuccess(token, user));
+    yield put(signInSuccess(token, user, admin));
 
     history.push('/dashboard');
   } catch (err) {
@@ -36,7 +37,7 @@ export function* signUp({ payload }) {
       name,
       email,
       password,
-      provider: true,
+      admin: false,
     });
 
     history.push('/');
