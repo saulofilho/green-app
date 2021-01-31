@@ -314,7 +314,7 @@ export default function Dashboard() {
         {projectsData.length ? (
           <NumberHarvests>
             You have{' '}
-            <strong style={{ color: '#086972' }}>{projectsData.length}</strong>{' '}
+            <strong style={{ color: '#17b978' }}>{projectsData.length}</strong>{' '}
             {projectsData.length <= 1 ? 'project.' : 'projects.'}
           </NumberHarvests>
         ) : (
@@ -333,8 +333,8 @@ export default function Dashboard() {
 
         <Title>Graphs about your projects</Title>
         <Subtitle>
-          Below is possible to analyse, compare and cross the daily data of
-          which harvest.
+          Below is possible to analyse, compare and cross the 28 last days daily
+          data of which harvest.
         </Subtitle>
 
         <Graphs projectsData={projectsData} />

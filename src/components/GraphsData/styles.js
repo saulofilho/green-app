@@ -13,7 +13,11 @@ export const SelectEdited = styled(Select)`
 
 export const WrapperGraph = styled.div`
   width: 100%;
-  height: 500px;
+  height: 100%;
+  overflow-y: auto;
+  border: 2px solid #a7ff83;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
 `;
 
 export const SelectTitle = styled.p`
@@ -23,8 +27,7 @@ export const SelectTitle = styled.p`
 `;
 
 export const CalendarLegend = styled.div`
-  text-align: center;
-  position: relative;
-  top: -75px;
-  font-size: 12px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  padding: 10px 0;
 `;

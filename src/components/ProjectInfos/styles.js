@@ -10,7 +10,7 @@ export const Title = styled.p`
 
 export const Subtitle = styled.p`
   font-family: 'Source Serif Pro', serif;
-  font-size: 20px;
+  font-size: 16px;
   font-style: italic;
   font-weight: bolder;
 `;

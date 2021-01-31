@@ -30,7 +30,6 @@ export default function ProjectInfos({ projectInfos, setProjectInfos }) {
               <Text>Flowering Type:&nbsp;</Text>
               <Subtitle>{item.flowering_type}</Subtitle>
             </TextWrapper>
-            <br />
             <TextWrapper>
               <Text>Infos:&nbsp;</Text>
               <Subtitle>{item.infos}</Subtitle>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Select from 'react-select';
 import { darken } from 'polished';
 
 export const Title = styled.p`
@@ -151,4 +152,8 @@ export const FormWrapper = styled.div`
     font-style: italic;
     font-weight: bolder;
   }
+`;
+
+export const SelectStyled = styled(Select)`
+  width: 100%;
 `;

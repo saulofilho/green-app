@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-
+import 'remixicon/fonts/remixicon.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
@@ -53,9 +53,5 @@ export default createGlobalStyle`
   ::selection {
     background: #071a52;
     color: #17b978;
-  }
-
-  #granim {
-    z-index: -9;
   }
 `;

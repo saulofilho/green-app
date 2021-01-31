@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ResponsiveBar } from '@nivo/bar';
-import { ResponsiveStream } from '@nivo/stream';
-import { ResponsiveMarimekko } from '@nivo/marimekko';
-import { ResponsiveCalendar } from '@nivo/calendar';
+import { Bar } from '@nivo/bar';
+import { Stream } from '@nivo/stream';
+import { Marimekko } from '@nivo/marimekko';
+import { Calendar } from '@nivo/calendar';
 import { parseISO } from 'date-fns';
 import {
   Content,
@@ -84,7 +84,9 @@ export default function Graphs({ allProjectData }) {
             onChange={handleSelectChange}
           />
           <WrapperGraph>
-            <ResponsiveBar
+            <Bar
+              width="1500"
+              height="500"
               data={filterMonth}
               keys={[
                 'ec',
@@ -180,10 +182,13 @@ export default function Graphs({ allProjectData }) {
               motionStiffness={90}
               motionDamping={15}
             />
+            <i className="ri-arrow-right-line ri-1x" />
           </WrapperGraph>
-          <SelectTitle>Your data by month.</SelectTitle>
+          <CalendarLegend>Your whole data.</CalendarLegend>
           <WrapperGraph>
-            <ResponsiveStream
+            <Stream
+              width="1500"
+              height="500"
               data={dateFormatDay}
               keys={[
                 'createdAt',
@@ -277,9 +282,15 @@ export default function Graphs({ allProjectData }) {
                 },
               ]}
             />
+            <i className="ri-arrow-right-line ri-1x" />
           </WrapperGraph>
+          <CalendarLegend>
+            ph Water, ph Soil, Temperature Max and Temperature Min.
+          </CalendarLegend>
           <WrapperGraph>
-            <ResponsiveMarimekko
+            <Marimekko
+              width="1500"
+              height="500"
               data={dateFormatDay}
               id="id"
               value="id"
@@ -381,9 +392,13 @@ export default function Graphs({ allProjectData }) {
                 },
               ]}
             />
+            <i className="ri-arrow-right-line ri-1x" />
           </WrapperGraph>
+          <CalendarLegend>pH Water</CalendarLegend>
           <WrapperGraph>
-            <ResponsiveCalendar
+            <Calendar
+              width="1500"
+              height="500"
               data={graphFormatDay}
               from="2021-01-01"
               to="2021-12-31"
@@ -407,7 +422,7 @@ export default function Graphs({ allProjectData }) {
                 },
               ]}
             />
-            <CalendarLegend>pH Water</CalendarLegend>
+            <i className="ri-arrow-right-line ri-1x" />
           </WrapperGraph>
         </>
       ) : (

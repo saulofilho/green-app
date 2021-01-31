@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
 import uniqid from 'uniqid';
 import {
   WrapperContent,
@@ -8,6 +7,7 @@ import {
   WrapperDataAdd,
   Form,
   FormWrapper,
+  SelectStyled,
 } from './styles';
 
 export default function AddData({
@@ -40,7 +40,7 @@ export default function AddData({
           </FormWrapper>
           <FormWrapper>
             <p>Phase</p>
-            <Select
+            <SelectStyled
               defaultMenuIsOpen
               id={uniqid()}
               name="phase"
@@ -49,7 +49,7 @@ export default function AddData({
             />
           </FormWrapper>
           <FormWrapper>
-            <p>PH Water</p>
+            <p>pH Water</p>
             <input
               type="text"
               name="ph_water"
@@ -59,7 +59,7 @@ export default function AddData({
             />
           </FormWrapper>
           <FormWrapper>
-            <p>PH Soil</p>
+            <p>pH Soil</p>
             <input
               type="text"
               name="ph_soil"

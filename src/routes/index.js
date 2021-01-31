@@ -11,7 +11,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
-      <Route path="/register" exact component={SignUp} />
+      <Route path="/register" exact component={SignUp} isPrivate />
       <Route path="/dashboard" exact component={Dashboard} isPrivate />
       <Route path="/project/:id" exact component={Project} isPrivate />
       <Route path="/profile" exact component={Profile} isPrivate />

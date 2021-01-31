@@ -4,9 +4,9 @@ import { useField } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { parseISO } from 'date-fns';
 import { CSVLink } from 'react-csv';
+import ModalImage from 'react-modal-image';
 import DataService from '../../services/crudApi';
 import api from '../../services/api';
-import 'remixicon/fonts/remixicon.css';
 import GraphsData from '../../components/GraphsData';
 import ProjectInfos from '../../components/ProjectInfos';
 import AddData from '../../components/AddData';
@@ -359,13 +359,12 @@ export default function Project(props) {
                     <i className="ri-camera-line ri-2x" />
                     <Col>
                       <TitleBox>Image: </TitleBox>
-                      <img
-                        src={
-                          item.img ? item.img.url : '../../assets/images/x.jpg'
-                        }
+                      <img src={preview} alt={item.name} />
+                      <ModalImage
+                        small={item.img.url}
+                        large={item.img.url}
                         alt={item.name}
                       />
-                      <img src={preview} alt={item.name} />
                     </Col>
                   </WrapperInfos>
                 </Row>
@@ -386,7 +385,7 @@ export default function Project(props) {
               <Week>
                 {(index + 1) % 7 === 0 ? (
                   <div>
-                    <p>Week {`${index - index + 1}`}</p>
+                    <p>Week {`${(index + 1) / 7}`}</p>
                     <span />
                   </div>
                 ) : (

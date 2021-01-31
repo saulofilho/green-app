@@ -27,8 +27,9 @@ export default function Graphs({ projectsData }) {
         return {
           ...item,
           x: parseISO(item.createdAt).toLocaleString('en-US', {
-            weekday: 'long',
             day: '2-digit',
+            month: 'short',
+            weekday: 'short',
           }),
           y: item.moisture,
         };
@@ -44,8 +45,9 @@ export default function Graphs({ projectsData }) {
         return {
           ...item,
           x: parseISO(item.createdAt).toLocaleString('en-US', {
-            weekday: 'long',
             day: '2-digit',
+            month: 'short',
+            weekday: 'short',
           }),
           y: item.air_humidity,
         };
@@ -61,8 +63,9 @@ export default function Graphs({ projectsData }) {
         return {
           ...item,
           x: parseISO(item.createdAt).toLocaleString('en-US', {
-            weekday: 'long',
             day: '2-digit',
+            month: 'short',
+            weekday: 'short',
           }),
           y: item.ph_soil,
         };
@@ -78,8 +81,9 @@ export default function Graphs({ projectsData }) {
         return {
           ...item,
           x: parseISO(item.createdAt).toLocaleString('en-US', {
-            weekday: 'long',
             day: '2-digit',
+            month: 'short',
+            weekday: 'short',
           }),
           y: item.ph_water,
         };
@@ -96,13 +100,13 @@ export default function Graphs({ projectsData }) {
 
   return (
     <Content>
-      <CalendarLegend>soil moisture</CalendarLegend>
+      <CalendarLegend>*is soil moisture, but need to change!!!</CalendarLegend>
       <WrapperGraph>
         <AreaBump
           width="1500"
           height="600"
           data={populateDataUndefined}
-          margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
+          margin={{ top: 40, right: 100, bottom: 80, left: 100 }}
           spacing={8}
           colors={{ scheme: 'accent' }}
           blendMode="multiply"
@@ -118,14 +122,15 @@ export default function Graphs({ projectsData }) {
             legendPosition: 'middle',
           }}
         />
+        <i className="ri-arrow-right-line ri-1x" />
       </WrapperGraph>
       <CalendarLegend>soil moisture</CalendarLegend>
       <WrapperGraph>
         <Line
           width="1500"
-          height="600"
+          height="500"
           data={graphFormatMoisture}
-          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          margin={{ top: 50, right: 110, bottom: 80, left: 60 }}
           xScale={{ type: 'point' }}
           yScale={{
             type: 'linear',
@@ -178,14 +183,15 @@ export default function Graphs({ projectsData }) {
             },
           ]}
         />
+        <i className="ri-arrow-right-line ri-1x" />
       </WrapperGraph>
       <CalendarLegend>air humidity</CalendarLegend>
       <WrapperGraph>
         <Line
           width="1500"
-          height="600"
+          height="500"
           data={graphFormatAir}
-          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          margin={{ top: 50, right: 110, bottom: 80, left: 60 }}
           xScale={{ type: 'point' }}
           yScale={{
             type: 'linear',
@@ -238,14 +244,15 @@ export default function Graphs({ projectsData }) {
             },
           ]}
         />
+        <i className="ri-arrow-right-line ri-1x" />
       </WrapperGraph>
       <CalendarLegend>ph soil</CalendarLegend>
       <WrapperGraph>
         <Line
           width="1500"
-          height="600"
+          height="500"
           data={graphFormatPhSoil}
-          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          margin={{ top: 50, right: 110, bottom: 80, left: 60 }}
           xScale={{ type: 'point' }}
           yScale={{
             type: 'linear',
@@ -298,14 +305,15 @@ export default function Graphs({ projectsData }) {
             },
           ]}
         />
+        <i className="ri-arrow-right-line ri-1x" />
       </WrapperGraph>
       <CalendarLegend>ph water</CalendarLegend>
       <WrapperGraph>
         <Line
           width="1500"
-          height="600"
+          height="500"
           data={graphFormatPhWater}
-          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          margin={{ top: 50, right: 110, bottom: 80, left: 60 }}
           xScale={{ type: 'point' }}
           yScale={{
             type: 'linear',
@@ -358,6 +366,7 @@ export default function Graphs({ projectsData }) {
             },
           ]}
         />
+        <i className="ri-arrow-right-line ri-1x" />
       </WrapperGraph>
     </Content>
   );
