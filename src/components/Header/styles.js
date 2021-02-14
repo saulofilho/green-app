@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 20px 30px 50px;
+
+  @media (max-width: 768px) {
+    padding: 20px 30px;
+  }
 `;
 
 export const Content = styled.div`
@@ -39,6 +43,12 @@ export const Content = styled.div`
     align-items: center;
     flex-flow: column;
     flex-direction: column-reverse;
+
+    height: 100%;
+
+    nav {
+      margin-top: 20px;
+    }
   }
 `;
 

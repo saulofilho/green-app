@@ -9,6 +9,7 @@ import {
   TextWrapper,
   WrapperProjectInfos,
   Row,
+  Loading,
 } from './styles';
 
 export default function ProjectInfos({ projectInfos, setProjectInfos }) {
@@ -75,7 +76,7 @@ export default function ProjectInfos({ projectInfos, setProjectInfos }) {
           </WrapperProjectInfos>
         ))
       ) : (
-        <p>Loading...</p>
+        <Loading>Loading...</Loading>
       )}
     </>
   );

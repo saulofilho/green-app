@@ -33,12 +33,14 @@ import {
   WrapperNumber,
   Week,
   LoadData,
-  Warn,
   DownloadData,
+  WrapperContentInitial,
 } from './styles';
 
 export default function Project(props) {
   const { match } = props;
+  const [, setStatus] = useState('Idle.');
+  const [showOff, setShowOff] = useState(true);
   const [projectInfos, setProjectInfos] = useState([]);
   const [projectData, setProjectData] = useState([]);
   const [allProjectData, setAllProjectData] = useState([]);
@@ -56,11 +58,13 @@ export default function Project(props) {
   const ref = useRef();
 
   const fetchData = async (id, currentPage) => {
+    setStatus('Fetching...');
     await DataService.getProject(id, currentPage).then(response => {
       const { data } = response;
 
       setProjectData([...data.green]);
       setProjectInfos([data]);
+      setStatus('Fetched.');
     });
   };
 
@@ -227,200 +231,366 @@ export default function Project(props) {
         />
       </Content>
       <Content>
-        {allProjectData.length ? (
-          allProjectData.map((item, index) => (
-            <WrapperContent key={item.id}>
-              <DayWrapper onClick={() => toggle(item.id)}>
-                <RowDayWrapper theme={badgeTheme(item.phase)}>
-                  <WrapperNumber>
-                    <Number>{index + 1}</Number>
-                    <SmallText>
-                      {parseISO(item.createdAt).toLocaleString('en-US', {
-                        weekday: 'short',
-                        day: '2-digit',
-                      })}
-                    </SmallText>
-                  </WrapperNumber>
-                  <ColDay>
-                    <RowDay>
-                      <BorderBotAndLeft>
-                        <SmallText>TEMPERATURE MAX:</SmallText>
-                        <BigText>{item.temp_max} °C</BigText>
-                      </BorderBotAndLeft>
-                    </RowDay>
-                    <RowDay>
-                      <BorderLeft>
-                        <SmallText>TEMPERATURE MIN:</SmallText>
-                        <BigText>{item.temp_min} °C</BigText>
-                      </BorderLeft>
-                    </RowDay>
-                  </ColDay>
-                  <ColDay>
-                    <RowDay>
-                      <BorderBotAndLeft>
-                        <SmallText>PHASE:</SmallText>
-                        <BigText>{item.phase}</BigText>
-                      </BorderBotAndLeft>
-                    </RowDay>
-                    <RowDay>
-                      <BorderLeft>
-                        <SmallText>PH WATER:</SmallText>
-                        <BigText>{item.ph_water}</BigText>
-                      </BorderLeft>
-                      <BorderLeft>
-                        <SmallText>PH SOIL:</SmallText>
-                        <BigText>{item.ph_soil}</BigText>
-                      </BorderLeft>
-                    </RowDay>
-                  </ColDay>
-                </RowDayWrapper>
-              </DayWrapper>
-              <WrapperData hide={isToggled === item.id}>
-                <Row>
-                  <WrapperInfos>
-                    <i className="ri-information-line ri-2x" />
-                    <Col>
-                      <TitleBox>Infos: </TitleBox>
-                      <TextBox>{item.infos}</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                </Row>
-                <Row>
-                  <WrapperInfos>
-                    <i className="ri-contrast-2-line ri-2x" />
-                    <Col>
-                      <TitleBox>Phase: </TitleBox>
-                      <TextBox>{item.phase}</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                  <WrapperInfos>
-                    <i className="ri-water-flash-line ri-2x" />
-                    <Col>
-                      <TitleBox>pH Water: </TitleBox>
-                      <TextBox>{item.ph_water} pH</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                  <WrapperInfos>
-                    <i className="ri-earth-line ri-2x" />
-                    <Col>
-                      <TitleBox>pH Soil: </TitleBox>
-                      <TextBox>{item.ph_soil} pH</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                  <WrapperInfos>
-                    <i className="ri-flask-line ri-2x" />
-                    <Col>
-                      <TitleBox>EC: </TitleBox>
-                      <TextBox>{item.ec} PPM</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                </Row>
-                <Row>
-                  <WrapperInfos>
-                    <i className="ri-sun-line ri-2x" />
-                    <Col>
-                      <TitleBox>Temperature Max: </TitleBox>
-                      <TextBox>{item.temp_max} °C</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                  <WrapperInfos>
-                    <i className="ri-rainy-line ri-2x" />
-                    <Col>
-                      <TitleBox>Temperature Min: </TitleBox>
-                      <TextBox>{item.temp_min} °C</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                  <WrapperInfos>
-                    <i className="ri-umbrella-line ri-2x" />
-                    <Col>
-                      <TitleBox>Soil Moisture: </TitleBox>
-                      <TextBox>{item.moisture} %</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                  <WrapperInfos>
-                    <i className="ri-temp-cold-line ri-2x" />
-                    <Col>
-                      <TitleBox>Air Humidity: </TitleBox>
-                      <TextBox>{item.air_humidity} %</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                </Row>
-                <Row>
-                  <WrapperInfos>
-                    <i className="ri-seedling-line ri-2x" />
-                    <Col>
-                      <TitleBox>Plant Size: </TitleBox>
-                      <TextBox>{item.plant_size} cm</TextBox>
-                    </Col>
-                  </WrapperInfos>
-                </Row>
-                <Row>
-                  <WrapperInfos>
-                    <i className="ri-camera-line ri-2x" />
-                    <Col>
-                      <TitleBox>Image: </TitleBox>
-                      <img src={preview} alt={item.name} />
-                      <ModalImage
-                        small={item.img.url}
-                        large={item.img.url}
-                        alt={item.name}
-                      />
-                    </Col>
-                  </WrapperInfos>
-                </Row>
-                <Row>
-                  <EditData
-                    editButton={editButton}
-                    editOn={editOn}
-                    item={item}
-                    handleInputChange={handleInputChange}
-                    updateItem={updateItem}
-                    currentData={currentData}
-                    handleSelectChange={handleSelectChange}
-                    phases={phases}
-                    btnDisable={btnDisable}
-                  />
-                </Row>
-              </WrapperData>
-              <Week>
-                {(index + 1) % 7 === 0 ? (
-                  <div>
-                    <p>Week {`${(index + 1) / 7}`}</p>
-                    <span />
-                  </div>
-                ) : (
-                  ''
-                )}
-              </Week>
-            </WrapperContent>
-          ))
-        ) : (
-          <Warn>
-            Data will be displayed here.
-            {/* You have {projectData.length} days of
-            data. */}
-          </Warn>
-        )}
-        <LoadData type="button" onClick={() => fetchDataNextPage()}>
+        {projectData.length
+          ? projectData.map((item, index) => (
+              <WrapperContentInitial key={item.id} hide={showOff}>
+                <DayWrapper onClick={() => toggle(item.id)}>
+                  <RowDayWrapper theme={badgeTheme(item.phase)}>
+                    <WrapperNumber>
+                      <Number>{index + 1}</Number>
+                      <SmallText>
+                        {parseISO(item.createdAt).toLocaleString('en-US', {
+                          weekday: 'short',
+                          day: '2-digit',
+                        })}
+                      </SmallText>
+                    </WrapperNumber>
+                    <ColDay>
+                      <RowDay>
+                        <BorderBotAndLeft>
+                          <SmallText>TEMPERATURE MAX:</SmallText>
+                          <BigText>{item.temp_max} °C</BigText>
+                        </BorderBotAndLeft>
+                      </RowDay>
+                      <RowDay>
+                        <BorderLeft>
+                          <SmallText>TEMPERATURE MIN:</SmallText>
+                          <BigText>{item.temp_min} °C</BigText>
+                        </BorderLeft>
+                      </RowDay>
+                    </ColDay>
+                    <ColDay>
+                      <RowDay>
+                        <BorderBotAndLeft>
+                          <SmallText>PHASE:</SmallText>
+                          <BigText>{item.phase}</BigText>
+                        </BorderBotAndLeft>
+                      </RowDay>
+                      <RowDay>
+                        <BorderLeft>
+                          <SmallText>PH WATER:</SmallText>
+                          <BigText>{item.ph_water}</BigText>
+                        </BorderLeft>
+                        <BorderLeft>
+                          <SmallText>PH SOIL:</SmallText>
+                          <BigText>{item.ph_soil}</BigText>
+                        </BorderLeft>
+                      </RowDay>
+                    </ColDay>
+                  </RowDayWrapper>
+                </DayWrapper>
+                <WrapperData hide={isToggled === item.id}>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-information-line ri-2x" />
+                      <Col>
+                        <TitleBox>Infos: </TitleBox>
+                        <TextBox>{item.infos}</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-contrast-2-line ri-2x" />
+                      <Col>
+                        <TitleBox>Phase: </TitleBox>
+                        <TextBox>{item.phase}</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-water-flash-line ri-2x" />
+                      <Col>
+                        <TitleBox>pH Water: </TitleBox>
+                        <TextBox>{item.ph_water} pH</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-earth-line ri-2x" />
+                      <Col>
+                        <TitleBox>pH Soil: </TitleBox>
+                        <TextBox>{item.ph_soil} pH</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-flask-line ri-2x" />
+                      <Col>
+                        <TitleBox>EC: </TitleBox>
+                        <TextBox>{item.ec} PPM</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-sun-line ri-2x" />
+                      <Col>
+                        <TitleBox>Temperature Max: </TitleBox>
+                        <TextBox>{item.temp_max} °C</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-rainy-line ri-2x" />
+                      <Col>
+                        <TitleBox>Temperature Min: </TitleBox>
+                        <TextBox>{item.temp_min} °C</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-umbrella-line ri-2x" />
+                      <Col>
+                        <TitleBox>Soil Moisture: </TitleBox>
+                        <TextBox>{item.moisture} %</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-temp-cold-line ri-2x" />
+                      <Col>
+                        <TitleBox>Air Humidity: </TitleBox>
+                        <TextBox>{item.air_humidity} %</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-seedling-line ri-2x" />
+                      <Col>
+                        <TitleBox>Plant Size: </TitleBox>
+                        <TextBox>{item.plant_size} cm</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-camera-line ri-2x" />
+                      <Col>
+                        <TitleBox>Image: </TitleBox>
+                        <img src={preview} alt={item.name} loading="lazy" />
+                        <ModalImage
+                          small={item.img.url}
+                          large={item.img.url}
+                          alt={item.name}
+                        />
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <EditData
+                      editButton={editButton}
+                      editOn={editOn}
+                      item={item}
+                      handleInputChange={handleInputChange}
+                      updateItem={updateItem}
+                      currentData={currentData}
+                      handleSelectChange={handleSelectChange}
+                      phases={phases}
+                      btnDisable={btnDisable}
+                    />
+                  </Row>
+                </WrapperData>
+                <Week>
+                  {(index + 1) % 7 === 0 ? (
+                    <div>
+                      <i className="ri-arrow-up-line ri-1x" />
+                      <p>Week {`${(index + 1) / 7}`}</p>
+                      <span />
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </Week>
+              </WrapperContentInitial>
+            ))
+          : ''}
+        {allProjectData.length
+          ? allProjectData.map((item, index) => (
+              <WrapperContent key={item.id}>
+                <DayWrapper onClick={() => toggle(item.id)}>
+                  <RowDayWrapper theme={badgeTheme(item.phase)}>
+                    <WrapperNumber>
+                      <Number>{index + 1}</Number>
+                      <SmallText>
+                        {parseISO(item.createdAt).toLocaleString('en-US', {
+                          weekday: 'short',
+                          day: '2-digit',
+                        })}
+                      </SmallText>
+                    </WrapperNumber>
+                    <ColDay>
+                      <RowDay>
+                        <BorderBotAndLeft>
+                          <SmallText>TEMPERATURE MAX:</SmallText>
+                          <BigText>{item.temp_max} °C</BigText>
+                        </BorderBotAndLeft>
+                      </RowDay>
+                      <RowDay>
+                        <BorderLeft>
+                          <SmallText>TEMPERATURE MIN:</SmallText>
+                          <BigText>{item.temp_min} °C</BigText>
+                        </BorderLeft>
+                      </RowDay>
+                    </ColDay>
+                    <ColDay>
+                      <RowDay>
+                        <BorderBotAndLeft>
+                          <SmallText>PHASE:</SmallText>
+                          <BigText>{item.phase}</BigText>
+                        </BorderBotAndLeft>
+                      </RowDay>
+                      <RowDay>
+                        <BorderLeft>
+                          <SmallText>PH WATER:</SmallText>
+                          <BigText>{item.ph_water}</BigText>
+                        </BorderLeft>
+                        <BorderLeft>
+                          <SmallText>PH SOIL:</SmallText>
+                          <BigText>{item.ph_soil}</BigText>
+                        </BorderLeft>
+                      </RowDay>
+                    </ColDay>
+                  </RowDayWrapper>
+                </DayWrapper>
+                <WrapperData hide={isToggled === item.id}>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-information-line ri-2x" />
+                      <Col>
+                        <TitleBox>Infos: </TitleBox>
+                        <TextBox>{item.infos}</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-contrast-2-line ri-2x" />
+                      <Col>
+                        <TitleBox>Phase: </TitleBox>
+                        <TextBox>{item.phase}</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-water-flash-line ri-2x" />
+                      <Col>
+                        <TitleBox>pH Water: </TitleBox>
+                        <TextBox>{item.ph_water} pH</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-earth-line ri-2x" />
+                      <Col>
+                        <TitleBox>pH Soil: </TitleBox>
+                        <TextBox>{item.ph_soil} pH</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-flask-line ri-2x" />
+                      <Col>
+                        <TitleBox>EC: </TitleBox>
+                        <TextBox>{item.ec} PPM</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-sun-line ri-2x" />
+                      <Col>
+                        <TitleBox>Temperature Max: </TitleBox>
+                        <TextBox>{item.temp_max} °C</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-rainy-line ri-2x" />
+                      <Col>
+                        <TitleBox>Temperature Min: </TitleBox>
+                        <TextBox>{item.temp_min} °C</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-umbrella-line ri-2x" />
+                      <Col>
+                        <TitleBox>Soil Moisture: </TitleBox>
+                        <TextBox>{item.moisture} %</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-temp-cold-line ri-2x" />
+                      <Col>
+                        <TitleBox>Air Humidity: </TitleBox>
+                        <TextBox>{item.air_humidity} %</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-seedling-line ri-2x" />
+                      <Col>
+                        <TitleBox>Plant Size: </TitleBox>
+                        <TextBox>{item.plant_size} cm</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-camera-line ri-2x" />
+                      <Col>
+                        <TitleBox>Image: </TitleBox>
+                        <img src={preview} alt={item.name} loading="lazy" />
+                        <ModalImage
+                          small={item.img.url}
+                          large={item.img.url}
+                          alt={item.name}
+                        />
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <EditData
+                      editButton={editButton}
+                      editOn={editOn}
+                      item={item}
+                      handleInputChange={handleInputChange}
+                      updateItem={updateItem}
+                      currentData={currentData}
+                      handleSelectChange={handleSelectChange}
+                      phases={phases}
+                      btnDisable={btnDisable}
+                    />
+                  </Row>
+                </WrapperData>
+                <Week>
+                  {(index + 1) % 7 === 0 ? (
+                    <div>
+                      <i className="ri-arrow-up-line ri-1x" />
+                      <p>Week {`${(index + 1) / 7}`}</p>
+                      <span />
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </Week>
+              </WrapperContent>
+            ))
+          : ''}
+        <LoadData
+          type="button"
+          onClick={() => {
+            setShowOff(!showOff);
+            fetchDataNextPage();
+          }}
+        >
           Load data.
         </LoadData>
-        {allProjectData.length ? (
-          <AddData
-            toggleAdd={toggleAdd}
-            isToggledAdd={isToggledAdd}
-            handleInputChange={handleInputChange}
-            handleChange={handleChange}
-            saveItem={saveItem}
-            currentData={currentData}
-            phases={phases}
-            handleSelectChange={handleSelectChange}
-            preview={preview}
-            file={file}
-            btnDisable={btnDisable}
-          />
-        ) : (
-          ''
-        )}
+        <AddData
+          toggleAdd={toggleAdd}
+          isToggledAdd={isToggledAdd}
+          handleInputChange={handleInputChange}
+          handleChange={handleChange}
+          saveItem={saveItem}
+          currentData={currentData}
+          phases={phases}
+          handleSelectChange={handleSelectChange}
+          preview={preview}
+          file={file}
+          btnDisable={btnDisable}
+        />
         <DownloadData>
           <CSVLink
             data={projectData}

@@ -33,7 +33,7 @@ export const WrapperProjectInfos = styled.div`
 `;
 
 export const AddWrapper = styled.div`
-  width: 100%;
+  width: 50%;
   height: 100%;
   border: 2px solid black;
   display: flex;
@@ -45,7 +45,14 @@ export const AddWrapper = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 18px;
   text-align: center;
-  margin: 0 auto;
+  margin: 0 auto 20px;
+  box-shadow: 5px 10px #000;
+
+  &:active {
+    background-color: #17b978 !important;
+    box-shadow: 2px 5px #000;
+    transform: translateY(4px);
+  }
 
   :hover {
     background-color: #a7ff83;
@@ -55,7 +62,6 @@ export const AddWrapper = styled.div`
 export const WrapperContent = styled.div`
   width: 100%;
   height: 100%;
-  padding-bottom: 20px;
 `;
 
 export const WrapperData = styled.div`
@@ -71,6 +77,7 @@ export const WrapperDataAdd = styled.div`
   height: 100%;
   border: 1px solid black;
   display: ${props => (props.hideAdd ? 'block' : 'none')};
+  margin-bottom: 20px;
 `;
 
 export const Form = styled.form`

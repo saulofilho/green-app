@@ -171,13 +171,13 @@ AddData.propTypes = {
   phases: PropTypes.array.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
   preview: PropTypes.string,
-  file: PropTypes.string,
+  file: PropTypes.number,
   ref: PropTypes.func,
   btnDisable: PropTypes.string.isRequired,
 };
 
 AddData.defaultProps = {
   preview: '',
-  file: '',
+  file: 0,
   ref: () => {},
 };

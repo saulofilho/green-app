@@ -1077,7 +1077,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.1", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2", "@babel/runtime@^7.9.6":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2", "@babel/runtime@^7.9.6":
   version "7.12.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
@@ -5120,6 +5120,11 @@ execa@^1.0.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
+exenv@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+  integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
+
 exit@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/exit/-/exit-0.1.2.tgz#0632638f8d877cc82107d30a0fff1a17cba1cd0c"
@@ -5909,7 +5914,7 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-history@^4.10.1, history@^4.6.0, history@^4.9.0:
+history@^4.10.1, history@^4.9.0:
   version "4.10.1"
   resolved "https://registry.yarnpkg.com/history/-/history-4.10.1.tgz#33371a65e3a83b267434e2b3f3b1b4c58aad4cf3"
   integrity sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==
@@ -7503,6 +7508,11 @@ lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
+
+lodash.debounce@^4:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
 lodash.isdate@^4.0.1:
   version "4.0.1"
@@ -9497,7 +9507,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9656,23 +9666,6 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-rc-progress@^3.1.1:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/rc-progress/-/rc-progress-3.1.3.tgz#d77d8fd26d9d948d72c2a28b64b71a6e86df2426"
-  integrity sha512-Jl4fzbBExHYMoC6HBPzel0a9VmhcSXx24LVt/mdhDM90MuzoMCJjXZAlhA0V0CJi+SKjMhfBoIQ6Lla1nD4QNw==
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.6"
-
-react-albus@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-albus/-/react-albus-2.0.0.tgz#c6ad9932ff06b1880986e79817b6709f053f9ff7"
-  integrity sha512-+gmvDfs75nFgHOHEPm/nA6DJFwzFm4AgFJD6L/zbjK80jHRasstyphYnPI/RHp4MuI7dBPTpvS9MvE90wBrv8A==
-  dependencies:
-    history "^4.6.0"
-    hoist-non-react-statics "^2.3.1"
-    prop-types "^15.5.8"
-
 react-app-polyfill@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/react-app-polyfill/-/react-app-polyfill-1.0.6.tgz#890f8d7f2842ce6073f030b117de9130a5f385f0"
@@ -9689,6 +9682,14 @@ react-csv@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/react-csv/-/react-csv-2.0.3.tgz#f5d17a3c71107d9bcbe580049350200debdc042a"
   integrity sha512-exyAdFLAxtuM4wNwLYrlKyPYLiJ7e0mv9tqPAd3kq+k1CiJFtznevR3yP0icv5q/y200w+lzNgi7TQn1Wrhu0w==
+
+react-debounce-input@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/react-debounce-input/-/react-debounce-input-3.2.3.tgz#9e8c69771a621c81e8fe36b45ade49a95059cd87"
+  integrity sha512-7Bfjm9sxrtgB+IsSrdXoo4CVqKg7CbWC68dNhr8q7ZmY6C0AqtR524//SenHQWT+eeSG9DmSLWNWCUFSyaaWSQ==
+  dependencies:
+    lodash.debounce "^4"
+    prop-types "^15.7.2"
 
 react-dev-utils@^10.2.1:
   version "10.2.1"
@@ -9766,7 +9767,7 @@ react-layout-effect@^1.0.1:
   resolved "https://registry.yarnpkg.com/react-layout-effect/-/react-layout-effect-1.0.5.tgz#0dc4e24452aee5de66c93c166f0ec512dfb1be80"
   integrity sha512-zdRXHuch+OBHU6bvjTelOGUCM+UDr/iCY+c0wXLEAc+G4/FlcJruD/hUOzlKH5XgO90Y/BUJPNhI/g9kl+VAsA==
 
-react-lifecycles-compat@^3.0.2:
+react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
@@ -9775,6 +9776,16 @@ react-modal-image@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-modal-image/-/react-modal-image-2.5.0.tgz#c9f047ae2a1b8ca54c35dbdad3bbca846cf21632"
   integrity sha512-QucQrgOLmF44CD4EFDLZ9ICrbHEZwztjALgx1GsNmMWZrAtmzDLarG+T1TK2OSE4w1eHfkXtmEhQibjbt0mT2g==
+
+react-modal@^3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.12.1.tgz#38c33f70d81c33d02ff1ed115530443a3dc2afd3"
+  integrity sha512-WGuXn7Fq31PbFJwtWmOk+jFtGC7E9tJVbFX0lts8ZoS5EPi9+WWylUJWLKKVm3H4GlQ7ZxY7R6tLlbSIBQ5oZA==
+  dependencies:
+    exenv "^1.2.0"
+    prop-types "^15.5.10"
+    react-lifecycles-compat "^3.0.0"
+    warning "^4.0.3"
 
 react-motion@^0.5.2:
   version "0.5.2"

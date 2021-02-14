@@ -33,7 +33,7 @@ export default function DeleteProjectData({
         <Button type="button" onClick={() => setDeleteConfirm(!deleteConfirm)}>
           <i className="ri-delete-bin-2-line ri-2x" />
         </Button>
-        <TitleBox>Delete your project data: </TitleBox>
+        <TitleBox>Delete your harvest data: </TitleBox>
       </Col>
       <WrapperInfos hide={deleteConfirm}>
         <Row>

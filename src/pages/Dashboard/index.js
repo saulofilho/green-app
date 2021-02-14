@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import Select from 'react-select';
 import { Link } from 'react-router-dom';
-import { Wizard, Steps, Step } from 'react-albus';
-import { Line } from 'rc-progress';
-import InputMask from 'react-input-mask';
 
 import DataService from '../../services/crudApi';
 import Graphs from '../../components/Graphs';
+import ModalAddProject from '../../components/ModalAddProject';
 
 import {
   Container,
   Content,
-  WrapperWizard,
-  Form,
   CreateHarvestBtn,
   Title,
   Subtitle,
   Today,
   NumberHarvests,
   HarvestName,
-  FormWrapper,
+  Loading,
 } from './styles';
 
 export default function Dashboard() {
-  const [wizardOn, setWizardOn] = useState(false);
   const [projectsData, setProjectsData] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const initialFormState = {
     id: '',
@@ -44,7 +39,6 @@ export default function Dashboard() {
 
   const [currentData, setCurrentData] = useState(initialFormState);
 
-  // all get
   useEffect(() => {
     async function loadDataProjects() {
       const response = await DataService.getProjects();
@@ -59,7 +53,6 @@ export default function Dashboard() {
 
   const [btnDisable, setBtnDisable] = useState('');
 
-  // save data
   const handleInputChange = e => {
     const { name, value } = e.target;
     setBtnDisable(e.target.value);
@@ -98,213 +91,28 @@ export default function Dashboard() {
     }));
   };
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Container>
       <Content>
         <Today>Today is {new Date().toDateString()}</Today>
-
-        <Title>Create a new harvest</Title>
+        <Title>Create a new harvest: right here, right now.</Title>
         <Subtitle>
           Here will be your first step: creating your harvest.
           <br />
           Click on the button to input project`s data.
         </Subtitle>
-        <CreateHarvestBtn type="button" onClick={() => setWizardOn(!wizardOn)}>
-          {!wizardOn ? 'New!' : 'Close'}
+        <CreateHarvestBtn type="button" onClick={() => openModal()}>
+          New!
         </CreateHarvestBtn>
-
-        <WrapperWizard hide={wizardOn}>
-          <Wizard
-            render={({ next, previous, step, steps }) => (
-              <>
-                <Line
-                  percent={((steps.indexOf(step) + 1) / steps.length) * 100}
-                  strokeWidth="1"
-                  strokeColor="#a7ff83"
-                  strokeLinecap="square"
-                />
-                <Steps key={step.id} step={step}>
-                  <Step id="one">
-                    <div>
-                      <Form>
-                        <FormWrapper>
-                          <p>Choose a nice name to your harvest</p>
-                          <input
-                            type="text"
-                            name="harvest_name"
-                            id="harvest_name"
-                            placeholder="The Greenable"
-                            value={currentData.harvest_name}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Talk about your harvest</p>
-                          <textarea
-                            name="infos"
-                            id="infos"
-                            placeholder="This harvest will be the..."
-                            value={currentData.infos}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                      </Form>
-                    </div>
-                  </Step>
-                  <Step id="two">
-                    <div>
-                      <Form>
-                        <FormWrapper>
-                          <p>Strain Name</p>
-                          <input
-                            type="text"
-                            name="strain_name"
-                            id="strain_name"
-                            placeholder="Northern Lights"
-                            value={currentData.strain_name}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Breeder</p>
-                          <input
-                            type="text"
-                            name="breeder"
-                            id="breeder"
-                            placeholder="SeedsMan"
-                            value={currentData.breeder}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Flowering Type</p>
-                          <Select
-                            defaultMenuIsOpen
-                            id="flowering_type"
-                            name="flowering_type"
-                            onChange={handleSelectChange}
-                            options={flowering_type}
-                          />
-                        </FormWrapper>
-                      </Form>
-                    </div>
-                  </Step>
-                  <Step id="three">
-                    <div>
-                      <Form>
-                        <FormWrapper>
-                          <p>Tools</p>
-                          <input
-                            type="text"
-                            name="tools"
-                            id="tools"
-                            placeholder="Scissor, bucket, watering can..."
-                            value={currentData.tools}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Nutrients</p>
-                          <input
-                            type="text"
-                            name="nutrients"
-                            id="nutrients"
-                            placeholder="Bio Bizz..."
-                            value={currentData.nutrients}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Soil</p>
-                          <input
-                            type="text"
-                            name="soil"
-                            id="soil"
-                            placeholder="Coconut Mix"
-                            value={currentData.soil}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Grow Techniques</p>
-                          <input
-                            type="text"
-                            name="grow_techniques"
-                            id="grow_techniques"
-                            placeholder="LST"
-                            value={currentData.grow_techniques}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Pot Size</p>
-                          <InputMask
-                            type="text"
-                            name="pot_size"
-                            id="pot_size"
-                            placeholder="99"
-                            value={currentData.pot_size}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <FormWrapper>
-                          <p>Light Schedule</p>
-                          <InputMask
-                            mask="99/9"
-                            maskPlaceholder={null}
-                            type="text"
-                            name="light_schedule"
-                            id="light_schedule"
-                            placeholder="18/6"
-                            value={currentData.light_schedule}
-                            onChange={handleInputChange}
-                          />
-                        </FormWrapper>
-                        <div className="buttons">
-                          <button
-                            disabled={!btnDisable}
-                            className="salvar"
-                            type="button"
-                            onClick={e => {
-                              e.preventDefault();
-
-                              saveItem(currentData);
-                            }}
-                          >
-                            Save
-                          </button>
-                        </div>
-                      </Form>
-                    </div>
-                  </Step>
-                </Steps>
-                <div className="example-buttons">
-                  {steps.indexOf(step) < steps.length - 1 && (
-                    <CreateHarvestBtn
-                      type="button"
-                      className="btn-fluid margin-1-b"
-                      onClick={next}
-                    >
-                      Next
-                    </CreateHarvestBtn>
-                  )}
-
-                  {steps.indexOf(step) > 0 && (
-                    <CreateHarvestBtn
-                      type="button"
-                      className="btn-fluid btn-secondary"
-                      onClick={previous}
-                    >
-                      Back
-                    </CreateHarvestBtn>
-                  )}
-                </div>
-              </>
-            )}
-          />
-        </WrapperWizard>
-
-        <Title>My harvests</Title>
+        <Title>Where are my harvests?</Title>
         <Subtitle>
           If you have registered any harvest, it will be displayed here. Click
           in the selected project to see the daily data.
@@ -318,9 +126,8 @@ export default function Dashboard() {
             {projectsData.length <= 1 ? 'project.' : 'projects.'}
           </NumberHarvests>
         ) : (
-          <p>Loading...</p>
+          <Loading>Loading...</Loading>
         )}
-
         <HarvestName>
           {projectsData
             .sort((a, b) => a.id - b.id)
@@ -330,15 +137,24 @@ export default function Dashboard() {
               </li>
             ))}
         </HarvestName>
-
-        <Title>Graphs about your projects</Title>
+        <Title>Graphs about your harvests, pal.</Title>
         <Subtitle>
           Below is possible to analyse, compare and cross the 28 last days daily
           data of which harvest.
         </Subtitle>
-
         <Graphs projectsData={projectsData} />
       </Content>
+      <ModalAddProject
+        modalIsOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+        closeModal={closeModal}
+        btnDisable={btnDisable}
+        handleInputChange={handleInputChange}
+        saveItem={saveItem}
+        flowering_type={flowering_type}
+        handleSelectChange={handleSelectChange}
+        currentData={currentData}
+      />
     </Container>
   );
 }

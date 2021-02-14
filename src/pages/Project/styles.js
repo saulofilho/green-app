@@ -41,6 +41,13 @@ export const WrapperContent = styled.div`
   padding: 10px 0;
 `;
 
+export const WrapperContentInitial = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 10px 0;
+  display: ${props => (props.hide ? 'block' : 'none')};
+`;
+
 export const WrapperData = styled.div`
   width: 100%;
   height: 100%;
@@ -218,12 +225,6 @@ export const Subtitle = styled.p`
   font-weight: bolder;
 `;
 
-export const Warn = styled.p`
-  font-family: 'Rubik', sans-serif;
-  font-size: 14px;
-  padding: 10px 0 15px;
-`;
-
 export const Week = styled.div`
   div {
     display: flex;
@@ -235,17 +236,20 @@ export const Week = styled.div`
     font-family: 'Rubik', sans-serif;
     font-size: 14px;
     width: 60px;
-    color: #a7ff83;
+    color: #17b978;
   }
   span {
-    background: #a7ff83;
+    background: #17b978;
     width: 100%;
     height: 2px;
+  }
+  .ri-arrow-up-line {
+    color: #17b978;
   }
 `;
 
 export const LoadData = styled.div`
-  width: 100%;
+  width: 50%;
   height: 100%;
   border: 2px solid black;
   display: flex;
@@ -257,7 +261,14 @@ export const LoadData = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 18px;
   text-align: center;
-  margin-bottom: 20px;
+  margin: 40px auto 20px;
+  box-shadow: 5px 10px #000;
+
+  &:active {
+    background-color: #17b978 !important;
+    box-shadow: 2px 5px #000;
+    transform: translateY(4px);
+  }
 
   :hover {
     background-color: #a7ff83;
@@ -265,7 +276,7 @@ export const LoadData = styled.div`
 `;
 
 export const DownloadData = styled.div`
-  width: 100%;
+  width: 50%;
   height: 100%;
   border: 2px solid black;
   display: flex;
@@ -277,6 +288,14 @@ export const DownloadData = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 18px;
   text-align: center;
+  margin: 0 auto 20px;
+  box-shadow: 5px 10px #000;
+
+  &:active {
+    background-color: #17b978 !important;
+    box-shadow: 2px 5px #000;
+    transform: translateY(4px);
+  }
 
   a {
     width: 100%;

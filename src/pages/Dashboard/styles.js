@@ -29,18 +29,27 @@ export const Today = styled.p`
   color: #17b978;
 `;
 
-export const NumberHarvests = styled.p`
-  font-family: 'Source Serif Pro', serif;
+export const Loading = styled.p`
   font-size: 16px;
   padding: 0 0 20px;
   font-style: italic;
+  color: #f7347a;
+`;
+
+export const NumberHarvests = styled.p`
+  font-size: 14px;
+  padding: 0 0 20px;
+  text-align: center;
+  width: 100%;
 `;
 
 export const HarvestName = styled.ul`
-  padding: 0 0 50px;
+  padding: 0 0 80px;
+  text-align: center;
+  width: 100%;
 
   li {
-    padding: 0 0 5px 20px;
+    padding: 0 0 5px;
   }
   a {
     font-family: 'Rubik', sans-serif;
@@ -62,23 +71,21 @@ export const Content = styled.div`
   flex-flow: column;
 `;
 
-export const WrapperWizard = styled.div`
-  padding: 50px 20px;
-  width: 100%;
-  height: 100%;
-  display: ${props => (props.hide ? 'block' : 'none')};
-  border: 2px solid #000;
-  margin-bottom: 50px;
-`;
-
 export const CreateHarvestBtn = styled.button`
-  margin: 0 0 50px;
+  margin: 0 auto 80px;
   border: 2px solid black;
   padding: 5px 10px;
   background: unset;
-  width: 100%;
+  width: 50%;
   font-family: 'Rubik', sans-serif;
   font-size: 18px;
+  box-shadow: 5px 10px #000;
+
+  &:active {
+    background-color: #17b978 !important;
+    box-shadow: 2px 5px #000;
+    transform: translateY(4px);
+  }
 
   &:hover {
     background: #a7ff83;

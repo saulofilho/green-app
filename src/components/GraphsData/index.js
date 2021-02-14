@@ -85,8 +85,8 @@ export default function Graphs({ allProjectData }) {
           />
           <WrapperGraph>
             <Bar
-              width="1500"
-              height="500"
+              width={1500}
+              height={500}
               data={filterMonth}
               keys={[
                 'ec',
@@ -426,7 +426,9 @@ export default function Graphs({ allProjectData }) {
           </WrapperGraph>
         </>
       ) : (
-        <SelectTitle>Graphs will be displayed here.</SelectTitle>
+        <SelectTitle>
+          Graphs will be displayed here after you push the load data button.
+        </SelectTitle>
       )}
     </Content>
   );

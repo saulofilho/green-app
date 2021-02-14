@@ -44,14 +44,17 @@ export default createGlobalStyle`
   ::-webkit-scrollbar {
     width: 10px;
   }
-  /* ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 3px #086972;
-  } */
+
   ::-webkit-scrollbar-thumb {
     background-color: #a7ff83;
   }
+
   ::selection {
     background: #071a52;
     color: #17b978;
+  }
+
+  .ReactModal__Overlay.ReactModal__Overlay--after-open {
+    background-color: rgba(0, 0, 0, 0.75) !important;
   }
 `;
