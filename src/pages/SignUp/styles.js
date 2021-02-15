@@ -12,17 +12,6 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const WrapperHome = styled.div`
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(
-    -225deg,
-    rgb(198, 255, 221),
-    rgb(251, 215, 134),
-    rgb(247, 121, 125)
-  );
-`;
-
 export const Content = styled.div`
   margin: 0px auto;
   padding: 0 30px;
@@ -46,21 +35,20 @@ export const Content = styled.div`
       border: unset;
       border-bottom: 2px solid #fff;
       color: #fff;
-      margin: 0 0 20px;
+      margin: 0 0 10px;
       font-size: 24px;
       background: transparent;
     }
 
     span {
       color: #fb6f91;
-      align-self: flex-start;
-      margin: 0 0 10px;
-      font-weight: bold;
-      font-size: 12px;
+      align-self: center;
+      margin: 0px 0 15px;
+      font-size: 14px;
     }
 
     button {
-      margin: 5px 0 0;
+      margin: 20px 0 0;
       height: 44px;
       background: #a7ff83;
 

@@ -1,21 +1,20 @@
 import api from './api';
 
-const getProject = (id, page) => {
-  return api.get(`/project/${id}?page=${page}`);
+const getHarvest = id => {
+  return api.get(`/harvest/${id}`);
 };
-const getProjects = () => {
-  return api.get('/projects');
+const getHarvests = () => {
+  return api.get('/harvests');
 };
 const createProjects = data => {
-  return api.post('/project', data);
+  return api.post('/harvest', data);
 };
 const removeProject = id => {
-  return api.delete(`/project/${id}`);
+  return api.delete(`/harvest/${id}`);
 };
 const editProject = (id, data) => {
-  return api.put(`/project/${id}`, data);
+  return api.put(`/harvest/${id}`, data);
 };
-
 const createGreen = data => {
   return api.post('/green', data);
 };
@@ -24,8 +23,8 @@ const updateGreen = (id, data) => {
 };
 
 export default {
-  getProject,
-  getProjects,
+  getHarvest,
+  getHarvests,
   createProjects,
   createGreen,
   updateGreen,

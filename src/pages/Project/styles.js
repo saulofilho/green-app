@@ -41,13 +41,6 @@ export const WrapperContent = styled.div`
   padding: 10px 0;
 `;
 
-export const WrapperContentInitial = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 10px 0;
-  display: ${props => (props.hide ? 'block' : 'none')};
-`;
-
 export const WrapperData = styled.div`
   width: 100%;
   height: 100%;
@@ -248,33 +241,6 @@ export const Week = styled.div`
   }
 `;
 
-export const LoadData = styled.div`
-  width: 50%;
-  height: 100%;
-  border: 2px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-flow: row;
-  cursor: pointer;
-  padding: 10px;
-  font-family: 'Rubik', sans-serif;
-  font-size: 18px;
-  text-align: center;
-  margin: 40px auto 20px;
-  box-shadow: 5px 10px #000;
-
-  &:active {
-    background-color: #17b978 !important;
-    box-shadow: 2px 5px #000;
-    transform: translateY(4px);
-  }
-
-  :hover {
-    background-color: #a7ff83;
-  }
-`;
-
 export const DownloadData = styled.div`
   width: 50%;
   height: 100%;
@@ -290,6 +256,13 @@ export const DownloadData = styled.div`
   text-align: center;
   margin: 0 auto 20px;
   box-shadow: 5px 10px #000;
+
+  button {
+    border: unset;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+  }
 
   &:active {
     background-color: #17b978 !important;

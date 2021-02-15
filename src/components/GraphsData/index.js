@@ -426,9 +426,7 @@ export default function Graphs({ allProjectData }) {
           </WrapperGraph>
         </>
       ) : (
-        <SelectTitle>
-          Graphs will be displayed here after you push the load data button.
-        </SelectTitle>
+        <SelectTitle>Graphs will be displayed here.</SelectTitle>
       )}
     </Content>
   );

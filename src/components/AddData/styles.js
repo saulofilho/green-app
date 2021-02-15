@@ -45,7 +45,7 @@ export const AddWrapper = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 18px;
   text-align: center;
-  margin: 0 auto 20px;
+  margin: 40px auto 20px;
   box-shadow: 5px 10px #000;
 
   &:active {

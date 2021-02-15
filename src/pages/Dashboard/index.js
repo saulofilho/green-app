@@ -41,7 +41,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function loadDataProjects() {
-      const response = await DataService.getProjects();
+      const response = await DataService.getHarvests();
 
       const { data } = response;
 
