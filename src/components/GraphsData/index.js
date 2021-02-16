@@ -13,8 +13,8 @@ import {
   SelectTitle,
 } from './styles';
 
-export default function Graphs({ allProjectData }) {
-  const dateFormatCalendar = allProjectData.map(date => {
+export default function Graphs({ projectData }) {
+  const dateFormatCalendar = projectData.map(date => {
     return {
       ...date,
       createdAt: parseISO(date.createdAt)
@@ -26,7 +26,7 @@ export default function Graphs({ allProjectData }) {
     };
   });
 
-  const dateFormatDay = allProjectData.map(date => {
+  const dateFormatDay = projectData.map(date => {
     return {
       ...date,
       createdAt: parseISO(date.createdAt).toLocaleString('en-US', {
@@ -35,7 +35,7 @@ export default function Graphs({ allProjectData }) {
     };
   });
 
-  const dateFormatMonth = allProjectData.map(date => {
+  const dateFormatMonth = projectData.map(date => {
     return {
       ...date,
       createdAt: parseISO(date.createdAt).toLocaleString('en-US', {
@@ -75,7 +75,7 @@ export default function Graphs({ allProjectData }) {
 
   return (
     <Content>
-      {allProjectData.length !== 0 ? (
+      {projectData.length !== 0 ? (
         <>
           <SelectTitle>Filter your data by month.</SelectTitle>
           <SelectEdited
@@ -433,9 +433,9 @@ export default function Graphs({ allProjectData }) {
 }
 
 Graphs.propTypes = {
-  allProjectData: PropTypes.array,
+  projectData: PropTypes.array,
 };
 
 Graphs.defaultProps = {
-  allProjectData: [],
+  projectData: [],
 };

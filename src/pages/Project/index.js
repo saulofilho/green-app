@@ -12,6 +12,7 @@ import GraphsData from '../../components/GraphsData';
 import ProjectInfos from '../../components/ProjectInfos';
 import AddData from '../../components/AddData';
 import EditData from '../../components/EditData';
+import Calendar from '../../components/Calendar';
 import {
   Container,
   Content,
@@ -34,6 +35,7 @@ import {
   WrapperNumber,
   Week,
   DownloadData,
+  TableComparativeWrapper,
 } from './styles';
 
 const { ExcelFile } = ReactExport;
@@ -59,6 +61,8 @@ export default function Project(props) {
 
   const fetchData = async id => {
     setStatus('Fetching...');
+
+    console.time();
     await DataService.getHarvest(id).then(response => {
       const { data } = response;
 
@@ -66,6 +70,7 @@ export default function Project(props) {
       setProjectInfos([data]);
       setStatus('Fetched.');
     });
+    console.timeEnd();
   };
 
   useEffect(() => {
@@ -217,6 +222,32 @@ export default function Project(props) {
     return theme;
   };
 
+  const TableRow = ({ row, index }) => (
+    <tbody>
+      <tr>
+        <td key={index}>
+          {index + 1}
+          <br />
+          {parseISO(row.createdAt).toLocaleString('en-US', {
+            weekday: 'short',
+            day: '2-digit',
+            month: 'short',
+          })}
+        </td>
+        <td key={row.infos}>{row.infos}</td>
+        <td key={row.temp_max}>{row.temp_max}</td>
+        <td key={row.temp_min}>{row.temp_min}</td>
+        <td key={row.phase}>{row.phase}</td>
+        <td key={row.ph_water}>{row.ph_water}</td>
+        <td key={row.ph_soil}>{row.ph_soil}</td>
+        <td key={row.ec}>{row.ec}</td>
+        <td key={row.moisture}>{row.moisture}</td>
+        <td key={row.air_humidity}>{row.air_humidity}</td>
+        <td key={row.plant_size}>{row.plant_size}</td>
+      </tr>
+    </tbody>
+  );
+
   return (
     <Container>
       <Content>
@@ -224,6 +255,9 @@ export default function Project(props) {
           projectInfos={projectInfos}
           setProjectInfos={setProjectInfos}
         />
+      </Content>
+      <Content>
+        <Calendar />
       </Content>
       <Content>
         {allProjectData.length
@@ -441,6 +475,28 @@ export default function Project(props) {
           allProjectData={allProjectData}
         />
       </Content>
+      <TableComparativeWrapper>
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Infos</th>
+              <th>Temp. Max.</th>
+              <th>Temp. Min</th>
+              <th>Phase</th>
+              <th>pH Water</th>
+              <th>pH Soil</th>
+              <th>EC</th>
+              <th>Moisture</th>
+              <th>Air Humidity</th>
+              <th>Plant Size</th>
+            </tr>
+          </thead>
+          {allProjectData.map((row, index) => (
+            <TableRow row={row} index={index} key={row.id} />
+          ))}
+        </table>
+      </TableComparativeWrapper>
     </Container>
   );
 }

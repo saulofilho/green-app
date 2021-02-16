@@ -78,7 +78,7 @@ export default function EditProjectData({
         <Button type="button" onClick={() => editButton(item)}>
           <i className="ri-file-edit-line ri-2x" />
         </Button>
-        <TitleBox>Edit your harvest data: </TitleBox>
+        <TitleBox>Edit project`s infos: </TitleBox>
         <WrapperDataEdit hideAdd={editOn}>
           <Form>
             <FormWrapper>

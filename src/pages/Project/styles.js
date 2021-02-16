@@ -279,4 +279,43 @@ export const DownloadData = styled.div`
   :hover {
     background-color: #a7ff83;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const TableComparativeWrapper = styled.div`
+  padding: 50px 20px;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 2px solid #000;
+  margin-bottom: 50px;
+  overflow: auto;
+  text-align: center;
+
+  table {
+    border-collapse: collapse;
+
+    th {
+      padding: 20px;
+      text-align: left;
+      background-color: #17b978;
+      color: white;
+      border: 3px solid white;
+    }
+
+    td {
+      padding: 20px;
+    }
+
+    tbody:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tbody:hover {
+      background-color: #a7ff83;
+    }
+  }
 `;

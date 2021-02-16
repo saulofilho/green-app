@@ -21,6 +21,18 @@ const createGreen = data => {
 const updateGreen = (id, data) => {
   return api.put(`/green/${id}`, data);
 };
+const getCalendar = () => {
+  return api.get(`/calendar`);
+};
+const deleteCalendar = id => {
+  return api.delete(`/calendar/${id}`);
+};
+const updateCalendar = (id, data) => {
+  return api.put(`/calendar/${id}`, data);
+};
+const createCalendar = data => {
+  return api.post('/calendar', data);
+};
 
 export default {
   getHarvest,
@@ -30,4 +42,8 @@ export default {
   updateGreen,
   removeProject,
   editProject,
+  getCalendar,
+  deleteCalendar,
+  updateCalendar,
+  createCalendar,
 };

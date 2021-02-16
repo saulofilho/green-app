@@ -27,9 +27,9 @@ export default function Graphs({ projectsData }) {
         return {
           ...item,
           x: parseISO(item.createdAt).toLocaleString('en-US', {
+            weekday: 'short',
             day: '2-digit',
             month: 'short',
-            weekday: 'short',
           }),
           y: item.moisture,
         };
@@ -45,9 +45,9 @@ export default function Graphs({ projectsData }) {
         return {
           ...item,
           x: parseISO(item.createdAt).toLocaleString('en-US', {
+            weekday: 'short',
             day: '2-digit',
             month: 'short',
-            weekday: 'short',
           }),
           y: item.air_humidity,
         };
@@ -63,9 +63,9 @@ export default function Graphs({ projectsData }) {
         return {
           ...item,
           x: parseISO(item.createdAt).toLocaleString('en-US', {
+            weekday: 'short',
             day: '2-digit',
             month: 'short',
-            weekday: 'short',
           }),
           y: item.ph_soil,
         };
@@ -81,9 +81,9 @@ export default function Graphs({ projectsData }) {
         return {
           ...item,
           x: parseISO(item.createdAt).toLocaleString('en-US', {
+            weekday: 'short',
             day: '2-digit',
             month: 'short',
-            weekday: 'short',
           }),
           y: item.ph_water,
         };
