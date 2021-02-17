@@ -168,3 +168,56 @@ export const FormWrapper = styled.div`
 export const SelectStyled = styled(Select)`
   width: 100%;
 `;
+
+export const DownloadData = styled.div`
+  width: 50%;
+  height: 100%;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: row;
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  margin: 20px auto;
+  box-shadow: 5px 10px #000;
+
+  button {
+    border: unset;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+  }
+
+  &:active {
+    background-color: #17b978 !important;
+    box-shadow: 2px 5px #000;
+    transform: translateY(4px);
+  }
+
+  &[disabled] {
+    background-color: #dee2e6;
+  }
+
+  &[enable]:hover {
+    background: ${darken(0.09, 'lightgreen')};
+    color: #000;
+  }
+
+  a {
+    width: 100%;
+    color: #000;
+    text-decoration: none;
+  }
+
+  :hover {
+    background-color: #a7ff83;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;

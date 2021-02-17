@@ -8,6 +8,7 @@ import {
   Form,
   FormWrapper,
   SelectStyled,
+  DownloadData,
 } from './styles';
 
 export default function AddData({
@@ -22,7 +23,6 @@ export default function AddData({
   preview,
   file,
   ref,
-  btnDisable,
 }) {
   return (
     <WrapperContent>
@@ -140,11 +140,9 @@ export default function AddData({
               onChange={handleChange}
               ref={ref}
             />
-            <div className="buttons">
+            <DownloadData>
               <button
-                disabled={!btnDisable}
                 type="button"
-                className="salvar"
                 onClick={e => {
                   e.preventDefault();
 
@@ -153,7 +151,7 @@ export default function AddData({
               >
                 Save
               </button>
-            </div>
+            </DownloadData>
           </FormWrapper>
         </Form>
       </WrapperDataAdd>

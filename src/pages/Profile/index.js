@@ -14,6 +14,7 @@ import {
   Title,
   Subtitle,
   NewAccount,
+  DownloadData,
 } from './styles';
 
 export default function Profile() {
@@ -31,10 +32,9 @@ export default function Profile() {
   return (
     <Container>
       <Content>
-        <Title>Hey! I am your harvest data.</Title>
+        <Title>Update your profile. If you need.</Title>
         <Subtitle>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
+          Change your email, your password and even your name.
         </Subtitle>
         <Form initialData={profile} onSubmit={handleSubmit}>
           <Input name="name" placeholder="Your full name" />
@@ -51,14 +51,16 @@ export default function Profile() {
             placeholder="Confirm your password"
           />
           <FormEditRow>
-            <button type="submit" className="salvar">
-              Update my profile
-            </button>
-            <button type="button" onClick={handleSignOut} className="deletar">
-              Log out
-            </button>
+            <DownloadData>
+              <button type="submit">Update my profile</button>
+            </DownloadData>
           </FormEditRow>
         </Form>
+        <DownloadData>
+          <button type="button" onClick={handleSignOut}>
+            Log out
+          </button>
+        </DownloadData>
         {store.getState().user.profile.admin ? (
           <NewAccount>
             <Link to="/register">Criar conta gratuita</Link>

@@ -51,11 +51,8 @@ export default function Dashboard() {
     loadDataProjects();
   }, []);
 
-  const [btnDisable, setBtnDisable] = useState('');
-
   const handleInputChange = e => {
     const { name, value } = e.target;
-    setBtnDisable(e.target.value);
     setCurrentData(prevState => ({
       ...prevState,
       [name]: value,
@@ -63,17 +60,18 @@ export default function Dashboard() {
   };
 
   const saveItem = async () => {
-    await DataService.createProjects(currentData).then(response => {
-      setCurrentData(response.data);
-      if (response.status === 200) {
+    await DataService.createProjects(currentData)
+      .then(response => {
+        setCurrentData(response.data);
         toast.success('Saved successfully.');
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-      } else if (response.status !== 200) {
+      })
+      .catch(err => {
         toast.error('Something went wrong.');
-      }
-    });
+        console.log('err', err.message);
+      });
   };
 
   const flowering_type = [
@@ -148,7 +146,6 @@ export default function Dashboard() {
         modalIsOpen={modalIsOpen}
         setIsOpen={setIsOpen}
         closeModal={closeModal}
-        btnDisable={btnDisable}
         handleInputChange={handleInputChange}
         saveItem={saveItem}
         flowering_type={flowering_type}

@@ -286,17 +286,18 @@ export const DownloadData = styled.div`
 `;
 
 export const TableComparativeWrapper = styled.div`
-  padding: 50px 20px;
+  padding: 20px;
   width: 100%;
   height: 100%;
   display: block;
-  border: 2px solid #000;
+  border: 2px solid #a7ff83;
   margin-bottom: 50px;
   overflow: auto;
   text-align: center;
 
   table {
     border-collapse: collapse;
+    text-align: center;
 
     th {
       padding: 20px;
@@ -304,10 +305,12 @@ export const TableComparativeWrapper = styled.div`
       background-color: #17b978;
       color: white;
       border: 3px solid white;
+      text-align: center;
     }
 
     td {
       padding: 20px;
+      border: 3px solid white;
     }
 
     tbody:nth-child(even) {
@@ -318,4 +321,20 @@ export const TableComparativeWrapper = styled.div`
       background-color: #a7ff83;
     }
   }
+`;
+
+export const Loading = styled.p`
+  font-size: 16px;
+  padding: 0 0 20px;
+  font-style: italic;
+  color: #f7347a;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+`;
+
+export const SelectTitle = styled.p`
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  padding: 30px 0 10px;
 `;

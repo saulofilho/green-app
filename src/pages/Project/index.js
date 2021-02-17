@@ -13,6 +13,7 @@ import ProjectInfos from '../../components/ProjectInfos';
 import AddData from '../../components/AddData';
 import EditData from '../../components/EditData';
 import Calendar from '../../components/Calendar';
+import Carousel from '../../components/Carousel';
 import {
   Container,
   Content,
@@ -36,6 +37,8 @@ import {
   Week,
   DownloadData,
   TableComparativeWrapper,
+  Loading,
+  SelectTitle,
 } from './styles';
 
 const { ExcelFile } = ReactExport;
@@ -141,17 +144,18 @@ export default function Project(props) {
   };
 
   const saveItem = async () => {
-    await DataService.createGreen(currentData).then(response => {
-      setCurrentData(response.data);
-      if (response.status === 200) {
+    await DataService.createGreen(currentData)
+      .then(response => {
+        setCurrentData(response.data);
         toast.success('Saved successfully.');
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-      } else if (response.status !== 200) {
+      })
+      .catch(err => {
         toast.error('Something went wrong.');
-      }
-    });
+        console.log('err', err.message);
+      });
   };
 
   const toggle = id => {
@@ -225,7 +229,7 @@ export default function Project(props) {
   const TableRow = ({ row, index }) => (
     <tbody>
       <tr>
-        <td key={index}>
+        <td>
           {index + 1}
           <br />
           {parseISO(row.createdAt).toLocaleString('en-US', {
@@ -234,31 +238,41 @@ export default function Project(props) {
             month: 'short',
           })}
         </td>
-        <td key={row.infos}>{row.infos}</td>
-        <td key={row.temp_max}>{row.temp_max}</td>
-        <td key={row.temp_min}>{row.temp_min}</td>
-        <td key={row.phase}>{row.phase}</td>
-        <td key={row.ph_water}>{row.ph_water}</td>
-        <td key={row.ph_soil}>{row.ph_soil}</td>
-        <td key={row.ec}>{row.ec}</td>
-        <td key={row.moisture}>{row.moisture}</td>
-        <td key={row.air_humidity}>{row.air_humidity}</td>
-        <td key={row.plant_size}>{row.plant_size}</td>
+        <td>{row.infos}</td>
+        <td>{row.temp_max}</td>
+        <td>{row.temp_min}</td>
+        <td>{row.phase}</td>
+        <td>{row.ph_water}</td>
+        <td>{row.ph_soil}</td>
+        <td>{row.ec}</td>
+        <td>{row.moisture}</td>
+        <td>{row.air_humidity}</td>
+        <td>{row.plant_size}</td>
       </tr>
     </tbody>
   );
 
   return (
     <Container>
-      <Content>
-        <ProjectInfos
-          projectInfos={projectInfos}
-          setProjectInfos={setProjectInfos}
-        />
-      </Content>
-      <Content>
-        <Calendar />
-      </Content>
+      {projectInfos.length ? (
+        <Content>
+          <ProjectInfos
+            projectInfos={projectInfos}
+            setProjectInfos={setProjectInfos}
+          />
+        </Content>
+      ) : (
+        <Container>
+          <Content>
+            <Loading>Loading...</Loading>
+          </Content>
+        </Container>
+      )}
+      {allProjectData.length ? (
+        <Content>
+          <Calendar />
+        </Content>
+      ) : null}
       <Content>
         {allProjectData.length
           ? allProjectData.map((item, index) => (
@@ -475,6 +489,13 @@ export default function Project(props) {
           allProjectData={allProjectData}
         />
       </Content>
+      {allProjectData.length ? (
+        <Content>
+          <SelectTitle>Photos from your harvest.</SelectTitle>
+          <Carousel allProjectData={allProjectData} />
+        </Content>
+      ) : null}
+      <SelectTitle>Comparative table about your whole data.</SelectTitle>
       <TableComparativeWrapper>
         <table>
           <thead>

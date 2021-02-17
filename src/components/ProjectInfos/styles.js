@@ -39,10 +39,3 @@ export const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-
-export const Loading = styled.p`
-  font-size: 16px;
-  padding: 0 0 20px;
-  font-style: italic;
-  color: #f7347a;
-`;

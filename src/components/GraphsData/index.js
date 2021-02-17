@@ -426,7 +426,7 @@ export default function Graphs({ projectData }) {
           </WrapperGraph>
         </>
       ) : (
-        <SelectTitle>Graphs will be displayed here.</SelectTitle>
+        <SelectTitle>Graphs and images will be displayed here.</SelectTitle>
       )}
     </Content>
   );

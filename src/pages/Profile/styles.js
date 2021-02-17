@@ -10,8 +10,9 @@ export const Container = styled.div`
     flex-flow: column;
     width: 100%;
     height: auto;
-    border-radius: 5px;
     padding: 50px 0;
+    padding: 50px;
+    border: 2px solid #000;
 
     input {
       font-family: 'Rubik', sans-serif;
@@ -22,36 +23,6 @@ export const Container = styled.div`
       border-bottom: 2px solid #000;
       margin: 0 0 50px;
       font-size: 24px;
-    }
-
-    .salvar {
-      width: 100%;
-      height: 32px;
-      font-size: 14px;
-      font-weight: 500;
-      font-stretch: normal;
-      border: solid 2px #000;
-      background-color: #fff;
-      color: #000;
-
-      :hover {
-        background-color: #a7ff83;
-      }
-    }
-
-    .deletar {
-      width: 100%;
-      height: 32px;
-      font-size: 14px;
-      font-weight: 500;
-      font-stretch: normal;
-      border: solid 2px #000;
-      background-color: #fff;
-      color: #000;
-
-      :hover {
-        background-color: lightsalmon;
-      }
     }
   }
 `;
@@ -74,13 +45,13 @@ export const FormEditRow = styled.div`
 
 export const Title = styled.p`
   font-family: 'Rubik', sans-serif;
-  font-size: 36px;
+  font-size: 24px;
   padding: 0 0 10px;
 `;
 
 export const Subtitle = styled.p`
   font-family: 'Source Serif Pro', serif;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0 0 25px;
   font-style: italic;
   font-weight: bolder;
@@ -95,5 +66,49 @@ export const NewAccount = styled.div`
 
   a {
     color: salmon;
+  }
+`;
+
+export const DownloadData = styled.div`
+  width: 50%;
+  height: 100%;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: row;
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  margin: 30px auto;
+  box-shadow: 5px 10px #000;
+
+  button {
+    border: unset;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+  }
+
+  &:active {
+    background-color: #17b978 !important;
+    box-shadow: 2px 5px #000;
+    transform: translateY(4px);
+  }
+
+  a {
+    width: 100%;
+    color: #000;
+    text-decoration: none;
+  }
+
+  :hover {
+    background-color: #a7ff83;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
