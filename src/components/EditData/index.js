@@ -19,7 +19,6 @@ export default function EditData({
   handleInputChange,
   currentData,
   handleSelectChange,
-  btnDisable,
   phases,
   updateItem,
 }) {
@@ -135,7 +134,6 @@ export default function EditData({
             <FormWrapper>
               <div className="buttons">
                 <button
-                  disabled={!btnDisable}
                   type="button"
                   className="salvar"
                   onClick={e => {
@@ -161,7 +159,6 @@ EditData.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   currentData: PropTypes.object.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
-  btnDisable: PropTypes.string.isRequired,
   phases: PropTypes.array.isRequired,
   updateItem: PropTypes.func.isRequired,
 };

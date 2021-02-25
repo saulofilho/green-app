@@ -37,11 +37,10 @@ export default function CarouselComponent({ allProjectData }) {
         {allProjectData.map(item => (
           <div key={item.id}>
             <ImgBG
-              className="car-items-wrapper"
               style={{
                 backgroundImage: `url(${item.img.url})`,
               }}
-              alt="foto da chapada dos guimaraes"
+              alt={item.img.url}
             />
             <CarouselText>
               {parseISO(item.createdAt).toLocaleString('en-US', {

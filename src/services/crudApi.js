@@ -1,7 +1,7 @@
 import api from './api';
 
-const getHarvest = id => {
-  return api.get(`/harvest/${id}`);
+const getHarvest = (id, page) => {
+  return api.get(`/harvest/${id}?page=${page}`);
 };
 const getHarvests = () => {
   return api.get('/harvests');
@@ -21,9 +21,9 @@ const createGreen = data => {
 const updateGreen = (id, data) => {
   return api.put(`/green/${id}`, data);
 };
-const getCalendar = () => {
-  return api.get(`/calendar`);
-};
+// const getCalendar = () => {
+//   return api.get(`/calendar`);
+// };
 const deleteCalendar = id => {
   return api.delete(`/calendar/${id}`);
 };
@@ -42,7 +42,7 @@ export default {
   updateGreen,
   removeProject,
   editProject,
-  getCalendar,
+  // getCalendar,
   deleteCalendar,
   updateCalendar,
   createCalendar,

@@ -57,7 +57,7 @@ export default function Profile() {
           </FormEditRow>
         </Form>
         <DownloadData>
-          <button type="button" onClick={handleSignOut}>
+          <button type="button" onClick={() => handleSignOut()}>
             Log out
           </button>
         </DownloadData>

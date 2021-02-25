@@ -171,7 +171,6 @@ AddData.propTypes = {
   preview: PropTypes.string,
   file: PropTypes.number,
   ref: PropTypes.func,
-  btnDisable: PropTypes.string.isRequired,
 };
 
 AddData.defaultProps = {

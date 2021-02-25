@@ -1,20 +1,28 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import { Calendar, dateFnsLocalizer, Views } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
-import DataService from '../../services/crudApi';
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { Container } from './styles';
 
-export default function CalendarComponent() {
-  const [, setStatus] = useState('Idle.');
-  const [calendarData, setAllProjectData] = useState([]);
+export default function CalendarComponent({
+  calendarData,
+  setCalendarData,
+  projectId,
+}) {
+  const [events, setEvents] = useState();
+  // const [draggedEvent, setDraggedEvent] = useState();
+  // const [displayDragItemInCell, setDisplayDragItemInCell] = useState(true);
+
+  // console.log('events', events);
+  // console.log('calendarData', calendarData);
 
   const locales = {
     'en-US': require('date-fns/locale/en-US'),
@@ -30,21 +38,6 @@ export default function CalendarComponent() {
 
   const DragAndDropCalendar = withDragAndDrop(Calendar);
 
-  const fetchData = async () => {
-    setStatus('Fetching...');
-
-    const response = await DataService.getCalendar();
-
-    const { data } = response;
-
-    setAllProjectData([...data]);
-    setStatus('Fetched.');
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const calendarDataRename = calendarData.map(item => {
     return {
       ...item,
@@ -53,6 +46,70 @@ export default function CalendarComponent() {
       start: new Date(item.start),
     };
   });
+
+  const initialFormState = {
+    project_id: projectId,
+    id: '',
+    all_day: '',
+    end: '',
+    start: '',
+    title: '',
+  };
+
+  const [currentData, setCurrentData] = useState(initialFormState);
+
+  // console.log('currentData', currentData);
+
+  function onEventResize(data) {
+    const { start, end, title } = data;
+
+    // console.log('onEventResize', data);
+    setCurrentData(prevState => ({
+      ...prevState,
+      start,
+      end,
+      title,
+      all_day: false,
+    }));
+
+    return { events: [...events] };
+  }
+
+  function onEventDrop({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
+    // console.log('drop', event);
+
+    let { allDay } = event;
+
+    if (!event.allDay && droppedOnAllDaySlot) {
+      allDay = true;
+    } else if (event.allDay && !droppedOnAllDaySlot) {
+      allDay = false;
+    }
+
+    const nextEvents = calendarDataRename.map(existingEvent => {
+      return existingEvent.id === event.id
+        ? { ...existingEvent, start, end }
+        : existingEvent;
+    });
+
+    // console.log('nextEvents', nextEvents);
+
+    setCurrentData(nextEvents);
+  }
+
+  function handleSelect({ start, end }) {
+    const title = window.prompt('New Event name');
+
+    // console.log('handleSelect', start);
+    if (title)
+      setCurrentData(prevState => ({
+        ...prevState,
+        start,
+        end,
+        title,
+        all_day: false,
+      }));
+  }
 
   return (
     <Container>
@@ -68,7 +125,18 @@ export default function CalendarComponent() {
         defaultDate={new Date()}
         showMultiDayTimes
         popup
-        onSelectEvent={event => alert(event.title)}
+        onEventResize={onEventResize}
+        onEventDrop={onEventDrop}
+        // onSelectEvent={event => alert(event.title)}
+        // onEventDrop={() => moveEvent}
+        // onEventResize={() => resizeEvent}
+        onSelectSlot={handleSelect}
+        // onDragStart={console.log}
+        // dragFromOutsideItem={
+        //   displayDragItemInCell ? dragFromOutsideItem() : null
+        // }
+        // onDropFromOutside={() => onDropFromOutside()}
+        // handleDragStart={() => handleDragStart()}
       />
     </Container>
   );
@@ -87,12 +155,8 @@ export default function CalendarComponent() {
 //   todo_done: true,
 // };
 
-// // create
-// const [btnDisable, setBtnDisable] = useState('');
-
 // const handleInputChange = e => {
 //   const { name, value } = e.target;
-//   setBtnDisable(e.target.value);
 //   setCurrentTodo(prevState => ({
 //     ...prevState,
 //     [name]: value,

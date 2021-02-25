@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const ImgBG = styled.div`
-  width: 920px;
+  width: 780px;
   height: 350px;
   background-position: center;
   background-repeat: no-repeat;
@@ -19,10 +19,7 @@ export const ImgBG = styled.div`
   margin: 10px;
   cursor: grabbing;
 
-  @media (max-width: 1200px) {
-    width: 600px;
-  }
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     width: 400px;
   }
   @media (max-width: 550px) {

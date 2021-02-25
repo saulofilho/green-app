@@ -18,7 +18,6 @@ export default function EditProjectData({
   item,
 }) {
   const [editOn, setEditOn] = useState(false);
-  const [btnDisable, setBtnDisable] = useState('');
 
   const initialProjectState = {
     id: '',
@@ -65,7 +64,6 @@ export default function EditProjectData({
 
   const handleInputChange = e => {
     const { name, value } = e.target;
-    setBtnDisable(e.target.value);
     setCurrentProjectData(prevState => ({
       ...prevState,
       [name]: value,
@@ -194,7 +192,6 @@ export default function EditProjectData({
             <FormWrapper>
               <div className="buttons">
                 <button
-                  disabled={!btnDisable}
                   type="button"
                   className="salvar"
                   onClick={e => {

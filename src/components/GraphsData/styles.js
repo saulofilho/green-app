@@ -18,6 +18,10 @@ export const WrapperGraph = styled.div`
   border: 2px solid #a7ff83;
   margin-bottom: 50px;
   padding-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: unset;
+  }
 `;
 
 export const SelectTitle = styled.p`

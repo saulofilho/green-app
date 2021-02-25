@@ -77,113 +77,6 @@ export default function Graphs({ projectData }) {
     <Content>
       {projectData.length !== 0 ? (
         <>
-          <SelectTitle>Filter your data by month.</SelectTitle>
-          <SelectEdited
-            defaultMenuIsOpen
-            options={monthsSelect}
-            onChange={handleSelectChange}
-          />
-          <WrapperGraph>
-            <Bar
-              width={1500}
-              height={500}
-              data={filterMonth}
-              keys={[
-                'ec',
-                'temp_max',
-                'temp_min',
-                'moisture',
-                'air_humidity',
-                'ph_water',
-                'ph_soil',
-                'plant_size',
-              ]}
-              indexBy="id"
-              margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-              padding={0.3}
-              valueScale={{ type: 'linear' }}
-              indexScale={{ type: 'band', round: true }}
-              colors={{ scheme: 'greens' }}
-              defs={[
-                {
-                  id: 'dots',
-                  type: 'patternDots',
-                  background: 'inherit',
-                  color: '#17b978',
-                  size: 4,
-                  padding: 1,
-                  stagger: true,
-                },
-                {
-                  id: 'lines',
-                  type: 'patternLines',
-                  background: 'inherit',
-                  color: '#a7ff83',
-                  rotation: -45,
-                  lineWidth: 6,
-                  spacing: 10,
-                },
-              ]}
-              fill={[
-                {
-                  match: {
-                    id: 'ec',
-                  },
-                  id: 'dots',
-                },
-                {
-                  match: {
-                    id: 'moisture',
-                  },
-                  id: 'lines',
-                },
-              ]}
-              borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-              }}
-              axisLeft={{
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-              }}
-              labelSkipWidth={12}
-              labelSkipHeight={12}
-              labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-              legends={[
-                {
-                  dataFrom: 'keys',
-                  anchor: 'bottom-right',
-                  direction: 'column',
-                  justify: false,
-                  translateX: 120,
-                  translateY: 0,
-                  itemsSpacing: 2,
-                  itemWidth: 100,
-                  itemHeight: 20,
-                  itemDirection: 'left-to-right',
-                  itemOpacity: 0.85,
-                  symbolSize: 20,
-                  effects: [
-                    {
-                      on: 'hover',
-                      style: {
-                        itemOpacity: 1,
-                      },
-                    },
-                  ],
-                },
-              ]}
-              animate
-              motionStiffness={90}
-              motionDamping={15}
-            />
-            <i className="ri-arrow-right-line ri-1x" />
-          </WrapperGraph>
           <CalendarLegend>Your whole data.</CalendarLegend>
           <WrapperGraph>
             <Stream
@@ -424,9 +317,116 @@ export default function Graphs({ projectData }) {
             />
             <i className="ri-arrow-right-line ri-1x" />
           </WrapperGraph>
+          <CalendarLegend>Filter your data by month.</CalendarLegend>
+          <SelectEdited
+            defaultMenuIsOpen
+            options={monthsSelect}
+            onChange={handleSelectChange}
+          />
+          <WrapperGraph>
+            <Bar
+              width={1500}
+              height={500}
+              data={filterMonth}
+              keys={[
+                'ec',
+                'temp_max',
+                'temp_min',
+                'moisture',
+                'air_humidity',
+                'ph_water',
+                'ph_soil',
+                'plant_size',
+              ]}
+              indexBy="id"
+              margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+              padding={0.3}
+              valueScale={{ type: 'linear' }}
+              indexScale={{ type: 'band', round: true }}
+              colors={{ scheme: 'greens' }}
+              defs={[
+                {
+                  id: 'dots',
+                  type: 'patternDots',
+                  background: 'inherit',
+                  color: '#17b978',
+                  size: 4,
+                  padding: 1,
+                  stagger: true,
+                },
+                {
+                  id: 'lines',
+                  type: 'patternLines',
+                  background: 'inherit',
+                  color: '#a7ff83',
+                  rotation: -45,
+                  lineWidth: 6,
+                  spacing: 10,
+                },
+              ]}
+              fill={[
+                {
+                  match: {
+                    id: 'ec',
+                  },
+                  id: 'dots',
+                },
+                {
+                  match: {
+                    id: 'moisture',
+                  },
+                  id: 'lines',
+                },
+              ]}
+              borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+              }}
+              axisLeft={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+              }}
+              labelSkipWidth={12}
+              labelSkipHeight={12}
+              labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+              legends={[
+                {
+                  dataFrom: 'keys',
+                  anchor: 'bottom-right',
+                  direction: 'column',
+                  justify: false,
+                  translateX: 120,
+                  translateY: 0,
+                  itemsSpacing: 2,
+                  itemWidth: 100,
+                  itemHeight: 20,
+                  itemDirection: 'left-to-right',
+                  itemOpacity: 0.85,
+                  symbolSize: 20,
+                  effects: [
+                    {
+                      on: 'hover',
+                      style: {
+                        itemOpacity: 1,
+                      },
+                    },
+                  ],
+                },
+              ]}
+              animate
+              motionStiffness={90}
+              motionDamping={15}
+            />
+            <i className="ri-arrow-right-line ri-1x" />
+          </WrapperGraph>
         </>
       ) : (
-        <SelectTitle>Graphs and images will be displayed here.</SelectTitle>
+        ''
       )}
     </Content>
   );

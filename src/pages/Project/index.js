@@ -12,7 +12,7 @@ import GraphsData from '../../components/GraphsData';
 import ProjectInfos from '../../components/ProjectInfos';
 import AddData from '../../components/AddData';
 import EditData from '../../components/EditData';
-import Calendar from '../../components/Calendar';
+import CalendarComponent from '../../components/Calendar';
 import Carousel from '../../components/Carousel';
 import {
   Container,
@@ -47,38 +47,44 @@ const { ExcelColumn } = ReactExport.ExcelFile;
 
 export default function Project(props) {
   const { match } = props;
-  const [, setStatus] = useState('Idle.');
   const [projectInfos, setProjectInfos] = useState([]);
+  const [projectData, setProjectData] = useState([]);
   const [allProjectData, setAllProjectData] = useState([]);
   const [greenData, setGreenData] = useState([]);
+  const [calendarData, setCalendarData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledAdd, setIsToggledAdd] = useState(false);
   const [editOn, setEditOn] = useState(false);
-  const [btnDisable, setBtnDisable] = useState('');
 
   const { defaultValue, registerField } = useField('img_green');
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
   const ref = useRef();
 
-  const fetchData = async id => {
-    setStatus('Fetching...');
-
+  const fetchData = async (id, page) => {
     console.time();
-    await DataService.getHarvest(id).then(response => {
+    await DataService.getHarvest(id, page).then(response => {
       const { data } = response;
 
-      setAllProjectData([...data.green]);
+      setProjectData([...data.green]);
+      setCalendarData([...data.calendar]);
       setProjectInfos([data]);
-      setStatus('Fetched.');
     });
     console.timeEnd();
   };
 
   useEffect(() => {
-    fetchData(match.params.id);
-  }, [match.params.id]);
+    fetchData(match.params.id, currentPage);
+  }, [match.params.id, currentPage]);
+
+  console.log('allProjectData', allProjectData);
+
+  const fetchNextPage = () => {
+    setCurrentPage(currentPage + 1);
+    setAllProjectData(prevState => [...prevState, ...projectData]);
+  };
 
   const initialFormState = {
     project_id: match.params.id,
@@ -100,7 +106,6 @@ export default function Project(props) {
 
   const handleInputChange = e => {
     const { name, value } = e.target;
-    setBtnDisable(e.target.value);
     setCurrentData(prevState => ({
       ...prevState,
       [name]: value,
@@ -108,7 +113,6 @@ export default function Project(props) {
   };
 
   const handleSelectChange = item => {
-    setBtnDisable(item.value);
     setCurrentData(prevState => ({
       ...prevState,
       phase: item.value,
@@ -268,14 +272,18 @@ export default function Project(props) {
           </Content>
         </Container>
       )}
-      {allProjectData.length ? (
+      {projectInfos.length ? (
         <Content>
-          <Calendar />
+          <CalendarComponent
+            calendarData={calendarData}
+            setCalendarData={setCalendarData}
+            projectId={match.params.id}
+          />
         </Content>
       ) : null}
       <Content>
-        {allProjectData.length
-          ? allProjectData.map((item, index) => (
+        {allProjectData.length === 0
+          ? projectData.map((item, index) => (
               <WrapperContent key={item.id}>
                 <DayWrapper onClick={() => toggle(item.id)}>
                   <RowDayWrapper theme={badgeTheme(item.phase)}>
@@ -425,7 +433,6 @@ export default function Project(props) {
                       currentData={currentData}
                       handleSelectChange={handleSelectChange}
                       phases={phases}
-                      btnDisable={btnDisable}
                     />
                   </Row>
                 </WrapperData>
@@ -442,7 +449,182 @@ export default function Project(props) {
                 </Week>
               </WrapperContent>
             ))
-          : ''}
+          : allProjectData.map((item, index) => (
+              <WrapperContent key={item.id}>
+                <DayWrapper onClick={() => toggle(item.id)}>
+                  <RowDayWrapper theme={badgeTheme(item.phase)}>
+                    <WrapperNumber>
+                      <Number>{index + 1}</Number>
+                      <SmallText>
+                        {parseISO(item.createdAt).toLocaleString('en-US', {
+                          weekday: 'short',
+                          day: '2-digit',
+                        })}
+                      </SmallText>
+                    </WrapperNumber>
+                    <ColDay>
+                      <RowDay>
+                        <BorderBotAndLeft>
+                          <SmallText>TEMPERATURE MAX:</SmallText>
+                          <BigText>{item.temp_max} °C</BigText>
+                        </BorderBotAndLeft>
+                      </RowDay>
+                      <RowDay>
+                        <BorderLeft>
+                          <SmallText>TEMPERATURE MIN:</SmallText>
+                          <BigText>{item.temp_min} °C</BigText>
+                        </BorderLeft>
+                      </RowDay>
+                    </ColDay>
+                    <ColDay>
+                      <RowDay>
+                        <BorderBotAndLeft>
+                          <SmallText>PHASE:</SmallText>
+                          <BigText>{item.phase}</BigText>
+                        </BorderBotAndLeft>
+                      </RowDay>
+                      <RowDay>
+                        <BorderLeft>
+                          <SmallText>PH WATER:</SmallText>
+                          <BigText>{item.ph_water}</BigText>
+                        </BorderLeft>
+                        <BorderLeft>
+                          <SmallText>PH SOIL:</SmallText>
+                          <BigText>{item.ph_soil}</BigText>
+                        </BorderLeft>
+                      </RowDay>
+                    </ColDay>
+                  </RowDayWrapper>
+                </DayWrapper>
+                <WrapperData hide={isToggled === item.id}>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-information-line ri-2x" />
+                      <Col>
+                        <TitleBox>Infos: </TitleBox>
+                        <TextBox>{item.infos}</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-contrast-2-line ri-2x" />
+                      <Col>
+                        <TitleBox>Phase: </TitleBox>
+                        <TextBox>{item.phase}</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-water-flash-line ri-2x" />
+                      <Col>
+                        <TitleBox>pH Water: </TitleBox>
+                        <TextBox>{item.ph_water} pH</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-earth-line ri-2x" />
+                      <Col>
+                        <TitleBox>pH Soil: </TitleBox>
+                        <TextBox>{item.ph_soil} pH</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-flask-line ri-2x" />
+                      <Col>
+                        <TitleBox>EC: </TitleBox>
+                        <TextBox>{item.ec} PPM</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-sun-line ri-2x" />
+                      <Col>
+                        <TitleBox>Temperature Max: </TitleBox>
+                        <TextBox>{item.temp_max} °C</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-rainy-line ri-2x" />
+                      <Col>
+                        <TitleBox>Temperature Min: </TitleBox>
+                        <TextBox>{item.temp_min} °C</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-umbrella-line ri-2x" />
+                      <Col>
+                        <TitleBox>Soil Moisture: </TitleBox>
+                        <TextBox>{item.moisture} %</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                    <WrapperInfos>
+                      <i className="ri-temp-cold-line ri-2x" />
+                      <Col>
+                        <TitleBox>Air Humidity: </TitleBox>
+                        <TextBox>{item.air_humidity} %</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-seedling-line ri-2x" />
+                      <Col>
+                        <TitleBox>Plant Size: </TitleBox>
+                        <TextBox>{item.plant_size} cm</TextBox>
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <WrapperInfos>
+                      <i className="ri-camera-line ri-2x" />
+                      <Col>
+                        <TitleBox>Image: </TitleBox>
+                        <img src={preview} alt={item.name} loading="lazy" />
+                        <ModalImage
+                          small={item.img.url}
+                          large={item.img.url}
+                          alt={item.name}
+                        />
+                      </Col>
+                    </WrapperInfos>
+                  </Row>
+                  <Row>
+                    <EditData
+                      editButton={editButton}
+                      editOn={editOn}
+                      item={item}
+                      handleInputChange={handleInputChange}
+                      updateItem={updateItem}
+                      currentData={currentData}
+                      handleSelectChange={handleSelectChange}
+                      phases={phases}
+                    />
+                  </Row>
+                </WrapperData>
+                <Week>
+                  {(index + 1) % 7 === 0 ? (
+                    <div>
+                      <i className="ri-arrow-up-line ri-1x" />
+                      <p>Week {`${(index + 1) / 7}`}</p>
+                      <span />
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </Week>
+              </WrapperContent>
+            ))}
+        <DownloadData>
+          <button
+            type="button"
+            onClick={() => {
+              fetchNextPage();
+            }}
+          >
+            Load data.
+          </button>
+        </DownloadData>
         <AddData
           toggleAdd={toggleAdd}
           isToggledAdd={isToggledAdd}
@@ -454,7 +636,6 @@ export default function Project(props) {
           handleSelectChange={handleSelectChange}
           preview={preview}
           file={file}
-          btnDisable={btnDisable}
         />
         <DownloadData>
           <CSVLink
@@ -495,29 +676,33 @@ export default function Project(props) {
           <Carousel allProjectData={allProjectData} />
         </Content>
       ) : null}
-      <SelectTitle>Comparative table about your whole data.</SelectTitle>
-      <TableComparativeWrapper>
-        <table>
-          <thead>
-            <tr>
-              <th>Day</th>
-              <th>Infos</th>
-              <th>Temp. Max.</th>
-              <th>Temp. Min</th>
-              <th>Phase</th>
-              <th>pH Water</th>
-              <th>pH Soil</th>
-              <th>EC</th>
-              <th>Moisture</th>
-              <th>Air Humidity</th>
-              <th>Plant Size</th>
-            </tr>
-          </thead>
-          {allProjectData.map((row, index) => (
-            <TableRow row={row} index={index} key={row.id} />
-          ))}
-        </table>
-      </TableComparativeWrapper>
+      {allProjectData.length ? (
+        <>
+          <SelectTitle>Comparative table about your whole data.</SelectTitle>
+          <TableComparativeWrapper>
+            <table>
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Infos</th>
+                  <th>Temp. Max.</th>
+                  <th>Temp. Min</th>
+                  <th>Phase</th>
+                  <th>pH Water</th>
+                  <th>pH Soil</th>
+                  <th>EC</th>
+                  <th>Moisture</th>
+                  <th>Air Humidity</th>
+                  <th>Plant Size</th>
+                </tr>
+              </thead>
+              {allProjectData.map((row, index) => (
+                <TableRow row={row} index={index} key={row.id} />
+              ))}
+            </table>
+          </TableComparativeWrapper>
+        </>
+      ) : null}
     </Container>
   );
 }
