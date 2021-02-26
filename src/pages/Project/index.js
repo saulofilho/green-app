@@ -79,8 +79,6 @@ export default function Project(props) {
     fetchData(match.params.id, currentPage);
   }, [match.params.id, currentPage]);
 
-  console.log('allProjectData', allProjectData);
-
   const fetchNextPage = () => {
     setCurrentPage(currentPage + 1);
     setAllProjectData(prevState => [...prevState, ...projectData]);

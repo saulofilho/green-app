@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, dateFnsLocalizer, Views } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
+import { toast } from 'react-toastify';
+import DataService from '../../services/crudApi';
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -17,12 +19,7 @@ export default function CalendarComponent({
   setCalendarData,
   projectId,
 }) {
-  const [events, setEvents] = useState();
-  // const [draggedEvent, setDraggedEvent] = useState();
-  // const [displayDragItemInCell, setDisplayDragItemInCell] = useState(true);
-
-  // console.log('events', events);
-  // console.log('calendarData', calendarData);
+  const DragAndDropCalendar = withDragAndDrop(Calendar);
 
   const locales = {
     'en-US': require('date-fns/locale/en-US'),
@@ -36,8 +33,6 @@ export default function CalendarComponent({
     locales,
   });
 
-  const DragAndDropCalendar = withDragAndDrop(Calendar);
-
   const calendarDataRename = calendarData.map(item => {
     return {
       ...item,
@@ -46,6 +41,8 @@ export default function CalendarComponent({
       start: new Date(item.start),
     };
   });
+
+  const [events, setEvents] = useState([...calendarDataRename]);
 
   const initialFormState = {
     project_id: projectId,
@@ -58,64 +55,63 @@ export default function CalendarComponent({
 
   const [currentData, setCurrentData] = useState(initialFormState);
 
-  // console.log('currentData', currentData);
+  function handleSelect({ start, end }) {
+    const title = window.prompt('New Event name');
 
-  function onEventResize(data) {
-    const { start, end, title } = data;
+    if (title)
+      setEvents([
+        ...events,
+        {
+          start,
+          end,
+          title,
+          all_day: false,
+        },
+      ]);
 
-    // console.log('onEventResize', data);
-    setCurrentData(prevState => ({
-      ...prevState,
-      start,
-      end,
-      title,
-      all_day: false,
-    }));
-
-    return { events: [...events] };
+    // await DataService.createCalendar(currentData)
+    //   .then(response => {
+    //     setCurrentData(response.data);
+    //     toast.success('Saved successfully.');
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     }, 3000);
+    //   })
+    //   .catch(err => {
+    //     toast.error('Something went wrong.');
+    //     console.log('err', err.message);
+    //   });
   }
 
-  function onEventDrop({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
-    // console.log('drop', event);
+  function moveEvent({ event, start, end }) {
+    const idx = events.indexOf(event);
+    const updatedEvent = { ...event, start, end };
 
-    let { allDay } = event;
+    const nextEvents = [...events];
+    nextEvents.splice(idx, 1, updatedEvent);
 
-    if (!event.allDay && droppedOnAllDaySlot) {
-      allDay = true;
-    } else if (event.allDay && !droppedOnAllDaySlot) {
-      allDay = false;
-    }
+    setEvents(nextEvents);
+  }
 
-    const nextEvents = calendarDataRename.map(existingEvent => {
+  function resizeEvent({ event, start, end }) {
+    const nextEvents = events.map(existingEvent => {
       return existingEvent.id === event.id
         ? { ...existingEvent, start, end }
         : existingEvent;
     });
 
-    // console.log('nextEvents', nextEvents);
-
-    setCurrentData(nextEvents);
+    setEvents(nextEvents);
   }
 
-  function handleSelect({ start, end }) {
-    const title = window.prompt('New Event name');
-
-    // console.log('handleSelect', start);
-    if (title)
-      setCurrentData(prevState => ({
-        ...prevState,
-        start,
-        end,
-        title,
-        all_day: false,
-      }));
-  }
+  // useEffect(() => {
+  //   handleSelect();
+  // }, []);
 
   return (
     <Container>
       <DragAndDropCalendar
         localizer={localizer}
-        events={calendarDataRename}
+        events={events}
         startAccessor="start"
         endAccessor="end"
         style={{ minHeight: 720, width: '100%' }}
@@ -125,11 +121,10 @@ export default function CalendarComponent({
         defaultDate={new Date()}
         showMultiDayTimes
         popup
-        onEventResize={onEventResize}
-        onEventDrop={onEventDrop}
-        // onSelectEvent={event => alert(event.title)}
-        // onEventDrop={() => moveEvent}
-        // onEventResize={() => resizeEvent}
+        onSelectEvent={event => alert(event.title)}
+        step={60}
+        onEventDrop={moveEvent}
+        onEventResize={resizeEvent}
         onSelectSlot={handleSelect}
         // onDragStart={console.log}
         // dragFromOutsideItem={
