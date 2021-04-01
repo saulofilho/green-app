@@ -20,6 +20,8 @@ export default function CalendarComponent({
   projectId,
 }) {
   const DragAndDropCalendar = withDragAndDrop(Calendar);
+  const [displayDragItemInCell, setDisplayDragItemInCell] = useState(null);
+  const [draggedEvent, setDraggedEvent] = useState();
 
   const locales = {
     'en-US': require('date-fns/locale/en-US'),
@@ -54,33 +56,19 @@ export default function CalendarComponent({
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
+  console.log('eventseventsevents', currentData);
 
   function handleSelect({ start, end }) {
     const title = window.prompt('New Event name');
 
     if (title)
-      setEvents([
-        ...events,
-        {
-          start,
-          end,
-          title,
-          all_day: false,
-        },
-      ]);
-
-    // await DataService.createCalendar(currentData)
-    //   .then(response => {
-    //     setCurrentData(response.data);
-    //     toast.success('Saved successfully.');
-    //     setTimeout(() => {
-    //       window.location.reload();
-    //     }, 3000);
-    //   })
-    //   .catch(err => {
-    //     toast.error('Something went wrong.');
-    //     console.log('err', err.message);
-    //   });
+      setCurrentData({
+        start,
+        end,
+        title,
+        all_day: false,
+        project_id: projectId,
+      });
   }
 
   function moveEvent({ event, start, end }) {
@@ -91,6 +79,8 @@ export default function CalendarComponent({
     nextEvents.splice(idx, 1, updatedEvent);
 
     setEvents(nextEvents);
+
+    setCurrentData(event);
   }
 
   function resizeEvent({ event, start, end }) {
@@ -101,14 +91,53 @@ export default function CalendarComponent({
     });
 
     setEvents(nextEvents);
+
+    setCurrentData(event);
   }
 
-  // useEffect(() => {
-  //   handleSelect();
-  // }, []);
+  const saveDate = async () => {
+    await DataService.createCalendar(currentData)
+      .then(response => {
+        setCurrentData(response.data);
+        toast.success('Saved successfully.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      })
+      .catch(err => {
+        toast.error('Something went wrong.');
+        console.log('err', err.message);
+      });
+  };
+
+  function handleDragStart(event) {
+    setDisplayDragItemInCell(event);
+    console.log('qqqqqqqqqq', event);
+  }
+
+  function dragFromOutsideItem() {
+    setDraggedEvent();
+  }
+
+  function onDropFromOutside({ start, end, allDay }) {
+    const event = {
+      id: draggedEvent.id,
+      title: draggedEvent.title,
+      start,
+      end,
+      allDay,
+    };
+
+    setDraggedEvent(null);
+    moveEvent({ event, start, end });
+    console.log('rrrrrrrrrr', event);
+  }
 
   return (
     <Container>
+      <button type="button" onClick={() => saveDate()}>
+        save date
+      </button>
       <DragAndDropCalendar
         localizer={localizer}
         events={events}
@@ -126,37 +155,16 @@ export default function CalendarComponent({
         onEventDrop={moveEvent}
         onEventResize={resizeEvent}
         onSelectSlot={handleSelect}
-        // onDragStart={console.log}
-        // dragFromOutsideItem={
-        //   displayDragItemInCell ? dragFromOutsideItem() : null
-        // }
-        // onDropFromOutside={() => onDropFromOutside()}
-        // handleDragStart={() => handleDragStart()}
+        onDragStart={console.log}
+        dragFromOutsideItem={displayDragItemInCell ? dragFromOutsideItem : null}
+        onDropFromOutside={onDropFromOutside}
+        handleDragStart={handleDragStart}
       />
     </Container>
   );
 }
 
 // https://jquense.github.io/react-big-calendar/examples/index.html
-
-// // data
-// const [todos, setTodos] = useState([]);
-
-// // initial form state
-// const initialFormState = {
-//   id: '',
-//   todo_title: '',
-//   todo_text: '',
-//   todo_done: true,
-// };
-
-// const handleInputChange = e => {
-//   const { name, value } = e.target;
-//   setCurrentTodo(prevState => ({
-//     ...prevState,
-//     [name]: value,
-//   }));
-// };
 
 // const saveTodo = async () => {
 //   await DataService.createTodo(currentTodo).then(response => {
