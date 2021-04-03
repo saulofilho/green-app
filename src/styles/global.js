@@ -56,5 +56,6 @@ export default createGlobalStyle`
 
   .ReactModal__Overlay.ReactModal__Overlay--after-open {
     background-color: rgba(0, 0, 0, 0.75) !important;
+    z-index: 999;
   }
 `;

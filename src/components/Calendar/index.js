@@ -7,7 +7,8 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import { toast } from 'react-toastify';
-import Modal from 'react-modal';
+import ModalAddCalendar from '../ModalAddCalendar';
+import ModalInfosCalendar from '../ModalInfosCalendar';
 import DataService from '../../services/crudApi';
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
@@ -19,14 +20,14 @@ export default function CalendarComponent({ calendarData, projectId }) {
   const DragAndDropCalendar = withDragAndDrop(Calendar);
   const [displayDragItemInCell, setDisplayDragItemInCell] = useState(null);
   const [draggedEvent, setDraggedEvent] = useState();
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
-    setIsOpen(true);
+    setModalIsOpen(true);
   };
 
   const closeModal = () => {
-    setIsOpen(false);
+    setModalIsOpen(false);
   };
 
   const locales = {
@@ -54,7 +55,6 @@ export default function CalendarComponent({ calendarData, projectId }) {
 
   const initialFormState = {
     project_id: projectId,
-    id: '',
     all_day: '',
     end: '',
     start: '',
@@ -64,19 +64,13 @@ export default function CalendarComponent({ calendarData, projectId }) {
   const [currentData, setCurrentData] = useState(initialFormState);
   console.log('eventseventsevents', currentData);
 
-  function handleSelect({ start, end, title }) {
+  function handleSelect() {
     const modalAdd = openModal();
 
     if (modalAdd)
       setTimeout(() => {
-        setCurrentData({
-          start,
-          end,
-          title,
-          allDay: false,
-          project_id: projectId,
-        });
-      }, 1000);
+        setCurrentData();
+      }, 2000);
   }
 
   function moveEvent({ event, start, end }) {
@@ -105,21 +99,6 @@ export default function CalendarComponent({ calendarData, projectId }) {
     console.log('resizeEvent', event);
   }
 
-  const saveDate = async () => {
-    await DataService.createCalendar(currentData)
-      .then(response => {
-        setCurrentData(response.data);
-        toast.success('Saved successfully.');
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-      })
-      .catch(err => {
-        toast.error('Something went wrong.');
-        console.log('err', err.message);
-      });
-  };
-
   function handleDragStart(event) {
     setDisplayDragItemInCell(event);
     console.log('handleDragStart', event);
@@ -144,18 +123,28 @@ export default function CalendarComponent({ calendarData, projectId }) {
     console.log('onDropFromOutside', event);
   }
 
+  function showEventInfos(event) {
+    setCurrentData(event);
+    setModalIsOpen(true);
+  }
+
+  const saveDate = async () => {
+    await DataService.createCalendar(currentData)
+      .then(response => {
+        setCurrentData(response.data);
+        toast.success('Saved successfully.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      })
+      .catch(err => {
+        toast.error('Something went wrong.');
+        console.log('err', err.message);
+      });
+  };
+
   return (
     <Container>
-      <button type="button" onClick={() => saveDate()}>
-        save date
-      </button>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Modal Project"
-      >
-        teste
-      </Modal>
       <DragAndDropCalendar
         localizer={localizer}
         events={events}
@@ -169,7 +158,7 @@ export default function CalendarComponent({ calendarData, projectId }) {
         showMultiDayTimes
         popup
         scrollToTime={new Date()}
-        onSelectEvent={event => alert(event.title)}
+        onSelectEvent={showEventInfos}
         step={30}
         onEventDrop={moveEvent}
         onEventResize={resizeEvent}
@@ -178,6 +167,18 @@ export default function CalendarComponent({ calendarData, projectId }) {
         dragFromOutsideItem={displayDragItemInCell ? dragFromOutsideItem : null}
         onDropFromOutside={onDropFromOutside}
         handleDragStart={handleDragStart}
+      />
+      <ModalAddCalendar
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        currentData={currentData}
+        setCurrentData={setCurrentData}
+        saveDate={saveDate}
+      />
+      <ModalInfosCalendar
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        currentData={currentData}
       />
     </Container>
   );
