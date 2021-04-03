@@ -32,13 +32,21 @@ export const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-flow: column;
+  flex-flow: wrap;
 `;
 
 export const WrapperContent = styled.div`
-  width: 100%;
+  width: auto;
   height: 100%;
-  padding: 10px 0;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+
+  @media (max-width: 768px) {
+    margin: 5px;
+  }
 `;
 
 export const WrapperData = styled.div`
@@ -91,8 +99,8 @@ export const Col = styled.div`
   flex-flow: column;
 `;
 
-export const DayWrapper = styled.div`
-  width: 100%;
+export const DayCard = styled.div`
+  width: 200px;
   height: 100%;
   border: 2px solid black;
   display: flex;
@@ -100,16 +108,16 @@ export const DayWrapper = styled.div`
   align-items: flex-start;
   flex-flow: column;
   cursor: pointer;
-`;
 
-export const RowDay = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-flow: row;
-  background: white;
+  :hover {
+    border: 4px solid black;
+    box-shadow: 2px 5px #000;
+    transform: translateY(4px);
+  }
+
+  @media (max-width: 768px) {
+    width: 120px;
+  }
 `;
 
 export const RowDayWrapper = styled.div`
@@ -118,18 +126,10 @@ export const RowDayWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-flow: row;
+  flex-flow: column;
+  padding: 10px;
   background-color: ${props =>
     props.theme ? themeColor(props.theme) : 'black'} !important;
-`;
-
-export const ColDay = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column;
 `;
 
 export const Number = styled.div`
@@ -147,26 +147,15 @@ export const Number = styled.div`
   }
 `;
 
-export const WrapperNumber = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  flex-flow: column;
-  color: white;
-`;
-
-export const BorderLeft = styled.div`
+export const CardInfosWrapper = styled.div`
   width: 100%;
   height: 100%;
-  border-left: 2px solid black;
 `;
 
-export const BorderBotAndLeft = styled.div`
+export const CardInfosWrapperCenter = styled.div`
   width: 100%;
   height: 100%;
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
+  padding: 10px 0;
 `;
 
 export const TitleBox = styled.p`
@@ -197,6 +186,19 @@ export const SmallText = styled.p`
   }
 `;
 
+export const SmallTextCenter = styled.p`
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  width: 100%;
+  color: white;
+  padding: 5px 0;
+
+  @media (max-width: 768px) {
+    font-size: 8px;
+  }
+`;
+
 export const BigText = styled.p`
   font-family: 'Rubik', sans-serif;
   display: flex;
@@ -204,6 +206,7 @@ export const BigText = styled.p`
   align-items: center;
   flex-flow: column;
   font-size: 22px;
+  color: white;
 
   @media (max-width: 768px) {
     font-size: 16px;
@@ -218,12 +221,17 @@ export const Subtitle = styled.p`
   font-weight: bolder;
 `;
 
+export const WrapperDownloadData = styled.div`
+  width: 100%;
+`;
+
 export const Week = styled.div`
   div {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 20px;
+    flex-flow: column;
+    padding-top: 3px;
   }
   p {
     font-family: 'Rubik', sans-serif;

@@ -19,26 +19,25 @@ import {
   Content,
   WrapperContent,
   WrapperData,
-  DayWrapper,
+  DayCard,
   Row,
-  RowDay,
   Col,
-  ColDay,
   WrapperInfos,
   Number,
   RowDayWrapper,
-  BorderLeft,
-  BorderBotAndLeft,
+  CardInfosWrapper,
+  CardInfosWrapperCenter,
   SmallText,
+  SmallTextCenter,
   BigText,
   TitleBox,
   TextBox,
-  WrapperNumber,
   Week,
   DownloadData,
   TableComparativeWrapper,
   Loading,
   SelectTitle,
+  WrapperDownloadData,
 } from './styles';
 
 const { ExcelFile } = ReactExport;
@@ -274,7 +273,6 @@ export default function Project(props) {
         <Content>
           <CalendarComponent
             calendarData={calendarData}
-            setCalendarData={setCalendarData}
             projectId={match.params.id}
           />
         </Content>
@@ -283,51 +281,30 @@ export default function Project(props) {
         {allProjectData.length === 0
           ? projectData.map((item, index) => (
               <WrapperContent key={item.id}>
-                <DayWrapper onClick={() => toggle(item.id)}>
+                <DayCard onClick={() => toggle(item.id)}>
                   <RowDayWrapper theme={badgeTheme(item.phase)}>
-                    <WrapperNumber>
+                    <CardInfosWrapper>
+                      <SmallText>Day:</SmallText>
                       <Number>{index + 1}</Number>
-                      <SmallText>
+                    </CardInfosWrapper>
+                    <CardInfosWrapperCenter>
+                      <SmallText>Date:</SmallText>
+                      <SmallTextCenter>
                         {parseISO(item.createdAt).toLocaleString('en-US', {
-                          weekday: 'short',
                           day: '2-digit',
+                          weekday: 'short',
+                          month: 'short',
+                          hour: '2-digit',
+                          minute: '2-digit',
                         })}
-                      </SmallText>
-                    </WrapperNumber>
-                    <ColDay>
-                      <RowDay>
-                        <BorderBotAndLeft>
-                          <SmallText>TEMPERATURE MAX:</SmallText>
-                          <BigText>{item.temp_max} °C</BigText>
-                        </BorderBotAndLeft>
-                      </RowDay>
-                      <RowDay>
-                        <BorderLeft>
-                          <SmallText>TEMPERATURE MIN:</SmallText>
-                          <BigText>{item.temp_min} °C</BigText>
-                        </BorderLeft>
-                      </RowDay>
-                    </ColDay>
-                    <ColDay>
-                      <RowDay>
-                        <BorderBotAndLeft>
-                          <SmallText>PHASE:</SmallText>
-                          <BigText>{item.phase}</BigText>
-                        </BorderBotAndLeft>
-                      </RowDay>
-                      <RowDay>
-                        <BorderLeft>
-                          <SmallText>PH WATER:</SmallText>
-                          <BigText>{item.ph_water}</BigText>
-                        </BorderLeft>
-                        <BorderLeft>
-                          <SmallText>PH SOIL:</SmallText>
-                          <BigText>{item.ph_soil}</BigText>
-                        </BorderLeft>
-                      </RowDay>
-                    </ColDay>
+                      </SmallTextCenter>
+                    </CardInfosWrapperCenter>
+                    <CardInfosWrapper>
+                      <SmallText>Phase:</SmallText>
+                      <BigText>{item.phase}</BigText>
+                    </CardInfosWrapper>
                   </RowDayWrapper>
-                </DayWrapper>
+                </DayCard>
                 <WrapperData hide={isToggled === item.id}>
                   <Row>
                     <WrapperInfos>
@@ -439,7 +416,6 @@ export default function Project(props) {
                     <div>
                       <i className="ri-arrow-up-line ri-1x" />
                       <p>Week {`${(index + 1) / 7}`}</p>
-                      <span />
                     </div>
                   ) : (
                     ''
@@ -449,51 +425,30 @@ export default function Project(props) {
             ))
           : allProjectData.map((item, index) => (
               <WrapperContent key={item.id}>
-                <DayWrapper onClick={() => toggle(item.id)}>
+                <DayCard onClick={() => toggle(item.id)}>
                   <RowDayWrapper theme={badgeTheme(item.phase)}>
-                    <WrapperNumber>
+                    <CardInfosWrapper>
+                      <SmallText>Day:</SmallText>
                       <Number>{index + 1}</Number>
-                      <SmallText>
+                    </CardInfosWrapper>
+                    <CardInfosWrapperCenter>
+                      <SmallText>Date:</SmallText>
+                      <SmallTextCenter>
                         {parseISO(item.createdAt).toLocaleString('en-US', {
-                          weekday: 'short',
                           day: '2-digit',
+                          weekday: 'short',
+                          month: 'short',
+                          hour: '2-digit',
+                          minute: '2-digit',
                         })}
-                      </SmallText>
-                    </WrapperNumber>
-                    <ColDay>
-                      <RowDay>
-                        <BorderBotAndLeft>
-                          <SmallText>TEMPERATURE MAX:</SmallText>
-                          <BigText>{item.temp_max} °C</BigText>
-                        </BorderBotAndLeft>
-                      </RowDay>
-                      <RowDay>
-                        <BorderLeft>
-                          <SmallText>TEMPERATURE MIN:</SmallText>
-                          <BigText>{item.temp_min} °C</BigText>
-                        </BorderLeft>
-                      </RowDay>
-                    </ColDay>
-                    <ColDay>
-                      <RowDay>
-                        <BorderBotAndLeft>
-                          <SmallText>PHASE:</SmallText>
-                          <BigText>{item.phase}</BigText>
-                        </BorderBotAndLeft>
-                      </RowDay>
-                      <RowDay>
-                        <BorderLeft>
-                          <SmallText>PH WATER:</SmallText>
-                          <BigText>{item.ph_water}</BigText>
-                        </BorderLeft>
-                        <BorderLeft>
-                          <SmallText>PH SOIL:</SmallText>
-                          <BigText>{item.ph_soil}</BigText>
-                        </BorderLeft>
-                      </RowDay>
-                    </ColDay>
+                      </SmallTextCenter>
+                    </CardInfosWrapperCenter>
+                    <CardInfosWrapper>
+                      <SmallText>Phase:</SmallText>
+                      <BigText>{item.phase}</BigText>
+                    </CardInfosWrapper>
                   </RowDayWrapper>
-                </DayWrapper>
+                </DayCard>
                 <WrapperData hide={isToggled === item.id}>
                   <Row>
                     <WrapperInfos>
@@ -605,7 +560,6 @@ export default function Project(props) {
                     <div>
                       <i className="ri-arrow-up-line ri-1x" />
                       <p>Week {`${(index + 1) / 7}`}</p>
-                      <span />
                     </div>
                   ) : (
                     ''
@@ -613,16 +567,18 @@ export default function Project(props) {
                 </Week>
               </WrapperContent>
             ))}
-        <DownloadData>
-          <button
-            type="button"
-            onClick={() => {
-              fetchNextPage();
-            }}
-          >
-            Load data.
-          </button>
-        </DownloadData>
+        <WrapperDownloadData>
+          <DownloadData>
+            <button
+              type="button"
+              onClick={() => {
+                fetchNextPage();
+              }}
+            >
+              Load data.
+            </button>
+          </DownloadData>
+        </WrapperDownloadData>
         <AddData
           toggleAdd={toggleAdd}
           isToggledAdd={isToggledAdd}
@@ -635,34 +591,36 @@ export default function Project(props) {
           preview={preview}
           file={file}
         />
-        <DownloadData>
-          <CSVLink
-            data={allProjectData}
-            filename="mybotanicdailydata.csv"
-            target="_blank"
-          >
-            Download CVS data.
-          </CSVLink>
-        </DownloadData>
-        <DownloadData>
-          <ExcelFile
-            filename="HarvestData"
-            element={<button type="button"> Download Excel data.</button>}
-          >
-            <ExcelSheet data={allProjectData} name="um">
-              <ExcelColumn label="Infos" value="infos" />
-              <ExcelColumn label="Phase" value="phase" />
-              <ExcelColumn label="pH water" value="ph_water" />
-              <ExcelColumn label="pH soil" value="ph_soil" />
-              <ExcelColumn label="EC" value="ec" />
-              <ExcelColumn label="Temp. Max." value="temp_max" />
-              <ExcelColumn label="Temp. Min." value="temp_min" />
-              <ExcelColumn label="Moisture" value="moisture" />
-              <ExcelColumn label="Air Humidity" value="air_humidity" />
-              <ExcelColumn label="Plant Size" value="plant_size" />
-            </ExcelSheet>
-          </ExcelFile>
-        </DownloadData>
+        <WrapperDownloadData>
+          <DownloadData>
+            <CSVLink
+              data={allProjectData}
+              filename="mybotanicdailydata.csv"
+              target="_blank"
+            >
+              Download CVS data.
+            </CSVLink>
+          </DownloadData>
+          <DownloadData>
+            <ExcelFile
+              filename="HarvestData"
+              element={<button type="button"> Download Excel data.</button>}
+            >
+              <ExcelSheet data={allProjectData} name="um">
+                <ExcelColumn label="Infos" value="infos" />
+                <ExcelColumn label="Phase" value="phase" />
+                <ExcelColumn label="pH water" value="ph_water" />
+                <ExcelColumn label="pH soil" value="ph_soil" />
+                <ExcelColumn label="EC" value="ec" />
+                <ExcelColumn label="Temp. Max." value="temp_max" />
+                <ExcelColumn label="Temp. Min." value="temp_min" />
+                <ExcelColumn label="Moisture" value="moisture" />
+                <ExcelColumn label="Air Humidity" value="air_humidity" />
+                <ExcelColumn label="Plant Size" value="plant_size" />
+              </ExcelSheet>
+            </ExcelFile>
+          </DownloadData>
+        </WrapperDownloadData>
         <GraphsData
           projectData={allProjectData}
           allProjectData={allProjectData}

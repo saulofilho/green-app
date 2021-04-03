@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Calendar, dateFnsLocalizer, Views } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import format from 'date-fns/format';
@@ -7,6 +7,7 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import { toast } from 'react-toastify';
+import Modal from 'react-modal';
 import DataService from '../../services/crudApi';
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
@@ -14,14 +15,19 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { Container } from './styles';
 
-export default function CalendarComponent({
-  calendarData,
-  setCalendarData,
-  projectId,
-}) {
+export default function CalendarComponent({ calendarData, projectId }) {
   const DragAndDropCalendar = withDragAndDrop(Calendar);
   const [displayDragItemInCell, setDisplayDragItemInCell] = useState(null);
   const [draggedEvent, setDraggedEvent] = useState();
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const locales = {
     'en-US': require('date-fns/locale/en-US'),
@@ -58,17 +64,19 @@ export default function CalendarComponent({
   const [currentData, setCurrentData] = useState(initialFormState);
   console.log('eventseventsevents', currentData);
 
-  function handleSelect({ start, end }) {
-    const title = window.prompt('New Event name');
+  function handleSelect({ start, end, title }) {
+    const modalAdd = openModal();
 
-    if (title)
-      setCurrentData({
-        start,
-        end,
-        title,
-        all_day: false,
-        project_id: projectId,
-      });
+    if (modalAdd)
+      setTimeout(() => {
+        setCurrentData({
+          start,
+          end,
+          title,
+          allDay: false,
+          project_id: projectId,
+        });
+      }, 1000);
   }
 
   function moveEvent({ event, start, end }) {
@@ -81,6 +89,7 @@ export default function CalendarComponent({
     setEvents(nextEvents);
 
     setCurrentData(event);
+    console.log('moveEvent', event);
   }
 
   function resizeEvent({ event, start, end }) {
@@ -93,6 +102,7 @@ export default function CalendarComponent({
     setEvents(nextEvents);
 
     setCurrentData(event);
+    console.log('resizeEvent', event);
   }
 
   const saveDate = async () => {
@@ -112,11 +122,12 @@ export default function CalendarComponent({
 
   function handleDragStart(event) {
     setDisplayDragItemInCell(event);
-    console.log('qqqqqqqqqq', event);
+    console.log('handleDragStart', event);
   }
 
-  function dragFromOutsideItem() {
+  function dragFromOutsideItem(event) {
     setDraggedEvent();
+    console.log('dragFromOutsideItem', event);
   }
 
   function onDropFromOutside({ start, end, allDay }) {
@@ -130,7 +141,7 @@ export default function CalendarComponent({
 
     setDraggedEvent(null);
     moveEvent({ event, start, end });
-    console.log('rrrrrrrrrr', event);
+    console.log('onDropFromOutside', event);
   }
 
   return (
@@ -138,6 +149,13 @@ export default function CalendarComponent({
       <button type="button" onClick={() => saveDate()}>
         save date
       </button>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Modal Project"
+      >
+        teste
+      </Modal>
       <DragAndDropCalendar
         localizer={localizer}
         events={events}
@@ -150,8 +168,9 @@ export default function CalendarComponent({
         defaultDate={new Date()}
         showMultiDayTimes
         popup
+        scrollToTime={new Date()}
         onSelectEvent={event => alert(event.title)}
-        step={60}
+        step={30}
         onEventDrop={moveEvent}
         onEventResize={resizeEvent}
         onSelectSlot={handleSelect}
@@ -164,7 +183,9 @@ export default function CalendarComponent({
   );
 }
 
-// https://jquense.github.io/react-big-calendar/examples/index.html
+// https://www.w3schools.com/tags/att_input_type_time.asp
+// https://pt-br.reactjs.org/docs/hooks-reference.html#usecallback
+// https://reactjsexample.com/simple-react-time-input-field/
 
 // const saveTodo = async () => {
 //   await DataService.createTodo(currentTodo).then(response => {
