@@ -414,7 +414,6 @@ export default function Project(props) {
                 <Week>
                   {(index + 1) % 7 === 0 ? (
                     <div>
-                      <i className="ri-arrow-up-line ri-1x" />
                       <p>Week {`${(index + 1) / 7}`}</p>
                     </div>
                   ) : (

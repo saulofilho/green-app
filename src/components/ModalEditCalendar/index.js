@@ -5,42 +5,42 @@ import Modal from 'react-modal';
 
 import { BtnModal, Subtitle, Text, TextWrapper, DownloadData } from './styles';
 
-function ModalInfosCalendar({
-  modalIsOpenInfos,
-  closeModalInfos,
-  dataModalInfos,
-  deleteDate,
+function ModalEditCalendar({
+  modalIsOpenEdit,
+  closeModalEdit,
+  dataModalEdit,
+  updateDate,
 }) {
   return (
     <Modal
-      isOpen={modalIsOpenInfos}
-      onRequestClose={closeModalInfos}
+      isOpen={modalIsOpenEdit}
+      onRequestClose={closeModalEdit}
       contentLabel="Modal Calendar"
     >
       <BtnModal
         type="button"
         onClick={() => {
-          closeModalInfos();
+          closeModalEdit();
         }}
       >
         <i className="ri-close-fill ri-2x" />
       </BtnModal>
       <TextWrapper>
         <Text>Evento:&nbsp;</Text>
-        <Subtitle>{dataModalInfos && dataModalInfos.title}</Subtitle>
+        <Subtitle>{dataModalEdit && dataModalEdit.title}</Subtitle>
       </TextWrapper>
       <TextWrapper>
         <Text>Start:&nbsp;</Text>
-        <Subtitle>{dataModalInfos && dataModalInfos.start.toString()}</Subtitle>
+        <Subtitle>{dataModalEdit && dataModalEdit.start.toString()}</Subtitle>
       </TextWrapper>
       <TextWrapper>
         <Text>End:&nbsp;</Text>
-        <Subtitle>{dataModalInfos && dataModalInfos.end.toString()}</Subtitle>
+        <Subtitle>{dataModalEdit && dataModalEdit.end.toString()}</Subtitle>
       </TextWrapper>
       <TextWrapper>
         <Text>Is it all day?&nbsp;</Text>
         <Subtitle>
-          {dataModalInfos && dataModalInfos.allDay ? 'Yes' : 'No'}
+          {dataModalEdit && dataModalEdit.allDay ? 'Yes' : 'No'}
         </Subtitle>
       </TextWrapper>
       <DownloadData>
@@ -48,26 +48,26 @@ function ModalInfosCalendar({
           type="button"
           onClick={e => {
             e.preventDefault();
-            deleteDate(dataModalInfos.id);
+            updateDate(dataModalEdit);
           }}
         >
-          Delete
+          Edit
         </button>
       </DownloadData>
     </Modal>
   );
 }
 
-// ModalInfosCalendar.propTypes = {
-//   modalIsOpenInfos: PropTypes.bool.isRequired,
-//   closeModalInfos: PropTypes.func,
+// ModalEditCalendar.propTypes = {
+//   modalIsOpenEdit: PropTypes.bool.isRequired,
+//   closeModalEdit: PropTypes.func,
 //   // eslint-disable-next-line react/forbid-prop-types
 //   modalData: PropTypes.array,
 // };
 
 // ModalGrid.defaultProps = {
-//   closeModalInfos: () => {},
+//   closeModalEdit: () => {},
 //   modalData: [],
 // };
 
-export default ModalInfosCalendar;
+export default ModalEditCalendar;

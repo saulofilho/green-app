@@ -21,9 +21,6 @@ const createGreen = data => {
 const updateGreen = (id, data) => {
   return api.put(`/green/${id}`, data);
 };
-// const getCalendar = () => {
-//   return api.get(`/calendar`);
-// };
 const deleteCalendar = id => {
   return api.delete(`/calendar/${id}`);
 };

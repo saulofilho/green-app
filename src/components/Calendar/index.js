@@ -9,6 +9,7 @@ import getDay from 'date-fns/getDay';
 import { toast } from 'react-toastify';
 import ModalAddCalendar from '../ModalAddCalendar';
 import ModalInfosCalendar from '../ModalInfosCalendar';
+import ModalEditCalendar from '../ModalEditCalendar';
 import DataService from '../../services/crudApi';
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
@@ -21,6 +22,10 @@ export default function CalendarComponent({ calendarData, projectId }) {
   const [displayDragItemInCell, setDisplayDragItemInCell] = useState(null);
   const [draggedEvent, setDraggedEvent] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpenInfos, setModalIsOpenInfos] = useState(false);
+  const [modalIsOpenEdit, setModalIsOpenEdit] = useState(false);
+  const [dataModalInfos, setDataModalInfos] = useState();
+  const [dataModalEdit, setDataModalEdit] = useState();
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -28,6 +33,22 @@ export default function CalendarComponent({ calendarData, projectId }) {
 
   const closeModal = () => {
     setModalIsOpen(false);
+  };
+
+  const openModalInfos = () => {
+    setModalIsOpenInfos(true);
+  };
+
+  const closeModalInfos = () => {
+    setModalIsOpenInfos(false);
+  };
+
+  const openModalEdit = () => {
+    setModalIsOpenEdit(true);
+  };
+
+  const closeModalEdit = () => {
+    setModalIsOpenEdit(false);
   };
 
   const locales = {
@@ -55,14 +76,62 @@ export default function CalendarComponent({ calendarData, projectId }) {
 
   const initialFormState = {
     project_id: projectId,
-    all_day: '',
+    all_day: false,
     end: '',
     start: '',
     title: '',
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
-  console.log('eventseventsevents', currentData);
+  console.log('currentData', currentData);
+  console.log('dataModalInfos', dataModalInfos);
+
+  // save
+  const saveDate = async () => {
+    await DataService.createCalendar(currentData)
+      .then(response => {
+        setCurrentData(response.data);
+        toast.success('Saved successfully.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      })
+      .catch(err => {
+        toast.error(err.message);
+      });
+  };
+
+  // update
+  const updateDate = async (id, updatedCalendarData) => {
+    await DataService.updateCalendar(dataModalInfos.id, dataModalInfos)
+      .then(() => {
+        setCurrentData(
+          events.map(item => (item.id === id ? updatedCalendarData : item))
+        );
+        toast.success('Updated successfully.');
+        setTimeout(() => {
+          closeModalEdit();
+        }, 3000);
+      })
+      .catch(err => {
+        toast.error(err.message);
+      });
+  };
+
+  // delete
+  const deleteDate = async id => {
+    await DataService.deleteCalendar(id)
+      .then(() => {
+        setCurrentData(events.filter(item => item.id !== events.id));
+        toast.success('Deleted successfully.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      })
+      .catch(err => {
+        toast.error(err.message);
+      });
+  };
 
   function handleSelect() {
     const modalAdd = openModal();
@@ -81,9 +150,9 @@ export default function CalendarComponent({ calendarData, projectId }) {
     nextEvents.splice(idx, 1, updatedEvent);
 
     setEvents(nextEvents);
+    setDataModalEdit(updatedEvent);
 
-    setCurrentData(event);
-    console.log('moveEvent', event);
+    openModalEdit();
   }
 
   function resizeEvent({ event, start, end }) {
@@ -124,24 +193,9 @@ export default function CalendarComponent({ calendarData, projectId }) {
   }
 
   function showEventInfos(event) {
-    setCurrentData(event);
-    setModalIsOpen(true);
+    openModalInfos();
+    setDataModalInfos(event);
   }
-
-  const saveDate = async () => {
-    await DataService.createCalendar(currentData)
-      .then(response => {
-        setCurrentData(response.data);
-        toast.success('Saved successfully.');
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-      })
-      .catch(err => {
-        toast.error('Something went wrong.');
-        console.log('err', err.message);
-      });
-  };
 
   return (
     <Container>
@@ -159,7 +213,7 @@ export default function CalendarComponent({ calendarData, projectId }) {
         popup
         scrollToTime={new Date()}
         onSelectEvent={showEventInfos}
-        step={30}
+        step={60}
         onEventDrop={moveEvent}
         onEventResize={resizeEvent}
         onSelectSlot={handleSelect}
@@ -176,41 +230,19 @@ export default function CalendarComponent({ calendarData, projectId }) {
         saveDate={saveDate}
       />
       <ModalInfosCalendar
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        currentData={currentData}
+        modalIsOpenInfos={modalIsOpenInfos}
+        closeModalInfos={closeModalInfos}
+        dataModalInfos={dataModalInfos}
+        deleteDate={deleteDate}
+      />
+      <ModalEditCalendar
+        modalIsOpenEdit={modalIsOpenEdit}
+        closeModalEdit={closeModalEdit}
+        dataModalEdit={dataModalEdit}
+        updateDate={updateDate}
       />
     </Container>
   );
 }
 
-// https://www.w3schools.com/tags/att_input_type_time.asp
 // https://pt-br.reactjs.org/docs/hooks-reference.html#usecallback
-// https://reactjsexample.com/simple-react-time-input-field/
-
-// const saveTodo = async () => {
-//   await DataService.createTodo(currentTodo).then(response => {
-//     setCurrentTodo(response.data);
-//   });
-// };
-
-// // update
-// const updateTodo = async (id, updatedContact) => {
-//   await DataService.updateTodo(currentTodo.id, currentTodo).then(response => {
-//     setTodos(todos.map(todo => (todo.id === id ? updatedContact : todo)));
-//   });
-//   window.location.reload();
-// };
-
-// // edit
-// const editRow = todo => {
-//   toggleSecondModal();
-//   setCurrentTodo(todo);
-// };
-
-// // delete
-// const deleteTodo = async id => {
-//   await DataService.removeTodo(id).then(response => {
-//     setTodos(todos.filter(todo => todo.id !== todos.id));
-//   });
-// };

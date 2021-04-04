@@ -63,9 +63,10 @@ function ModalAddCalendar({
           id="title"
           onChange={handleInputChange}
         />
+        <p>All day:</p>
         <select name="all_day" id="all_day" onChange={handleInputChange}>
-          <option value>Yes</option>
           <option value={false}>No</option>
+          <option value>Yes</option>
         </select>
         <DownloadData>
           <button

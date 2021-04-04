@@ -223,6 +223,7 @@ export const Subtitle = styled.p`
 
 export const WrapperDownloadData = styled.div`
   width: 100%;
+  padding-top: 30px;
 `;
 
 export const Week = styled.div`

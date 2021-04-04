@@ -12,4 +12,8 @@ export const Container = styled.div`
   .rbc-day-slot .rbc-background-event {
     background-color: #17b978;
   }
+
+  .rbc-show-more {
+    color: #17b978;
+  }
 `;

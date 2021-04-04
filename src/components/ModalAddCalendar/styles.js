@@ -22,23 +22,15 @@ export const Form = styled.form`
     font-size: 24px;
   }
 
-  #flowering_type {
-    width: 100%;
-    margin: 0 0 50px;
-  }
-
-  textarea {
+  select {
     font-family: 'Rubik', sans-serif;
-    font-size: 24px;
     width: 100%;
-    min-height: 100px;
+    height: auto;
     padding: 10px 15px;
     border: unset;
     border-bottom: 2px solid #000;
-    overflow: auto;
-    resize: vertical;
-    margin: 5px 0 20px;
-    font-family: 'Open Sans', sans-serif;
+    margin: 0 0 50px;
+    font-size: 24px;
   }
 `;
 

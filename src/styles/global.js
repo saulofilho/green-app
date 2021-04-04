@@ -58,4 +58,8 @@ export default createGlobalStyle`
     background-color: rgba(0, 0, 0, 0.75) !important;
     z-index: 999;
   }
+
+  .rbc-overlay .rbc-event {
+    background-color: #17b978 !important;
+  }
 `;
