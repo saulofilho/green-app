@@ -69,8 +69,7 @@ export default function Dashboard() {
         }, 3000);
       })
       .catch(err => {
-        toast.error('Something went wrong.');
-        console.log('err', err.message);
+        toast.error(err.message);
       });
   };
 

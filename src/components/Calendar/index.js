@@ -83,8 +83,6 @@ export default function CalendarComponent({ calendarData, projectId }) {
   };
 
   const [currentData, setCurrentData] = useState(initialFormState);
-  console.log('currentData', currentData);
-  console.log('dataModalInfos', dataModalInfos);
 
   // save
   const saveDate = async () => {
