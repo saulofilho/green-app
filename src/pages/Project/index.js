@@ -191,7 +191,7 @@ export default function Project(props) {
   };
 
   const phases = [
-    { value: 'seeding', label: 'Seeding' },
+    { value: 'germinative', label: 'Germinative' },
     { value: 'vegetative', label: 'Vegetative' },
     { value: 'flowering', label: 'Flowering' },
     { value: 'flushing', label: 'Flushing' },
@@ -202,8 +202,8 @@ export default function Project(props) {
   const badgeTheme = status => {
     let theme;
     switch (status) {
-      case 'seeding':
-        theme = 'seeding';
+      case 'germinative':
+        theme = 'germinative';
         break;
       case 'vegetative':
         theme = 'vegetative';

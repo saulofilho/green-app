@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const themeColor = theme => {
   switch (theme) {
-    case 'seeding':
+    case 'germinative':
       return '#7d634b';
     case 'vegetative':
       return '#17b978';
