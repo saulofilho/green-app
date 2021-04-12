@@ -1,26 +1,5 @@
 import styled from 'styled-components';
 
-const themeColor = theme => {
-  switch (theme) {
-    case 'germinative':
-      return '#7d634b';
-    case 'vegetative':
-      return '#17b978';
-    case 'flowering':
-      return '#d592e5';
-    case 'flushing':
-      return '#c0d6e4';
-    case 'drying':
-      return '#a2a592';
-    case 'cured':
-      return '#ffa54f';
-    case 'none':
-      return '#000';
-    default:
-      return '#fff';
-  }
-};
-
 export const Container = styled.div`
   margin: 0px auto;
   padding: 0 30px;

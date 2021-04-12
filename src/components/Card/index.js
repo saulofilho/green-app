@@ -5,11 +5,7 @@ import { parseISO } from 'date-fns';
 import ModalInfosCard from './ModalInfosCard';
 import {
   WrapperContent,
-  WrapperData,
   DayCard,
-  Row,
-  Col,
-  WrapperInfos,
   Number,
   RowDayWrapper,
   CardInfosWrapper,
@@ -17,8 +13,6 @@ import {
   SmallText,
   SmallTextCenter,
   BigText,
-  TitleBox,
-  TextBox,
   Week,
 } from './styles';
 

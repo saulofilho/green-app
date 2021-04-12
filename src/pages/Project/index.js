@@ -36,7 +36,6 @@ export default function Project(props) {
   const [calendarData, setCalendarData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [isToggled, setIsToggled] = useState(false);
   const [isToggledAdd, setIsToggledAdd] = useState(false);
   const [editOn, setEditOn] = useState(false);
 
@@ -139,10 +138,6 @@ export default function Project(props) {
       .catch(err => {
         toast.error(err.message);
       });
-  };
-
-  const toggle = id => {
-    setIsToggled(isToggled === id ? false : id);
   };
 
   const toggleAdd = () => {
