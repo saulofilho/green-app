@@ -38,8 +38,6 @@ export default function Card({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [cardInfos, setCardInfos] = useState();
 
-  console.log('zzzzzzzz', cardInfos);
-
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -136,7 +134,7 @@ export default function Card({
                 modalIsOpen={modalIsOpen}
                 closeModal={closeModal}
                 currentData={currentData}
-                item={item}
+                cardInfos={cardInfos}
                 editButton={editButton}
                 editOn={editOn}
                 handleInputChange={handleInputChange}

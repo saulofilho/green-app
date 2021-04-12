@@ -96,8 +96,8 @@ export const DayCard = styled.div`
   cursor: pointer;
 
   :hover {
-    border: 3px solid black;
-    box-shadow: 2px 5px #000;
+    border: 2px solid black;
+    box-shadow: 2px 3px #000;
     transform: translateY(4px);
   }
 

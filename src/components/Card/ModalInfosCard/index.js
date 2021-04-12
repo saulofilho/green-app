@@ -38,10 +38,12 @@ function ModalInfosCard({
         <WrapperInfos>
           <i className="ri-information-line ri-2x" />
           <Col>
-            <TitleBox>id: </TitleBox>
+            <TitleBox>Day: </TitleBox>
             <TextBox>{cardInfos && cardInfos.id}</TextBox>
           </Col>
         </WrapperInfos>
+      </Row>
+      <Row>
         <WrapperInfos>
           <i className="ri-information-line ri-2x" />
           <Col>

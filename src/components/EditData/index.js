@@ -155,10 +155,14 @@ export default function EditData({
 EditData.propTypes = {
   editButton: PropTypes.func.isRequired,
   editOn: PropTypes.bool.isRequired,
-  cardInfos: PropTypes.object.isRequired,
+  cardInfos: PropTypes.object,
   handleInputChange: PropTypes.func.isRequired,
   currentData: PropTypes.object.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
   phases: PropTypes.array.isRequired,
   updateItem: PropTypes.func.isRequired,
+};
+
+EditData.defaultProps = {
+  cardInfos: {},
 };
