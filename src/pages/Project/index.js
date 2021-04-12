@@ -5,34 +5,17 @@ import { toast } from 'react-toastify';
 import { parseISO } from 'date-fns';
 import { CSVLink } from 'react-csv';
 import ReactExport from 'react-export-excel';
-import ModalImage from 'react-modal-image';
 import DataService from '../../services/crudApi';
 import api from '../../services/api';
+import Card from '../../components/Card';
 import GraphsData from '../../components/GraphsData';
 import ProjectInfos from '../../components/ProjectInfos';
 import AddData from '../../components/AddData';
-import EditData from '../../components/EditData';
 import CalendarComponent from '../../components/Calendar';
 import Carousel from '../../components/Carousel';
 import {
   Container,
   Content,
-  WrapperContent,
-  WrapperData,
-  DayCard,
-  Row,
-  Col,
-  WrapperInfos,
-  Number,
-  RowDayWrapper,
-  CardInfosWrapper,
-  CardInfosWrapperCenter,
-  SmallText,
-  SmallTextCenter,
-  BigText,
-  TitleBox,
-  TextBox,
-  Week,
   DownloadData,
   TableComparativeWrapper,
   Loading,
@@ -277,294 +260,19 @@ export default function Project(props) {
         </Content>
       ) : null}
       <Content>
-        {allProjectData.length === 0
-          ? projectData.map((item, index) => (
-              <WrapperContent key={item.id}>
-                <DayCard onClick={() => toggle(item.id)}>
-                  <RowDayWrapper theme={badgeTheme(item.phase)}>
-                    <CardInfosWrapper>
-                      <SmallText>Day:</SmallText>
-                      <Number>{index + 1}</Number>
-                    </CardInfosWrapper>
-                    <CardInfosWrapperCenter>
-                      <SmallText>Date:</SmallText>
-                      <SmallTextCenter>
-                        {parseISO(item.createdAt).toLocaleString('en-US', {
-                          day: '2-digit',
-                          weekday: 'short',
-                          month: 'short',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </SmallTextCenter>
-                    </CardInfosWrapperCenter>
-                    <CardInfosWrapper>
-                      <SmallText>Phase:</SmallText>
-                      <BigText>{item.phase}</BigText>
-                    </CardInfosWrapper>
-                  </RowDayWrapper>
-                </DayCard>
-                <WrapperData hide={isToggled === item.id}>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-information-line ri-2x" />
-                      <Col>
-                        <TitleBox>Infos: </TitleBox>
-                        <TextBox>{item.infos}</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-contrast-2-line ri-2x" />
-                      <Col>
-                        <TitleBox>Phase: </TitleBox>
-                        <TextBox>{item.phase}</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-water-flash-line ri-2x" />
-                      <Col>
-                        <TitleBox>pH Water: </TitleBox>
-                        <TextBox>{item.ph_water} pH</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-earth-line ri-2x" />
-                      <Col>
-                        <TitleBox>pH Soil: </TitleBox>
-                        <TextBox>{item.ph_soil} pH</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-flask-line ri-2x" />
-                      <Col>
-                        <TitleBox>EC: </TitleBox>
-                        <TextBox>{item.ec} PPM</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-sun-line ri-2x" />
-                      <Col>
-                        <TitleBox>Temperature Max: </TitleBox>
-                        <TextBox>{item.temp_max} °C</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-rainy-line ri-2x" />
-                      <Col>
-                        <TitleBox>Temperature Min: </TitleBox>
-                        <TextBox>{item.temp_min} °C</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-umbrella-line ri-2x" />
-                      <Col>
-                        <TitleBox>Soil Moisture: </TitleBox>
-                        <TextBox>{item.moisture} %</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-temp-cold-line ri-2x" />
-                      <Col>
-                        <TitleBox>Air Humidity: </TitleBox>
-                        <TextBox>{item.air_humidity} %</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-seedling-line ri-2x" />
-                      <Col>
-                        <TitleBox>Plant Size: </TitleBox>
-                        <TextBox>{item.plant_size} cm</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-camera-line ri-2x" />
-                      <Col>
-                        <TitleBox>Image: </TitleBox>
-                        <img src={preview} alt={item.name} loading="lazy" />
-                        <ModalImage
-                          small={item.img.url}
-                          large={item.img.url}
-                          alt={item.name}
-                        />
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <EditData
-                      editButton={editButton}
-                      editOn={editOn}
-                      item={item}
-                      handleInputChange={handleInputChange}
-                      updateItem={updateItem}
-                      currentData={currentData}
-                      handleSelectChange={handleSelectChange}
-                      phases={phases}
-                    />
-                  </Row>
-                </WrapperData>
-                <Week>
-                  {(index + 1) % 7 === 0 ? (
-                    <div>
-                      <p>Week {`${(index + 1) / 7}`}</p>
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                </Week>
-              </WrapperContent>
-            ))
-          : allProjectData.map((item, index) => (
-              <WrapperContent key={item.id}>
-                <DayCard onClick={() => toggle(item.id)}>
-                  <RowDayWrapper theme={badgeTheme(item.phase)}>
-                    <CardInfosWrapper>
-                      <SmallText>Day:</SmallText>
-                      <Number>{index + 1}</Number>
-                    </CardInfosWrapper>
-                    <CardInfosWrapperCenter>
-                      <SmallText>Date:</SmallText>
-                      <SmallTextCenter>
-                        {parseISO(item.createdAt).toLocaleString('en-US', {
-                          day: '2-digit',
-                          weekday: 'short',
-                          month: 'short',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </SmallTextCenter>
-                    </CardInfosWrapperCenter>
-                    <CardInfosWrapper>
-                      <SmallText>Phase:</SmallText>
-                      <BigText>{item.phase}</BigText>
-                    </CardInfosWrapper>
-                  </RowDayWrapper>
-                </DayCard>
-                <WrapperData hide={isToggled === item.id}>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-information-line ri-2x" />
-                      <Col>
-                        <TitleBox>Infos: </TitleBox>
-                        <TextBox>{item.infos}</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-contrast-2-line ri-2x" />
-                      <Col>
-                        <TitleBox>Phase: </TitleBox>
-                        <TextBox>{item.phase}</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-water-flash-line ri-2x" />
-                      <Col>
-                        <TitleBox>pH Water: </TitleBox>
-                        <TextBox>{item.ph_water} pH</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-earth-line ri-2x" />
-                      <Col>
-                        <TitleBox>pH Soil: </TitleBox>
-                        <TextBox>{item.ph_soil} pH</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-flask-line ri-2x" />
-                      <Col>
-                        <TitleBox>EC: </TitleBox>
-                        <TextBox>{item.ec} PPM</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-sun-line ri-2x" />
-                      <Col>
-                        <TitleBox>Temperature Max: </TitleBox>
-                        <TextBox>{item.temp_max} °C</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-rainy-line ri-2x" />
-                      <Col>
-                        <TitleBox>Temperature Min: </TitleBox>
-                        <TextBox>{item.temp_min} °C</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-umbrella-line ri-2x" />
-                      <Col>
-                        <TitleBox>Soil Moisture: </TitleBox>
-                        <TextBox>{item.moisture} %</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                    <WrapperInfos>
-                      <i className="ri-temp-cold-line ri-2x" />
-                      <Col>
-                        <TitleBox>Air Humidity: </TitleBox>
-                        <TextBox>{item.air_humidity} %</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-seedling-line ri-2x" />
-                      <Col>
-                        <TitleBox>Plant Size: </TitleBox>
-                        <TextBox>{item.plant_size} cm</TextBox>
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <WrapperInfos>
-                      <i className="ri-camera-line ri-2x" />
-                      <Col>
-                        <TitleBox>Image: </TitleBox>
-                        <img src={preview} alt={item.name} loading="lazy" />
-                        <ModalImage
-                          small={item.img.url}
-                          large={item.img.url}
-                          alt={item.name}
-                        />
-                      </Col>
-                    </WrapperInfos>
-                  </Row>
-                  <Row>
-                    <EditData
-                      editButton={editButton}
-                      editOn={editOn}
-                      item={item}
-                      handleInputChange={handleInputChange}
-                      updateItem={updateItem}
-                      currentData={currentData}
-                      handleSelectChange={handleSelectChange}
-                      phases={phases}
-                    />
-                  </Row>
-                </WrapperData>
-                <Week>
-                  {(index + 1) % 7 === 0 ? (
-                    <div>
-                      <i className="ri-arrow-up-line ri-1x" />
-                      <p>Week {`${(index + 1) / 7}`}</p>
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                </Week>
-              </WrapperContent>
-            ))}
+        <Card
+          allProjectData={allProjectData}
+          projectData={projectData}
+          badgeTheme={badgeTheme}
+          preview={preview}
+          editButton={editButton}
+          editOn={editOn}
+          handleInputChange={handleInputChange}
+          updateItem={updateItem}
+          currentData={currentData}
+          handleSelectChange={handleSelectChange}
+          phases={phases}
+        />
         <WrapperDownloadData>
           <DownloadData>
             <button
