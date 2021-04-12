@@ -15,7 +15,7 @@ import {
 export default function EditData({
   editButton,
   editOn,
-  item,
+  cardInfos,
   handleInputChange,
   currentData,
   handleSelectChange,
@@ -25,7 +25,7 @@ export default function EditData({
   return (
     <WrapperInfos>
       <Col>
-        <Button type="button" onClick={() => editButton(item)}>
+        <Button type="button" onClick={() => editButton(cardInfos)}>
           <i className="ri-file-edit-line ri-2x" />
         </Button>
         <TitleBox>Edit your data: </TitleBox>
@@ -155,7 +155,7 @@ export default function EditData({
 EditData.propTypes = {
   editButton: PropTypes.func.isRequired,
   editOn: PropTypes.bool.isRequired,
-  item: PropTypes.object.isRequired,
+  cardInfos: PropTypes.object.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   currentData: PropTypes.object.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
