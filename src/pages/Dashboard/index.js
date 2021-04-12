@@ -139,7 +139,7 @@ export default function Dashboard() {
           Below is possible to analyse, compare and cross the 28 last days daily
           data of which harvest.
         </Subtitle>
-        <Graphs projectsData={projectsData} />
+        {projectsData.length > 1 ? <Graphs projectsData={projectsData} /> : ''}
       </Content>
       <ModalAddProject
         modalIsOpen={modalIsOpen}
