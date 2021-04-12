@@ -24,12 +24,6 @@ export const WrapperGraph = styled.div`
   }
 `;
 
-export const SelectTitle = styled.p`
-  font-family: 'Rubik', sans-serif;
-  font-size: 14px;
-  padding: 30px 0 0;
-`;
-
 export const CalendarLegend = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 14px;
