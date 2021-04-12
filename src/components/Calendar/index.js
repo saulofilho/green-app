@@ -7,9 +7,9 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import { toast } from 'react-toastify';
-import ModalAddCalendar from '../ModalAddCalendar';
-import ModalInfosCalendar from '../ModalInfosCalendar';
-import ModalEditCalendar from '../ModalEditCalendar';
+import ModalAddCalendar from './ModalAddCalendar';
+import ModalInfosCalendar from './ModalInfosCalendar';
+import ModalEditCalendar from './ModalEditCalendar';
 import DataService from '../../services/crudApi';
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
