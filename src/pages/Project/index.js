@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+/* eslint-disable no-console */
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useField } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
@@ -44,7 +45,7 @@ export default function Project(props) {
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
   const ref = useRef();
 
-  const fetchData = async (id, page) => {
+  const fetchData = useCallback(async (id, page) => {
     console.time();
     await DataService.getHarvest(id, page).then(response => {
       const { data } = response;
@@ -54,11 +55,11 @@ export default function Project(props) {
       setProjectInfos([data]);
     });
     console.timeEnd();
-  };
+  }, []);
 
   useEffect(() => {
     fetchData(match.params.id, currentPage);
-  }, [match.params.id, currentPage]);
+  }, [fetchData, match.params.id, currentPage]);
 
   const fetchNextPage = () => {
     setCurrentPage(currentPage + 1);

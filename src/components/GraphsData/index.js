@@ -5,6 +5,7 @@ import { Stream } from '@nivo/stream';
 import { Marimekko } from '@nivo/marimekko';
 import { Calendar } from '@nivo/calendar';
 import { parseISO } from 'date-fns';
+
 import { Content, WrapperGraph, CalendarLegend, SelectEdited } from './styles';
 
 export default function Graphs({ projectData }) {

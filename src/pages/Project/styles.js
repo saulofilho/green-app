@@ -50,11 +50,11 @@ export const DownloadData = styled.div`
     font-size: 18px;
   }
 
-  &:active {
+  /* &:active {
     background-color: #17b978 !important;
     box-shadow: 2px 5px #000;
     transform: translateY(4px);
-  }
+  } */
 
   a {
     width: 100%;

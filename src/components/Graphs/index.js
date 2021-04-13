@@ -100,102 +100,6 @@ export default function Graphs({ projectsData }) {
 
   return (
     <Content>
-      <CalendarLegend>soil moisture bump</CalendarLegend>
-      <WrapperGraph>
-        <AreaBump
-          width="1500"
-          height="600"
-          data={populateDataUndefined}
-          margin={{ top: 40, right: 100, bottom: 80, left: 100 }}
-          spacing={8}
-          colors={{ scheme: 'accent' }}
-          blendMode="multiply"
-          startLabel="id"
-          axisTop={null}
-          axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 90,
-            legend: '',
-            legendOffset: 31,
-            legendPosition: 'middle',
-          }}
-        />
-        <i className="ri-arrow-right-line ri-1x" />
-      </WrapperGraph>
-      <CalendarLegend>air humidity bump</CalendarLegend>
-      <WrapperGraph>
-        <AreaBump
-          width="1500"
-          height="600"
-          data={populateDataUndefined}
-          margin={{ top: 40, right: 100, bottom: 80, left: 100 }}
-          spacing={8}
-          colors={{ scheme: 'accent' }}
-          blendMode="multiply"
-          startLabel="id"
-          axisTop={null}
-          axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 90,
-            legend: '',
-            legendOffset: 31,
-            legendPosition: 'middle',
-          }}
-        />
-        <i className="ri-arrow-right-line ri-1x" />
-      </WrapperGraph>
-      <CalendarLegend>ph soil bump</CalendarLegend>
-      <WrapperGraph>
-        <AreaBump
-          width="1500"
-          height="600"
-          data={populateDataUndefined}
-          margin={{ top: 40, right: 100, bottom: 80, left: 100 }}
-          spacing={8}
-          colors={{ scheme: 'accent' }}
-          blendMode="multiply"
-          startLabel="id"
-          axisTop={null}
-          axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 90,
-            legend: '',
-            legendOffset: 31,
-            legendPosition: 'middle',
-          }}
-        />
-        <i className="ri-arrow-right-line ri-1x" />
-      </WrapperGraph>
-      <CalendarLegend>ph water bump</CalendarLegend>
-      <WrapperGraph>
-        <AreaBump
-          width="1500"
-          height="600"
-          data={populateDataUndefined}
-          margin={{ top: 40, right: 100, bottom: 80, left: 100 }}
-          spacing={8}
-          colors={{ scheme: 'accent' }}
-          blendMode="multiply"
-          startLabel="id"
-          axisTop={null}
-          axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 90,
-            legend: '',
-            legendOffset: 31,
-            legendPosition: 'middle',
-          }}
-        />
-        <i className="ri-arrow-right-line ri-1x" />
-      </WrapperGraph>
       <CalendarLegend>soil moisture</CalendarLegend>
       <WrapperGraph>
         <Line
@@ -249,6 +153,29 @@ export default function Graphs({ projectsData }) {
               ],
             },
           ]}
+        />
+        <i className="ri-arrow-right-line ri-1x" />
+      </WrapperGraph>
+      <WrapperGraph>
+        <AreaBump
+          width="1500"
+          height="600"
+          data={populateDataUndefined}
+          margin={{ top: 40, right: 100, bottom: 80, left: 100 }}
+          spacing={8}
+          colors={{ scheme: 'accent' }}
+          blendMode="multiply"
+          startLabel="id"
+          axisTop={null}
+          axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 90,
+            legend: '',
+            legendOffset: 31,
+            legendPosition: 'middle',
+          }}
         />
         <i className="ri-arrow-right-line ri-1x" />
       </WrapperGraph>
