@@ -37,10 +37,9 @@ export function* signUp({ payload }) {
       name,
       email,
       password,
-      admin: false,
     });
 
-    history.push('/');
+    // history.push('/');
   } catch (err) {
     toast.error('Falha no cadastro. Verifique os seus dados.');
     yield put(signFailure());

@@ -243,4 +243,3 @@ export default function CalendarComponent({ calendarData, projectId }) {
   );
 }
 
-// https://pt-br.reactjs.org/docs/hooks-reference.html#usecallback
