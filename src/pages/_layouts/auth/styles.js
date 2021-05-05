@@ -28,6 +28,14 @@ export const Content = styled.div`
   max-width: 300px;
   width: 100%;
 
+  h3 {
+    text-align: center;
+    padding-top: 50px;
+    color: #fff;
+    font-weight: bolder;
+    font-family: 'Source Serif Pro', serif;
+  }
+
   form {
     display: flex;
     justify-content: center;
@@ -46,7 +54,7 @@ export const Content = styled.div`
       border-bottom: 2px solid #fff;
       color: #fff;
       margin: 0 0 10px;
-      font-size: 24px;
+      font-size: 18px;
       background: transparent;
     }
 

@@ -2,8 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import { Wrapper, Content } from './styles';
-import logo from '../../assets/images/bg-plants.jpg';
+import logo from '../../assets/images/bdd-logo-new-w.png';
 
 import { signUpRequest } from '../../store/modules/auth/actions';
 
@@ -24,18 +23,18 @@ export default function SignUp() {
   }
 
   return (
-    <Wrapper style={{ backgroundImage: `url(${logo})` }}>
-      <Content>
-        <Form schema={schema} onSubmit={handleSubmit}>
-          <Input name="email" type="email" placeholder="Your Email" />
-          <Input
-            name="password"
-            type="password"
-            placeholder="sua senha secreta"
-          />
-          <button type="submit">Create an account</button>
-        </Form>
-      </Content>
-    </Wrapper>
+    <>
+      <img src={logo} alt="Botanic Daily Data logotype" />
+      <h3>Sign Up</h3>
+      <Form schema={schema} onSubmit={handleSubmit}>
+        <Input name="email" type="email" placeholder="payment@email.com" />
+        <Input
+          name="password"
+          type="password"
+          placeholder="create a nice password"
+        />
+        <button type="submit">Create an account</button>
+      </Form>
+    </>
   );
 }

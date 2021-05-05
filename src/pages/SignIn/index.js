@@ -23,6 +23,7 @@ export default function SignIn() {
   return (
     <>
       <img src={logo} alt="Botanic Daily Data logotype" />
+      <h3>Login</h3>
       <Form schema={schema} onSubmit={handleSubmit}>
         <Input name="email" type="email" placeholder="your@email.com" />
         <Input name="password" type="password" placeholder="123456" />
