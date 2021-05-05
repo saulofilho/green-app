@@ -10,6 +10,16 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -9;
+  }
 `;
 
 export const Content = styled.div`
