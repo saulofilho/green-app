@@ -6,7 +6,7 @@ import { Wrapper, Content } from './styles';
 export default function AuthLayout({ children }) {
   return (
     <Wrapper>
-      <video src={video} autoPlay loop playsinline muted />
+      <video src={video} autoPlay loop playsInline muted />
       <Content>{children}</Content>
     </Wrapper>
   );

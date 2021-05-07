@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import logo from '../../assets/images/bdd-logo-new-w.png';
@@ -17,9 +17,10 @@ const schema = Yup.object().shape({
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
 
-  function handleSubmit({ name, email, password }) {
-    dispatch(signUpRequest(name, email, password));
+  function handleSubmit({ email, password }) {
+    dispatch(signUpRequest(email, password));
   }
 
   return (
@@ -33,7 +34,9 @@ export default function SignUp() {
           type="password"
           placeholder="create a nice password"
         />
-        <button type="submit">Create an account</button>
+        <button type="submit">
+          {loading ? 'Loading...' : 'Create an account'}
+        </button>
       </Form>
     </>
   );

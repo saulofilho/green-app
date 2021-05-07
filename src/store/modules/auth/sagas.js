@@ -39,9 +39,11 @@ export function* signUp({ payload }) {
       password,
     });
 
-    // history.push('/');
+    history.push('/');
   } catch (err) {
-    toast.error('Falha no cadastro. Verifique os seus dados.');
+    toast.error(
+      'Registration failed. Check your email. It must be the same of your payment.'
+    );
     yield put(signFailure());
   }
 }
