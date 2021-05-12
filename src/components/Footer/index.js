@@ -21,7 +21,7 @@ export default function Footer() {
         <ErrorWarning>
           If you saw something wrong, don't be shy and drop a message to fix the
           bug at:
-          <a href="mailto:">hello@saulofilho.com</a>
+          <a href="mailto:">hi@buenavistalab.com</a>
         </ErrorWarning>
       </Content>
       <ThinkAbout>MAKE CODE, NOT WAR</ThinkAbout>
