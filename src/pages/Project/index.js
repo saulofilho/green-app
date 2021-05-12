@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useField } from '@rocketseat/unform';
@@ -36,7 +35,7 @@ export default function Project(props) {
   const [greenData, setGreenData] = useState([]);
   const [calendarData, setCalendarData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [isToggledAdd, setIsToggledAdd] = useState(false);
   const [editOn, setEditOn] = useState(false);
 
@@ -46,15 +45,19 @@ export default function Project(props) {
   const ref = useRef();
 
   const fetchData = useCallback(async (id, page) => {
-    console.time();
-    await DataService.getHarvest(id, page).then(response => {
-      const { data } = response;
+    await DataService.getHarvest(id, page)
+      .then(response => {
+        const { data } = response;
 
-      setProjectData([...data.green]);
-      setCalendarData([...data.calendar]);
-      setProjectInfos([data]);
-    });
-    console.timeEnd();
+        setProjectData([...data.green]);
+        setCalendarData([...data.calendar]);
+        setProjectInfos([data]);
+
+        setIsLoading(false);
+      })
+      .catch(err => {
+        toast.error(err.message);
+      });
   }, []);
 
   useEffect(() => {
@@ -231,6 +234,29 @@ export default function Project(props) {
     </tbody>
   );
 
+  const headers = [
+    { label: 'Infos', key: 'infos' },
+    { label: 'Phase', key: 'phase' },
+    { label: 'pH water', key: 'ph_water' },
+    { label: 'pH soil', key: 'ph_soil' },
+    { label: 'EC', key: 'ec' },
+    { label: 'Temp. Max.', key: 'temp_max' },
+    { label: 'Temp. Min.', key: 'temp_min' },
+    { label: 'Moisture', key: 'moisture' },
+    { label: 'Air Humidity', key: 'air_humidity' },
+    { label: 'Plant Size', key: 'plant_size' },
+  ];
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Content>
+          <Loading>Loading...</Loading>
+        </Content>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       {projectInfos.length ? (
@@ -254,7 +280,13 @@ export default function Project(props) {
             projectId={match.params.id}
           />
         </Content>
-      ) : null}
+      ) : (
+        <Container>
+          <Content>
+            <Loading>Loading...</Loading>
+          </Content>
+        </Container>
+      )}
       <Content>
         <Card
           allProjectData={allProjectData}
@@ -293,36 +325,39 @@ export default function Project(props) {
           preview={preview}
           file={file}
         />
-        <WrapperDownloadData>
-          <DownloadData>
-            <CSVLink
-              data={allProjectData}
-              filename="mybotanicdailydata.csv"
-              target="_blank"
-            >
-              Download CVS data.
-            </CSVLink>
-          </DownloadData>
-          <DownloadData>
-            <ExcelFile
-              filename="HarvestData"
-              element={<button type="button"> Download Excel data.</button>}
-            >
-              <ExcelSheet data={allProjectData} name="um">
-                <ExcelColumn label="Infos" value="infos" />
-                <ExcelColumn label="Phase" value="phase" />
-                <ExcelColumn label="pH water" value="ph_water" />
-                <ExcelColumn label="pH soil" value="ph_soil" />
-                <ExcelColumn label="EC" value="ec" />
-                <ExcelColumn label="Temp. Max." value="temp_max" />
-                <ExcelColumn label="Temp. Min." value="temp_min" />
-                <ExcelColumn label="Moisture" value="moisture" />
-                <ExcelColumn label="Air Humidity" value="air_humidity" />
-                <ExcelColumn label="Plant Size" value="plant_size" />
-              </ExcelSheet>
-            </ExcelFile>
-          </DownloadData>
-        </WrapperDownloadData>
+        {allProjectData.length ? (
+          <WrapperDownloadData>
+            <DownloadData>
+              <CSVLink
+                data={allProjectData}
+                filename="HarvestData.csv"
+                target="_blank"
+                headers={headers}
+              >
+                Download CVS data.
+              </CSVLink>
+            </DownloadData>
+            <DownloadData>
+              <ExcelFile
+                filename="HarvestData"
+                element={<button type="button"> Download Excel data.</button>}
+              >
+                <ExcelSheet data={allProjectData} name="um">
+                  <ExcelColumn label="Infos" value="infos" />
+                  <ExcelColumn label="Phase" value="phase" />
+                  <ExcelColumn label="pH water" value="ph_water" />
+                  <ExcelColumn label="pH soil" value="ph_soil" />
+                  <ExcelColumn label="EC" value="ec" />
+                  <ExcelColumn label="Temp. Max." value="temp_max" />
+                  <ExcelColumn label="Temp. Min." value="temp_min" />
+                  <ExcelColumn label="Moisture" value="moisture" />
+                  <ExcelColumn label="Air Humidity" value="air_humidity" />
+                  <ExcelColumn label="Plant Size" value="plant_size" />
+                </ExcelSheet>
+              </ExcelFile>
+            </DownloadData>
+          </WrapperDownloadData>
+        ) : null}
         <GraphsData
           projectData={allProjectData}
           allProjectData={allProjectData}

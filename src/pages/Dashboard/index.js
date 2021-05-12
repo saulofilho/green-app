@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
@@ -21,6 +21,7 @@ import {
 export default function Dashboard() {
   const [projectsData, setProjectsData] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const initialFormState = {
     id: '',
@@ -39,17 +40,22 @@ export default function Dashboard() {
 
   const [currentData, setCurrentData] = useState(initialFormState);
 
-  useEffect(() => {
-    async function loadDataProjects() {
-      const response = await DataService.getHarvests();
+  const fetchData = useCallback(async () => {
+    await DataService.getHarvests()
+      .then(response => {
+        const { data } = response;
 
-      const { data } = response;
-
-      setProjectsData([...data]);
-    }
-
-    loadDataProjects();
+        setProjectsData([...data]);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        toast.error(err.message);
+      });
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -95,6 +101,16 @@ export default function Dashboard() {
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Content>
+          <Loading>Loading...</Loading>
+        </Content>
+      </Container>
+    );
+  }
 
   return (
     <Container>

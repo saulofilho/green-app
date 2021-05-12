@@ -190,6 +190,7 @@ export const DownloadData = styled.div`
     background: transparent;
     font-family: 'Rubik', sans-serif;
     font-size: 18px;
+    width: 100%;
   }
 
   &:active {

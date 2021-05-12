@@ -143,9 +143,7 @@ export default function AddData({
             <DownloadData>
               <button
                 type="button"
-                onClick={e => {
-                  e.preventDefault();
-
+                onClick={() => {
                   saveItem(currentData);
                 }}
               >

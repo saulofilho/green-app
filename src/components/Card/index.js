@@ -47,8 +47,8 @@ export default function Card({
 
   return (
     <>
-      {allProjectData.length === 0
-        ? projectData.map((item, index) => (
+      {allProjectData.length
+        ? allProjectData.map((item, index) => (
             <WrapperContent key={item.id}>
               <DayCard onClick={() => showCardInfos(item)}>
                 <RowDayWrapper theme={badgeTheme(item.phase)}>
@@ -98,56 +98,108 @@ export default function Card({
               </Week>
             </WrapperContent>
           ))
-        : allProjectData.map((item, index) => (
-            <WrapperContent key={item.id}>
-              <DayCard onClick={() => showCardInfos(item)}>
-                <RowDayWrapper theme={badgeTheme(item.phase)}>
-                  <CardInfosWrapper>
-                    <SmallText>Day:</SmallText>
-                    <Number>{index + 1}</Number>
-                  </CardInfosWrapper>
-                  <CardInfosWrapperCenter>
-                    <SmallText>Date:</SmallText>
-                    <SmallTextCenter>
-                      {parseISO(item.createdAt).toLocaleString('en-US', {
-                        day: '2-digit',
-                        weekday: 'short',
-                        month: 'short',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </SmallTextCenter>
-                  </CardInfosWrapperCenter>
-                  <CardInfosWrapper>
-                    <SmallText>Phase:</SmallText>
-                    <BigText>{item.phase}</BigText>
-                  </CardInfosWrapper>
-                </RowDayWrapper>
-              </DayCard>
-              <ModalInfosCard
-                modalIsOpen={modalIsOpen}
-                closeModal={closeModal}
-                currentData={currentData}
-                cardInfos={cardInfos}
-                editButton={editButton}
-                editOn={editOn}
-                handleInputChange={handleInputChange}
-                updateItem={updateItem}
-                handleSelectChange={handleSelectChange}
-                phases={phases}
-                preview={preview}
-              />
-              <Week>
-                {(index + 1) % 7 === 0 ? (
-                  <div>
-                    <p>Week {`${(index + 1) / 7}`}</p>
-                  </div>
-                ) : (
-                  ''
-                )}
-              </Week>
-            </WrapperContent>
-          ))}
+        : null}
     </>
+    // <>
+    //   {allProjectData.length === 0
+    //     ? projectData.map((item, index) => (
+    //         <WrapperContent key={item.id}>
+    //           <DayCard onClick={() => showCardInfos(item)}>
+    //             <RowDayWrapper theme={badgeTheme(item.phase)}>
+    //               <CardInfosWrapper>
+    //                 <SmallText>Day:</SmallText>
+    //                 <Number>{index + 1}</Number>
+    //               </CardInfosWrapper>
+    //               <CardInfosWrapperCenter>
+    //                 <SmallText>Date:</SmallText>
+    //                 <SmallTextCenter>
+    //                   {parseISO(item.createdAt).toLocaleString('en-US', {
+    //                     day: '2-digit',
+    //                     weekday: 'short',
+    //                     month: 'short',
+    //                     hour: '2-digit',
+    //                     minute: '2-digit',
+    //                   })}
+    //                 </SmallTextCenter>
+    //               </CardInfosWrapperCenter>
+    //               <CardInfosWrapper>
+    //                 <SmallText>Phase:</SmallText>
+    //                 <BigText>{item.phase}</BigText>
+    //               </CardInfosWrapper>
+    //             </RowDayWrapper>
+    //           </DayCard>
+    //           <ModalInfosCard
+    //             modalIsOpen={modalIsOpen}
+    //             closeModal={closeModal}
+    //             currentData={currentData}
+    //             cardInfos={cardInfos}
+    //             editButton={editButton}
+    //             editOn={editOn}
+    //             handleInputChange={handleInputChange}
+    //             updateItem={updateItem}
+    //             handleSelectChange={handleSelectChange}
+    //             phases={phases}
+    //             preview={preview}
+    //           />
+    //           <Week>
+    //             {(index + 1) % 7 === 0 ? (
+    //               <div>
+    //                 <p>Week {`${(index + 1) / 7}`}</p>
+    //               </div>
+    //             ) : null}
+    //           </Week>
+    //         </WrapperContent>
+    //       ))
+    //     : allProjectData.map((item, index) => (
+    //         <WrapperContent key={item.id}>
+    //           <DayCard onClick={() => showCardInfos(item)}>
+    //             <RowDayWrapper theme={badgeTheme(item.phase)}>
+    //               <CardInfosWrapper>
+    //                 <SmallText>Day:</SmallText>
+    //                 <Number>{index + 1}</Number>
+    //               </CardInfosWrapper>
+    //               <CardInfosWrapperCenter>
+    //                 <SmallText>Date:</SmallText>
+    //                 <SmallTextCenter>
+    //                   {parseISO(item.createdAt).toLocaleString('en-US', {
+    //                     day: '2-digit',
+    //                     weekday: 'short',
+    //                     month: 'short',
+    //                     hour: '2-digit',
+    //                     minute: '2-digit',
+    //                   })}
+    //                 </SmallTextCenter>
+    //               </CardInfosWrapperCenter>
+    //               <CardInfosWrapper>
+    //                 <SmallText>Phase:</SmallText>
+    //                 <BigText>{item.phase}</BigText>
+    //               </CardInfosWrapper>
+    //             </RowDayWrapper>
+    //           </DayCard>
+    //           <ModalInfosCard
+    //             modalIsOpen={modalIsOpen}
+    //             closeModal={closeModal}
+    //             currentData={currentData}
+    //             cardInfos={cardInfos}
+    //             editButton={editButton}
+    //             editOn={editOn}
+    //             handleInputChange={handleInputChange}
+    //             updateItem={updateItem}
+    //             handleSelectChange={handleSelectChange}
+    //             phases={phases}
+    //             preview={preview}
+    //           />
+    //           <Week>
+    //             {(index + 1) % 7 === 0 ? (
+    //               <div>
+    //                 <p>Week {`${(index + 1) / 7}`}</p>
+    //               </div>
+    //             ) : (
+    //               ''
+    //             )}
+    //           </Week>
+    //         </WrapperContent>
+    //       ))}
+    // </>
   );
 }
