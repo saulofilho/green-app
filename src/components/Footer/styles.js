@@ -17,7 +17,7 @@ export const Content = styled.div`
   }
 
   img {
-    width: 70px;
+    width: 150px;
   }
 `;
 

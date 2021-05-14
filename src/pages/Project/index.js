@@ -302,16 +302,18 @@ export default function Project(props) {
           phases={phases}
         />
         <WrapperDownloadData>
-          <DownloadData>
-            <button
-              type="button"
-              onClick={() => {
-                fetchNextPage();
-              }}
-            >
-              Load data.
-            </button>
-          </DownloadData>
+          {projectData.length ? (
+            <DownloadData>
+              <button
+                type="button"
+                onClick={() => {
+                  fetchNextPage();
+                }}
+              >
+                Load data.
+              </button>
+            </DownloadData>
+          ) : null}
         </WrapperDownloadData>
         <AddData
           toggleAdd={toggleAdd}

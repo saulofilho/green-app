@@ -61,13 +61,6 @@ export default function Profile() {
             Log out
           </button>
         </DownloadData>
-        {store.getState().user.profile.admin ? (
-          <NewAccount>
-            <Link to="/register">Criar conta gratuita</Link>
-          </NewAccount>
-        ) : (
-          ''
-        )}
       </Content>
     </Container>
   );
