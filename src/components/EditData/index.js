@@ -10,6 +10,7 @@ import {
   Form,
   FormWrapper,
   SelectEdited,
+  DownloadData,
 } from './styles';
 
 export default function EditData({
@@ -133,16 +134,17 @@ export default function EditData({
             </FormWrapper>
             <FormWrapper>
               <div className="buttons">
-                <button
-                  type="button"
-                  className="salvar"
-                  onClick={e => {
-                    e.preventDefault();
-                    updateItem(currentData.id, currentData);
-                  }}
-                >
-                  Edit
-                </button>
+                <DownloadData>
+                  <button
+                    type="button"
+                    onClick={e => {
+                      e.preventDefault();
+                      updateItem(currentData.id, currentData);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </DownloadData>
               </div>
             </FormWrapper>
           </Form>

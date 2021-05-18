@@ -92,7 +92,7 @@ export const Form = styled.form`
     font-family: 'Rubik', sans-serif;
     font-size: 24px;
     width: 100%;
-    min-height: 100px;
+    min-height: 300px;
     padding: 10px 15px;
     border: unset;
     border-bottom: 2px solid #000;
@@ -100,26 +100,7 @@ export const Form = styled.form`
     resize: vertical;
     margin: 5px 0 20px;
     font-family: 'Open Sans', sans-serif;
-  }
-
-  .salvar {
-    width: 72px;
-    height: 32px;
-    font-size: 14px;
-    font-weight: 500;
-    font-stretch: normal;
-    border: solid 2px #086972;
-    background-color: #a7ff83;
-    color: #000;
-
-    &[disabled] {
-      background-color: #dee2e6;
-    }
-
-    &[enable]:hover {
-      background: ${darken(0.09, 'lightgreen')};
-      color: #000;
-    }
+    height: 100%;
   }
 
   img {
@@ -190,5 +171,44 @@ export const TitleBox = styled.p`
 
   @media (max-width: 768px) {
     font-size: 12px;
+  }
+`;
+
+export const DownloadData = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-flow: row;
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  text-align: center;
+  margin: 30px auto;
+  box-shadow: 5px 10px #000;
+
+  button {
+    border: unset;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    width: 100%;
+  }
+
+  a {
+    width: 100%;
+    color: #000;
+    text-decoration: none;
+  }
+
+  :hover {
+    background-color: #a7ff83;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;

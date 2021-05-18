@@ -14,7 +14,7 @@ export default function Footer() {
       <Content>
         <LogosWrapper>
           <a
-            href="https://bueanvistalab.com"
+            href="https://buenavistalab.com/"
             target="_blank"
             rel="noopener noreferrer"
           >

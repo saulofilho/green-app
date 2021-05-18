@@ -90,12 +90,7 @@ export const DownloadData = styled.div`
     background: transparent;
     font-family: 'Rubik', sans-serif;
     font-size: 18px;
-  }
-
-  &:active {
-    background-color: #17b978 !important;
-    box-shadow: 2px 5px #000;
-    transform: translateY(4px);
+    width: 100%;
   }
 
   a {

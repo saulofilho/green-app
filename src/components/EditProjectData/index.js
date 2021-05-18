@@ -10,6 +10,7 @@ import {
   WrapperDataEdit,
   Form,
   FormWrapper,
+  DownloadData,
 } from './styles';
 
 export default function EditProjectData({
@@ -191,16 +192,17 @@ export default function EditProjectData({
             </FormWrapper>
             <FormWrapper>
               <div className="buttons">
-                <button
-                  type="button"
-                  className="salvar"
-                  onClick={e => {
-                    e.preventDefault();
-                    updateProject(currentProjectData.id, currentProjectData);
-                  }}
-                >
-                  Edit
-                </button>
+                <DownloadData>
+                  <button
+                    type="button"
+                    onClick={e => {
+                      e.preventDefault();
+                      updateProject(currentProjectData.id, currentProjectData);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </DownloadData>
               </div>
             </FormWrapper>
           </Form>
