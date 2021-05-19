@@ -2,6 +2,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import moment from 'moment';
 
 import { Form, BtnModal, DownloadData } from './styles';
 
@@ -19,15 +20,17 @@ function ModalAddCalendar({
       [name]: value,
     }));
   };
+
   const handleDateChange = e => {
     const { name, value } = e.target;
+
     setCurrentData(prevState => ({
       ...prevState,
       [name]: new Date(value),
     }));
   };
 
-  console.log('current-modal---->', currentData.start);
+  const getDateNow = moment(currentData.start).format('YYYY-MM-DDTHH:mm');
 
   return (
     <Modal
@@ -49,7 +52,7 @@ function ModalAddCalendar({
           type="datetime-local"
           name="start"
           id="start"
-          // value={currentData && currentData.start}
+          value={getDateNow}
           onChange={handleDateChange}
         />
         <p>End:</p>

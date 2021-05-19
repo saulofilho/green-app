@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Select from 'react-select';
-import { darken } from 'polished';
 
 export const Title = styled.p`
   font-family: 'Rubik', sans-serif;
