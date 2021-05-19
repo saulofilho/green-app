@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #071a52;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +19,6 @@ export const Wrapper = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -9;
   }
 `;
 
@@ -27,6 +27,7 @@ export const Content = styled.div`
   padding: 0 30px;
   max-width: 300px;
   width: 100%;
+  z-index: 1;
 
   h3 {
     text-align: center;

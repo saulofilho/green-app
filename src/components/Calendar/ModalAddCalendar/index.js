@@ -27,6 +27,8 @@ function ModalAddCalendar({
     }));
   };
 
+  console.log('current-modal---->', currentData.start);
+
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -47,6 +49,7 @@ function ModalAddCalendar({
           type="datetime-local"
           name="start"
           id="start"
+          // value={currentData && currentData.start}
           onChange={handleDateChange}
         />
         <p>End:</p>

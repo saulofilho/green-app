@@ -131,13 +131,20 @@ export default function CalendarComponent({ calendarData, projectId }) {
       });
   };
 
-  function handleSelect() {
-    const modalAdd = openModal();
+  function handleSelect({ start, end }) {
+    // const modalAdd = openModal();
+    openModal();
 
-    if (modalAdd)
-      setTimeout(() => {
-        setCurrentData();
-      }, 2000);
+    setCurrentData(prevState => ({
+      ...prevState,
+      start,
+      end,
+    }));
+
+    // if (modalAdd)
+    //   setTimeout(() => {
+    //     setCurrentData();
+    //   }, 2000);
   }
 
   function moveEvent({ event, start, end }) {
@@ -242,4 +249,3 @@ export default function CalendarComponent({ calendarData, projectId }) {
     </Container>
   );
 }
-

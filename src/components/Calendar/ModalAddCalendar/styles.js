@@ -61,6 +61,7 @@ export const DownloadData = styled.div`
     background: transparent;
     font-family: 'Rubik', sans-serif;
     font-size: 18px;
+    width: 100%;
   }
 
   &:active {
@@ -69,14 +70,14 @@ export const DownloadData = styled.div`
     transform: translateY(4px);
   }
 
-  &[disabled] {
+  /* &[disabled] {
     background-color: #dee2e6;
   }
 
   &[enable]:hover {
     background: ${darken(0.09, 'lightgreen')};
     color: #000;
-  }
+  } */
 
   a {
     width: 100%;
