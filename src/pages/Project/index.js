@@ -39,6 +39,7 @@ export default function Project(props) {
   const [isToggledAdd, setIsToggledAdd] = useState(false);
   const [editOn, setEditOn] = useState(false);
 
+  const [progress, setProgress] = useState(0);
   const { defaultValue, registerField } = useField('img_green');
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
@@ -117,13 +118,16 @@ export default function Project(props) {
 
     data.append('file', e.target.files[0]);
 
-    const response = await api.post('imgs', data);
+    const response = await api.post('imgs', data, {
+      onUploadProgress: formData => {
+        setProgress(Math.round((100 * formData.loaded) / formData.total));
+      },
+    });
 
     const { id, url } = response.data;
 
     setFile(id);
     setPreview(url);
-
     setCurrentData(prevState => ({
       ...prevState,
       img_id: id,
@@ -326,6 +330,7 @@ export default function Project(props) {
           handleSelectChange={handleSelectChange}
           preview={preview}
           file={file}
+          progress={progress}
         />
         {allProjectData.length ? (
           <WrapperDownloadData>

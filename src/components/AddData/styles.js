@@ -169,6 +169,14 @@ export const SelectStyled = styled(Select)`
   width: 100%;
 `;
 
+export const WarnProgress = styled.div`
+  width: 100%;
+  color: #17b978;
+  text-align: center;
+  font-size: 18px;
+  padding-bottom: 20px;
+`;
+
 export const DownloadData = styled.div`
   width: 50%;
   height: 100%;

@@ -9,6 +9,7 @@ import {
   FormWrapper,
   SelectStyled,
   DownloadData,
+  WarnProgress,
 } from './styles';
 
 export default function AddData({
@@ -23,6 +24,7 @@ export default function AddData({
   preview,
   file,
   ref,
+  progress,
 }) {
   return (
     <WrapperContent>
@@ -140,6 +142,7 @@ export default function AddData({
               onChange={handleChange}
               ref={ref}
             />
+            <WarnProgress>{progress} %</WarnProgress>
             <DownloadData>
               <button
                 type="button"
@@ -169,10 +172,12 @@ AddData.propTypes = {
   preview: PropTypes.string,
   file: PropTypes.number,
   ref: PropTypes.func,
+  progress: PropTypes.number,
 };
 
 AddData.defaultProps = {
   preview: '',
   file: 0,
+  progress: 0,
   ref: () => {},
 };
