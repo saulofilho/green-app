@@ -118,11 +118,19 @@ export default function Project(props) {
 
     data.append('file', e.target.files[0]);
 
-    const response = await api.post('imgs', data, {
-      onUploadProgress: formData => {
-        setProgress(Math.round((100 * formData.loaded) / formData.total));
+    const config = {
+      onUploadProgress: progressEvent => {
+        setProgress(
+          Math.round((100 * progressEvent.loaded) / progressEvent.total)
+        );
       },
-    });
+      headers: {
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type, Origin, Authorization',
+      },
+    };
+
+    const response = await api.post('imgs', data, config);
 
     const { id, url } = response.data;
 
