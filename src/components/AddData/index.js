@@ -142,7 +142,7 @@ export default function AddData({
               onChange={handleChange}
               ref={ref}
             />
-            <WarnProgress>{progress} %</WarnProgress>
+            <WarnProgress>Up progress: {progress}%</WarnProgress>
             <DownloadData>
               <button
                 type="button"

@@ -124,10 +124,6 @@ export default function Project(props) {
           Math.round((100 * progressEvent.loaded) / progressEvent.total)
         );
       },
-      headers: {
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-        'Access-Control-Allow-Headers': 'Content-Type, Origin, Authorization',
-      },
     };
 
     const response = await api.post('imgs', data, config);
