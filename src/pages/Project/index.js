@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { parseISO } from 'date-fns';
 import { CSVLink } from 'react-csv';
 import ReactExport from 'react-export-excel';
+import imageCompression from 'browser-image-compression';
 import DataService from '../../services/crudApi';
 import api from '../../services/api';
 import Card from '../../components/Card';
@@ -13,6 +14,7 @@ import ProjectInfos from '../../components/ProjectInfos';
 import AddData from '../../components/AddData';
 import CalendarComponent from '../../components/Calendar';
 import Carousel from '../../components/Carousel';
+
 import {
   Container,
   Content,
@@ -116,7 +118,17 @@ export default function Project(props) {
   const handleChange = async e => {
     const data = new FormData();
 
-    data.append('file', e.target.files[0]);
+    const imageFile = e.target.files[0];
+
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
+    const compressedFile = await imageCompression(imageFile, options);
+
+    data.append('file', compressedFile);
 
     const config = {
       onUploadProgress: progressEvent => {
@@ -295,7 +307,7 @@ export default function Project(props) {
           </Content>
         </Container>
       )}
-      <Content>
+      <Content id="content">
         <Card
           allProjectData={allProjectData}
           projectData={projectData}
@@ -318,7 +330,7 @@ export default function Project(props) {
                   fetchNextPage();
                 }}
               >
-                Load data.
+                <a href="#content">Load data.</a>
               </button>
             </DownloadData>
           ) : null}

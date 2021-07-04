@@ -147,6 +147,11 @@ export const Form = styled.form`
     width: 100%;
     border: 1px solid #000;
   }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: lightgray;
+  }
 `;
 
 export const FormWrapper = styled.div`
@@ -172,8 +177,8 @@ export const SelectStyled = styled(Select)`
 export const WarnProgress = styled.div`
   width: 100%;
   color: #17b978;
-  text-align: center;
-  font-size: 18px;
+  text-align: left;
+  font-size: 14px;
   padding-bottom: 20px;
 `;
 
